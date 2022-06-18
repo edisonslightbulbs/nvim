@@ -9,14 +9,18 @@ return require('packer').startup(function()
     use 'yggdroot/indentline'
     use 'raimondi/delimitmate'
     use 'voldikss/vim-floaterm'
+    use 'nvim-lua/plenary.nvim'
     use 'google/vim-searchindex'
     use 'Chiel92/vim-autoformat'
     use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
     use 'kyazdani42/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
-    use 'nvim-lua/plenary.nvim'
     use 'nvim-telescope/telescope.nvim'
+    use 'vim-airline/vim-airline-themes'
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
 end)
 
 -- in review
