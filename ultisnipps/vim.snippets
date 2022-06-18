@@ -1,0 +1,28 @@
+snippet author "→ file author" w
+" ${1:file-nme}:
+"     ${2:brief}
+" author: Everett
+" created: `!v strftime("%Y-%m-%d %H:%M")`
+" Github: https://github.com/antiqueeverett/
+endsnippet
+
+snippet todo "→ todo" w
+" todo:
+"     $1
+" date: `!v strftime("%Y-%m-%d %H:%M")`
+endsnippet
+
+snippet ref "→ ref" w
+" see:
+"     ${2:ref}
+" accessed: `!v strftime("%Y-%m-%d %H:%M")`
+endsnippet
+
+snippet func "→ function" w
+""
+" ${1:Name}:
+"     ${2:breif}.
+function! $1()
+    ${3:body}
+endfunction
+endsnippet
