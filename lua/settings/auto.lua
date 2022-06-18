@@ -1,6 +1,6 @@
 -- where elegance meets consistency
 local group = vim.api.nvim_create_augroup("startup", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", { command = "echo 'Now then, lets get started, shall we?'", group = "startup"})
+vim.api.nvim_create_autocmd("VimEnter", { command = "echo 'Now then, lets get started, shall we?'", group = "startup"})
 
 -- concept
 vim.api.nvim_create_autocmd("FileType", {
