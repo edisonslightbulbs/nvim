@@ -9,9 +9,7 @@ local opts = { noremap = true, silent = true }
 -- searching
 map('n', '<leader>;', ';',  opts)                  -- repeat find-in-line
 map('n', '<leader>c', ':let @/=""<CR>', opts)      -- clear search highlight
-
---  " swap # and * & search from word under cursor
---  nnoremap # :keepjumps normal! mi*`i<CR>
+map('n', '#', ':keepjumps normal! mi*`i<CR>', opts)-- swap # and *, hold cursor position
 
 
 -- window managing
@@ -37,4 +35,4 @@ map('n', '<leader>0', ':edit!', opts)              -- reload buffer << @todo: ma
 map('n', '<leader>d', ':bd<CR>', opts)             -- delete buffer
 map('n', '<leader><Tab>', ':bN<CR>', opts)         -- next buffer
 map('n', '<leader><S-Tab>', ':bn<CR>', opts)       -- previous buffer
-map('n', '<leader><ENTER>', ':w<CR>', opts)        -- write buffer
+map('n', '<leader><ENTER>', ':w!<CR>', opts)       -- write buffer
