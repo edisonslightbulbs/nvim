@@ -55,3 +55,8 @@ end
 
 vim.cmd [[set iskeyword+=-]]           -- add '-' to  keyword match
 vim.cmd [[set whichwrap+=<,>[,],h,l]]  -- allow wrapping with keys
+vim.cmd [[
+    filetype indent on
+    filetype plugin on
+]]  -- allow wrapping with keys
+
