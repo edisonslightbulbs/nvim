@@ -53,12 +53,6 @@ augroup strip_white_spaces
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
 
-" initially hide git-gutter signs:
-augroup hide_signs
-    autocmd!
-    autocmd BufRead * silent execute 'GitGutterSignsDisable'
-augroup END
-
 " line wrapping:
 " augroup wrap_lines
 "     autocmd!
