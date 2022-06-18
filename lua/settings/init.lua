@@ -20,6 +20,7 @@ local settings = {
     shiftwidth = 4,          -- number of spaces used for indenting
     tabstop = 4,             -- number of spaces used on <Tab>
 
+
     -- editor
     relativenumber = true,   -- enable relative numbers
     concealcursor = "n",     -- conceal in cursor mode iff in [n] mode
@@ -31,10 +32,10 @@ local settings = {
     wrap = true,             -- wrap @ line 80
 
     -- status line
-    --laststatus = 2,          -- show status
-    --cmdheight = 2,           -- cmd message height
+    laststatus = 2,          -- show status
+    cmdheight = 2,           -- cmd message height
     wildmenu = true,         -- use menu for cmd-line completions
-    --shortmess = "at",        -- file messages based on args [a, t]
+    shortmess = "at",        -- file messages based on args [a, t]
 
     -- search
     incsearch = true,        -- highlight match while typing
@@ -58,5 +59,4 @@ vim.cmd [[set whichwrap+=<,>[,],h,l]]  -- allow wrapping with keys
 vim.cmd [[
     filetype indent on
     filetype plugin on
-]]  -- allow wrapping with keys
-
+]]
