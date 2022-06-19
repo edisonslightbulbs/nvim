@@ -2,6 +2,7 @@
 
 ##### Pet peeves (@todo)
 
+- finish `lua` migration
 - set number & reletive number for nvimtree on initial setup
 - set number & reletive number for nvimtree on toggle
 - nvimtree: show hidden files
