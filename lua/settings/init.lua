@@ -21,7 +21,6 @@ local settings = {
     shiftwidth = 4,          -- number of spaces used for indenting
     tabstop = 4,             -- number of spaces used on <Tab>
 
-
     -- editor
     relativenumber = true,   -- enable relative numbers
     concealcursor = "n",     -- conceal in cursor mode iff in [n] mode
@@ -55,8 +54,11 @@ for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
-vim.cmd [[set iskeyword+=-]]           -- add '-' to  keyword match
-vim.cmd [[set whichwrap+=<,>[,],h,l]]  -- allow wrapping with keys
+vim.cmd [[ set clipboard+=unnamedplus ]] -- clipboard
+vim.cmd [[ set iskeyword+=- ]]           -- add '-' to  keyword match
+vim.cmd [[ set whichwrap+=<,>[,],h,l ]]  -- allow wrapping with keys
+
+-- syntax highlighting
 vim.cmd [[
     filetype indent on
     filetype plugin on
