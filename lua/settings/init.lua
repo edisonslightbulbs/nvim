@@ -2,6 +2,7 @@ local settings = {
     -- file handling
     autoread = true,         -- auto read ext. modified files
     backup = false,          -- create backup files
+    writebackup = false,     -- create backup before writing a file
     swapfile = false,        -- create swap files
     fileencoding = "utf-8",  -- encoding for written files
 
