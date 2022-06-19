@@ -6,28 +6,19 @@
 - set number & reletive number for nvimtree on toggle
 - nvimtree: show hidden files
 - nvimtree: tooggle in the directory of the current buffer|file
-- create floatterm.lua
 
-
-<!---
-##### Pet peeves (addressed)
--   [x]
---->
 ##### Issues (@todo)
 
-- `clipboard` not working
-- `autoformat` not working
+- `npm` packages out-of-date
 - `tree-sitter` executable not found
 - `Neovim::Ext` cpan module not installed
-- `npm` packages out-of-date
-- Non-optimized (DEBUG) build `[slower nvim]`
 
 ##### Issues (resolved)
--   [x] `pynvim` not installed
--   [x] `floatterm` not working
 
-<!---
-##### Custom-plugin developemnt
---->
+-   [x] `pynvim` installed
+-   [x] `autoformat` not working
+-   [x] `floatterm` installed and `floatterm.lua` added
+-   [x] `clipboard` issue resolved using `sud apt install xclip`
+-   [x]  switched to optimized (Release) build
 
 ##### Good reads
