@@ -17,7 +17,8 @@ require('plugins.config.floatterm')
 require('plugins.config.telescope')
 require('plugins.config.indentline')
 require('plugins.config.autoformat')
-
+require('plugins.config.treesitter')
+require('plugins.config.intellisense')
 require('plugins.custom.sandbox')
 
 require('color-schemes')
