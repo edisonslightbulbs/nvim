@@ -1,6 +1,4 @@
 vim.cmd [[
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-autosave.vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -199,17 +197,6 @@ endif
 " nnoremap <Leader>p  :Paste<CR>
 " nnoremap <Leader>P  :PASTE<CR>
 "
-" clipboard: copy
-vmap <C-C> "+yy
-
-" clipboard: paste after word [p]
-vnoremap <C-P> "+p
-inoremap <C-P> "+p
-nnoremap <C-P> "+p
-
-" clipboard: paste before word [P]
-" vnoremap <C-V> "+P
-" nnoremap <C-V> "+P
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-refactor.vim
@@ -226,17 +213,5 @@ command! -nargs=* RepWORD :call ReplaceWORDFunction(<f-args>)
 
 nnoremap <Leader>r  :Repword
 nnoremap <Leader>R  :RepWORD
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" auto refreshing nerdtree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! AutoRefresh()
-"     execute 'echo "refresh"'
-" endfunction
-"
-" augroup NERDTree_autorefresh_au
-"     autocmd!
-"     autocmd WinEnter * :call AutoRefresh()
-" augroup END
 
 ]]
