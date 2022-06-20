@@ -31,22 +31,47 @@ return require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
-    use 'williamboman/nvim-lsp-installer'
+    --use 'williamboman/nvim-lsp-installer'
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
+    --use 'SirVer/ultisnips'
 end)
 
--- in review
---use 'SirVer/ultisnips'
---use 'valloric/youcompleteme'
 
--- my plugins (... if I ever come around to finishing them)
---use 'antiqueeverett/vim-undo'
---use 'antiqueeverett/vim-cmake'
---use 'antiqueeverett/vim-cursor'
---use 'antiqueeverett/vim-autosave'
---use 'antiqueeverett/vim-motion-tutor'
+-- Verify plugins are setup correctly!
+
+
+-- telescope
+local status, telescope = pcall(require, "telescope")
+if not status then
+    print("-- something went wrong while setting up telescope!")
+    return
+end
+-- treesitter
+local status, treesitter = pcall(require, "treesitter")
+if not status then
+    print("-- something went wrong while setting up treesitter!")
+    return
+end
+-- nvim-lsp-installer
+local status, installer = pcall(require, "nvim-lsp-installer")
+if not status then
+    print("-- something went wrong while setting up nvim-lsp-installer!")
+    return
+end
+-- lspconfig
+local status, config = pcall(require, "lspconfig")
+if not status then
+    print("-- something went wrong while setting up lspconfig!")
+    return
+end
+-- cmp
+local status, cmp = pcall(require, "cmp")
+if not status then
+    print("-- something went wrong while setting cmp!")
+    return
+end
