@@ -20,7 +20,3 @@ require'nvim-treesitter.configs'.setup {
 -- folding
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-
-local function bla()
-    print "hello human\n"
-end
