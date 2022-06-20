@@ -6,6 +6,7 @@ require('settings.sys')
 require('settings.auto')
 
 require('plugins')
+require('plugins.config.packer')
 require('plugins.config.repeat')
 require('plugins.config.airline')
 require('plugins.config.bufonly')
