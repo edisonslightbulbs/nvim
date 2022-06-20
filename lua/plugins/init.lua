@@ -41,35 +41,25 @@ return require('packer').startup(function()
     --use 'SirVer/ultisnips'
 end)
 
-
--- Verify plugins are setup correctly!
-
-
--- telescope
-local status, telescope = pcall(require, "telescope")
-if not status then
-    print("-- something went wrong while setting up telescope!")
-    return
-end
--- treesitter
-local status, treesitter = pcall(require, "treesitter")
+-- verify treesitter plugged correctly
+local status, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status then
     print("-- something went wrong while setting up treesitter!")
     return
 end
--- nvim-lsp-installer
+-- verify nvim-lsp-installer plugged correctly
 local status, installer = pcall(require, "nvim-lsp-installer")
 if not status then
     print("-- something went wrong while setting up nvim-lsp-installer!")
     return
 end
--- lspconfig
+-- verify lspconfig plugged correctly
 local status, config = pcall(require, "lspconfig")
 if not status then
     print("-- something went wrong while setting up lspconfig!")
     return
 end
--- cmp
+-- verify cmp plugged correctly
 local status, cmp = pcall(require, "cmp")
 if not status then
     print("-- something went wrong while setting cmp!")

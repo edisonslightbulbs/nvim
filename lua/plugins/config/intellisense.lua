@@ -1,24 +1,4 @@
--- check nvim-lsp-installer, lspconfig, and cmp AOT
-local status, installer = pcall(require, "nvim-lsp-installer")
-if not status then
-    print("-- something went wrong while setting up nvim-lsp-installer!")
-    return
-end
-
-local status, config = pcall(require, "lspconfig")
-if not status then
-    print("-- something went wrong while setting up lspconfig!")
-    return
-end
-
-local status, engine = pcall(require, "cmp")
-if not status then
-    print("-- something went wrong while setting cmp!")
-    return
-end
-
-
--- setup nvim-lsp-installer and lspconfig
+-- configure nvim-lsp-installer
 require("nvim-lsp-installer").setup {
     automatic_installation = true, -- detect and install servers
     ui = {
@@ -30,20 +10,20 @@ require("nvim-lsp-installer").setup {
     }
 }
 
+-- configure lspconfig
 local function on_attach(client, bufnr)
     print("set up buffer keymaps, etc")
 end
 local lspconfig = require("lspconfig")
 lspconfig.sumneko_lua.setup { on_attach = on_attach }
 
-
--- setup nvim-cmp
+-- configure nvim-cmp
 local cmp = require'cmp'
 
 cmp.setup({
     --snippet = {
-        --    -- REQUIRED - you must specify a snippet engine
-        --    expand = function(args)
+            --    -- REQUIRED - you must specify a snippet engine
+            --    expand = function(args)
             --        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             --        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
             --        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
