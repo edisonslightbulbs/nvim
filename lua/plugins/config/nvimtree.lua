@@ -56,7 +56,7 @@ require("nvim-tree").setup({
 
     --
     update_focused_file = {
-        enable = true,
+        enable = false,
         update_cwd = true,
         update_root = true,
         ignore_list = {},
