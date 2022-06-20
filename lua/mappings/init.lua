@@ -36,3 +36,16 @@ map('n', '<leader>d', ':bd<CR>', opts)             -- delete buffer
 map('n', '<leader><Tab>', ':bN<CR>', opts)         -- next buffer
 map('n', '<leader><S-Tab>', ':bn<CR>', opts)       -- previous buffer
 map('n', '<leader><ENTER>', ':w!<CR>', opts)       -- write buffer
+
+
+-- same view undo
+vim.cmd [[
+function! Undo()
+let l:view = winsaveview()
+execute ':undo'
+execute ':Autoformat'
+call winrestview(l:view)
+endfunction
+]]
+
+map('n', '<leader>u', ':call Undo()<CR>', opts)       -- write buffer
