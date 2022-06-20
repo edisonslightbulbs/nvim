@@ -1,4 +1,4 @@
-return require('packer').startup(function()
+return require('packer').startup(function(use)
     -- packer
     use 'wbthomason/packer.nvim'
 
@@ -10,7 +10,7 @@ return require('packer').startup(function()
     use 'vim-airline/vim-airline-themes'
 
     -- editting
-    --use 'SirVer/ultisnips'
+    use 'SirVer/ultisnips'
     use 'tpope/vim-repeat'
     use 'ervandew/supertab'
     use 'honza/vim-snippets'
@@ -40,29 +40,35 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
-end)
 
--- -- verify treesitter plugged correctly
--- local status, treesitter = pcall(require, "nvim-treesitter.configs")
--- if not status then
---     print("-- something went wrong while setting up treesitter!")
---     return
--- end
--- verify nvim-lsp-installer plugged correctly
--- local status, installer = pcall(require, "nvim-lsp-installer")
--- if not status then
---     print("-- something went wrong while setting up nvim-lsp-installer!")
---     return
--- end
----- verify lspconfig plugged correctly
---local status, config = pcall(require, "lspconfig")
---if not status then
---    print("-- something went wrong while setting up lspconfig!")
---    return
---end
----- verify cmp plugged correctly
---local status, cmp = pcall(require, "cmp")
---if not status then
---    print("-- something went wrong while setting cmp!")
---    return
---end
+    -- boostrapping
+    if packer_bootstrap then
+        require('packer').sync()
+    end
+
+    --[[ Use protected calls (pcall) to load modules and check for errors.
+         Modules required in this way are loaded without interruption, i.e.,
+         regardless of propagated errors. If verification is unsuccessful,
+         prevent further instructions from executing.
+    ]]
+
+    if not pcall(require, "nvim-treesitter.configs") then
+        print("-- something went wrong while setting up treesitter!")
+        return
+    end
+
+    if not pcall(require, "nvim-lsp-installer") then
+        print("-- something went wrong while setting up nvim-lsp-installer!")
+        return
+    end
+
+    if not pcall(require, "lspconfig") then
+        print("-- something went wrong while setting up lspconfig!")
+        return
+    end
+
+    if not pcall(require, "cmp") then
+        print("-- something went wrong while setting cmp!")
+        return
+    end
+end)
