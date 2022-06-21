@@ -95,41 +95,8 @@ function! CallFloatTerm()
         execute 'vert term'
     endif
 endfunction
-
-"" MuttMail
-"    Open Mutt in floating window
-function! MuttMail()
-    call Configure()
-    if has('nvim')
-        FloatermNew --height=0.8 --width=0.8 --wintype=floating --name=emailwin neomutt
-    else
-        set termwinsize=0x86
-        vert term neomutt
-    endif
-endfunction
-
-"" AsyncTex
-"    Execute Tex build asynchronously
-function! AsyncTex()
-    copen 40
-    AsyncRun time tex.sh main.tex
-endfunction
-
-"" AsyncCMake
-"    Execute CMake build asynchronously
-function! AsyncCMake()
-    copen 40
-    AsyncRun cmake.sh -j 10
-endfunction
-
-
-"" Key maps
-"" nnoremap <silent><Leader>2 :call AsyncTex()<CR>
-"" nnoremap <silent><Leader>1 :call AsyncCMake()<CR>
-
-" nnoremap <silent><Leader>M :call MuttMail()<CR>
-
 nnoremap <silent><C-O> :call CallFloatTerm()<CR>
+
 
 nnoremap <silent> <leader>zj :call NextClosedFold('j')<cr>
 nnoremap <silent> <leader>zk :call NextClosedFold('k')<cr>
@@ -147,9 +114,4 @@ function! NextClosedFold(dir)
         call winrestview(view)
     endif
 endfunction
-
-
-
-
 ]]
-
