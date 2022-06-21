@@ -31,9 +31,9 @@ map('n', '<C-L>', '<C-W><C-L>', opts)              -- to right window
 
 -- buffer manipulation
 map('n', '<leader>0', ':edit!', opts)              -- reload buffer << @todo: make auto >>
-map('n', '<leader>d', ':bd<CR>', opts)             -- delete buffer
-map('n', '<leader><Tab>', ':bN<CR>', opts)         -- next buffer
-map('n', '<leader><S-Tab>', ':bn<CR>', opts)       -- previous buffer
+map('n', '<leader>d', ':bd!<CR>', opts)            -- delete buffer
+map('n', '<leader><Tab>', ':bn<CR>', opts)         -- next buffer
+map('n', '<leader><S-Tab>', ':bp<CR>', opts)       -- previous buffer
 map('n', '<leader><ENTER>', ':w!<CR>', opts)       -- write buffer
 
 require('keybindings.undo')
