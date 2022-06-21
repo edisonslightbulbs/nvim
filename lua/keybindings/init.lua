@@ -5,7 +5,6 @@ vim.g.mapleader = ';'
 local map =  vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-
 -- searching
 map('n', '<leader>;', ';',  opts)                  -- repeat find-in-line
 map('n', '<leader>c', ':let @/=""<CR>', opts)      -- clear search highlight
@@ -37,15 +36,6 @@ map('n', '<leader><Tab>', ':bN<CR>', opts)         -- next buffer
 map('n', '<leader><S-Tab>', ':bn<CR>', opts)       -- previous buffer
 map('n', '<leader><ENTER>', ':w!<CR>', opts)       -- write buffer
 
-
--- same view undo
-vim.cmd [[
-function! Undo()
-let l:view = winsaveview()
-execute ':undo'
-execute ':Autoformat'
-call winrestview(l:view)
-endfunction
-]]
-
-map('n', '<leader>u', ':call Undo()<CR>', opts)       -- write buffer
+require('keybindings.undo')
+require('keybindings.replace')
+require('keybindings.numberline')

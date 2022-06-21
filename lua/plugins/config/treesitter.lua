@@ -1,18 +1,19 @@
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = {"c", "cpp", "bash", "cmake", "latex", "lua", "make", "markdown", "python", "vim", "yaml" },
+local status, ret = pcall(require, "nvim-treesitter.configs")
+    if not status then
+        print("-- something went wrong while setting up treesitter!")
+        return
+    end
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
+require'nvim-treesitter.configs'.setup {
+  -- parsers
+  ensure_installed = {"c", "cpp", "bash", "cmake", "lua", "make", "markdown", "python", "vim", "yaml" },
   sync_install = false,
 
   highlight = {
-    -- `false` will disable the whole extension
     enable = true,
 
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
+--[[ true will run `:h syntax` and tree-sitter simultaneously
+     may slow down editor, and create duplicate highlights ]]
     additional_vim_regex_highlighting = false,
   },
 }

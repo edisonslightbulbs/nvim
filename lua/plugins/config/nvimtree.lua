@@ -2,8 +2,6 @@
 local map =  vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-
---setup
 require("nvim-tree").setup({
     update_cwd = true,
     sort_by = "case_sensitive",
@@ -49,20 +47,23 @@ require("nvim-tree").setup({
         },
     },
 
-    --
     filters = {
         dotfiles = false,
     },
 
-    --
     update_focused_file = {
         enable = false,
         update_cwd = true,
         update_root = true,
         ignore_list = {},
     },
+
+    git = {
+        enable = false,
+        ignore = true,
+        timeout = 400,
+    },
+
 })
 
-
--- key mapping/s
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opts) -- toggle

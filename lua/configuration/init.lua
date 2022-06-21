@@ -1,9 +1,10 @@
+
 local settings = {
     -- file handling
     autoread = true,         -- auto read ext. modified files
     backup = false,          -- create backup files
     writebackup = false,     -- create backup before writing a file
-    swapfile = false,        -- create swap files
+    swapfile = true,         -- create swap files
     fileencoding = "utf-8",  -- encoding for written files
 
     -- ignore patterns
@@ -63,3 +64,6 @@ vim.cmd [[
     filetype indent on
     filetype plugin on
 ]]
+
+require('configuration.hosts')
+require('configuration.auto')

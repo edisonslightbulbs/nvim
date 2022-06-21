@@ -1,3 +1,12 @@
+-- bootstrapping
+--[[ @todo:
+        buggy chunk ]]
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 return require('packer').startup(function(use)
     -- packer
     use 'wbthomason/packer.nvim'
@@ -29,10 +38,7 @@ return require('packer').startup(function(use)
     use 'Chiel92/vim-autoformat'
 
     -- intellisence
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+    use 'nvim-treesitter/nvim-treesitter'
     use 'williamboman/nvim-lsp-installer'
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -46,29 +52,21 @@ return require('packer').startup(function(use)
         require('packer').sync()
     end
 
-    --[[ Use protected calls (pcall) to load modules and check for errors.
-         Modules required in this way are loaded without interruption, i.e.,
-         regardless of propagated errors. If verification is unsuccessful,
-         prevent further instructions from executing.
-    ]]
-
-    if not pcall(require, "nvim-treesitter.configs") then
-        print("-- something went wrong while setting up treesitter!")
-        return
-    end
-
-    if not pcall(require, "nvim-lsp-installer") then
-        print("-- something went wrong while setting up nvim-lsp-installer!")
-        return
-    end
-
-    if not pcall(require, "lspconfig") then
-        print("-- something went wrong while setting up lspconfig!")
-        return
-    end
-
-    if not pcall(require, "cmp") then
-        print("-- something went wrong while setting cmp!")
-        return
-    end
+    --[[ Use protected calls (pcall) to load each module and check for errors.
+    Modules required in this way are loaded without interruption, regardless
+    of errors. If verification is unsuccessful, stop further execution. ]]
+    require('plugins.config.repeat')
+    require('plugins.config.airline')
+    require('plugins.config.bufonly')
+    require('plugins.config.fugitive')
+    require('plugins.config.supertab')
+    require('plugins.config.nvimtree')
+    require('plugins.config.ultisnipps')
+    require('plugins.config.floatterm')
+    require('plugins.config.telescope')
+    require('plugins.config.indentline')
+    require('plugins.config.autoformat')
+    require('plugins.config.treesitter')
+    require('plugins.config.intellisense')
+    require('plugins.custom.autosave')
 end)

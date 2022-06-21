@@ -128,3 +128,5 @@ augroup set_colors
 
 augroup END
 ]]
+
+require('color-schemes.gruvbox')
