@@ -52,42 +52,44 @@ local function setup()
     require('plugins.config.fugitive')
     require('plugins.config.supertab')
     require('plugins.config.nvimtree')
-    require('plugins.config.ultisnipps')
+    require('plugins.custom.autosave')
     require('plugins.config.floatterm')
     require('plugins.config.telescope')
+    require('plugins.config.ultisnipps')
     require('plugins.config.indentline')
     require('plugins.config.autoformat')
     require('plugins.config.treesitter')
-    require('plugins.config.intellisense')
-    require('plugins.custom.autosave')
+    require('plugins.config.lspinstaller')
+    require('plugins.config.lspconfig')
+    require('plugins.config.cmp')
 end
 
 -- local on_windows = vim.loop.os_uname().version:match 'Windows'
 -- print(on_windows)
 --
 -- local function join_paths(...)
---     local path_sep = on_windows and '\\' or '/'
---     local result = table.concat({ ... }, path_sep)
---     return result
--- end
---
--- -- vim.cmd [[set runtimepath=$VIMRUNTIME]]
--- -- print(runtimepath)
---
--- local temp_dir = vim.loop.os_getenv 'TEMP' or '/tmp'
--- print(temp_dir)
---
--- vim.cmd('set packpath=' .. join_paths(temp_dir, 'nvim', 'site'))
--- print(packpath)
+    --     local path_sep = on_windows and '\\' or '/'
+    --     local result = table.concat({ ... }, path_sep)
+    --     return result
+    -- end
+    --
+    -- -- vim.cmd [[set runtimepath=$VIMRUNTIME]]
+    -- -- print(runtimepath)
+    --
+    -- local temp_dir = vim.loop.os_getenv 'TEMP' or '/tmp'
+    -- print(temp_dir)
+    --
+    -- vim.cmd('set packpath=' .. join_paths(temp_dir, 'nvim', 'site'))
+    -- print(packpath)
 
--- local package_root = join_paths(temp_dir, 'nvim', 'site', 'pack')
--- local install_path = join_paths(package_root, 'packer', 'start', 'packer.nvim')
--- local compile_path = join_paths(install_path, 'plugin', 'packer_compiled.lua')
---
--- if vim.fn.isdirectory(install_path) == 0 then
---     vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
--- end
+    -- local package_root = join_paths(temp_dir, 'nvim', 'site', 'pack')
+    -- local install_path = join_paths(package_root, 'packer', 'start', 'packer.nvim')
+    -- local compile_path = join_paths(install_path, 'plugin', 'packer_compiled.lua')
+    --
+    -- if vim.fn.isdirectory(install_path) == 0 then
+    --     vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
+    -- end
 
-plug()
--- require('packer').sync()
-setup()
+    plug()
+    -- require('packer').sync()
+    setup()

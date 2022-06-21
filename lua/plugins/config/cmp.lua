@@ -1,8 +1,8 @@
 local status, ret = pcall(require, "cmp")
-    if not status then
-        print("-- something went wrong while setting cmp!")
-        return
-    end
+if not status then
+    print("-- something went wrong while setting cmp!")
+    return
+end
 
 local cmp = require'cmp'
 cmp.setup({
