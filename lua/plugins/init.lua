@@ -1,60 +1,51 @@
--- bootstrapping
---[[ @todo:
-        buggy chunk ]]
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local function plug()
+    return require('packer').startup(function(use)
+        -- packer
+        use 'wbthomason/packer.nvim'
+
+        -- theme
+        use 'morhetz/gruvbox'
+        use 'google/vim-searchindex'
+        use 'vim-airline/vim-airline'
+        use 'kyazdani42/nvim-web-devicons'
+        use 'vim-airline/vim-airline-themes'
+
+        -- editting
+        use 'SirVer/ultisnips'
+        use 'tpope/vim-repeat'
+        use 'ervandew/supertab'
+        use 'honza/vim-snippets'
+        use 'tpope/vim-surround'
+
+        -- extensions
+        use 'tpope/vim-fugitive'
+        use 'nvim-lua/plenary.nvim'
+        use 'voldikss/vim-floaterm'
+        use 'kyazdani42/nvim-tree.lua'
+        use 'nvim-telescope/telescope.nvim'
+
+        -- formatting
+        use 'yggdroot/indentline'
+        use 'raimondi/delimitmate'
+        use 'Chiel92/vim-autoformat'
+
+        -- intellisence
+        use 'nvim-treesitter/nvim-treesitter'
+        use 'williamboman/nvim-lsp-installer'
+        use 'neovim/nvim-lspconfig'
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/cmp-cmdline'
+        use 'hrsh7th/nvim-cmp'
+    end)
 end
 
-return require('packer').startup(function(use)
-    -- packer
-    use 'wbthomason/packer.nvim'
-
-    -- theme
-    use 'morhetz/gruvbox'
-    use 'google/vim-searchindex'
-    use 'vim-airline/vim-airline'
-    use 'kyazdani42/nvim-web-devicons'
-    use 'vim-airline/vim-airline-themes'
-
-    -- editting
-    use 'SirVer/ultisnips'
-    use 'tpope/vim-repeat'
-    use 'ervandew/supertab'
-    use 'honza/vim-snippets'
-    use 'tpope/vim-surround'
-
-    -- extensions
-    use 'tpope/vim-fugitive'
-    use 'nvim-lua/plenary.nvim'
-    use 'voldikss/vim-floaterm'
-    use 'kyazdani42/nvim-tree.lua'
-    use 'nvim-telescope/telescope.nvim'
-
-    -- formatting
-    use 'yggdroot/indentline'
-    use 'raimondi/delimitmate'
-    use 'Chiel92/vim-autoformat'
-
-    -- intellisence
-    use 'nvim-treesitter/nvim-treesitter'
-    use 'williamboman/nvim-lsp-installer'
-    use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
-
-    -- boostrapping
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-
-    --[[ Use protected calls (pcall) to load each module and check for errors.
-    Modules required in this way are loaded without interruption, regardless
-    of errors. If verification is unsuccessful, stop further execution. ]]
+local function setup()
+    --[[ For each plugin-setup module (listed below):
+    Use pcalls (protected calls) to verify plugin state before
+    executing setup commands. The pcalls run un-interrupted. If
+    a plugin's state is erroraneous setup is not executed. ]]
     require('plugins.config.repeat')
     require('plugins.config.airline')
     require('plugins.config.bufonly')
@@ -69,4 +60,34 @@ return require('packer').startup(function(use)
     require('plugins.config.treesitter')
     require('plugins.config.intellisense')
     require('plugins.custom.autosave')
-end)
+end
+
+-- local on_windows = vim.loop.os_uname().version:match 'Windows'
+-- print(on_windows)
+--
+-- local function join_paths(...)
+--     local path_sep = on_windows and '\\' or '/'
+--     local result = table.concat({ ... }, path_sep)
+--     return result
+-- end
+--
+-- -- vim.cmd [[set runtimepath=$VIMRUNTIME]]
+-- -- print(runtimepath)
+--
+-- local temp_dir = vim.loop.os_getenv 'TEMP' or '/tmp'
+-- print(temp_dir)
+--
+-- vim.cmd('set packpath=' .. join_paths(temp_dir, 'nvim', 'site'))
+-- print(packpath)
+
+-- local package_root = join_paths(temp_dir, 'nvim', 'site', 'pack')
+-- local install_path = join_paths(package_root, 'packer', 'start', 'packer.nvim')
+-- local compile_path = join_paths(install_path, 'plugin', 'packer_compiled.lua')
+--
+-- if vim.fn.isdirectory(install_path) == 0 then
+--     vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
+-- end
+
+plug()
+-- require('packer').sync()
+setup()
