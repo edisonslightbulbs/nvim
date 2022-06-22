@@ -1,14 +1,11 @@
 vim.cmd [[
-"
-" vim-autosave.vim
-"   n.b.: uses command height of 2 (for convenience) vs silence
-"
 if exists('g:load_autosave') | finish | endif
 let g:load_autosave = 1
-""
-" Writable:
-"     Checks if current buffer is writable.
+
+
 function! Writable()
+    """ checks if current buffer is writable
+    """
     if &modifiable==#'1' && &buftype==#'' && &filetype !=#''
         return v:true
     elseif &modifiable!=#'1' || &buftype!=#'' || &filetype ==#''
@@ -16,21 +13,21 @@ function! Writable()
     endif
 endfunction
 
-""
-" IsNERDTree:
-"     Checks if current buffer is a NERDTREE buffer.
-function! IsNERDTree()
-    if  &filetype ==#'nerdtree'
+
+function! IsNvimTree_1()
+    """ checks if current buffer is a NvimTree_1 buffer
+    """
+    if  &filetype ==#'NvimTree_1'
         return v:true
     else
         return v:false
     endif
 endfunction
 
-""
-" IsNoName:
-"   Checks if current buffer is a No Name buffer.
+
 function! IsNoName()
+    """ checks if current buffer is a No Name buffer
+    """
     if &buftype==#'' && bufname('%')==#'' && &modifiable==#'1'
         return v:true
     else
@@ -38,13 +35,11 @@ function! IsNoName()
     endif
 endfunction
 
-""
-" Savable:
-"   Checks if current buffer is a working buffer.
-" @todo:
-"    adapt to nvimtree!!
+
 function! Savable()
-    if Writable() && !IsNERDTree()
+    """ checks if current buffer is a working buffer.
+    """
+    if Writable() && !IsNvimTree_1()
         if !IsNoName()
             return v:true
         endif
@@ -53,30 +48,30 @@ function! Savable()
     endif
 endfunction
 
-""
-" AutoSave:
-"   Persist :write
 function! AutoSave()
+    """ autoSave
+    """
     if Savable() && g:load_autosave ==1
+        silent! execute 'edit!'
         silent! execute 'write'
     endif
 endfunction
 
-" VIM_AUTOSAVE CASES:
-"   case 1: after text is changed in normal mode [ TextChanged ]
-"   case 2: when leaving insert mode [ InsertLeave ]
-"   case 3: before leaving a buffer [ BufLeave ]
-"   case 4: before exiting vim [ VimLeavePre ]
-augroup vim_autosave_au
+augroup autosave_au
     autocmd!
-    autocmd TextChanged,InsertLeave,BufLeave,VimLeavePre * :call AutoSave()
+    " autosave cases:
+    "   a. after text is changed in normal mode [ TextChanged ]
+    "   b. when leaving insert mode [ InsertLeave ]
+    "   c. before leaving a buffer [ BufLeave ]
+    "   d. before exiting vim [ VimLeavePre ]
+    "   d. before exiting vim [ VimLeavePre ]
+    autocmd TextChanged,InsertLeave,BufLeave,VimLeavePre,FileChangedShell * :call AutoSave()
 augroup END
 
 
-""
-" DisableAutoSave:
-"     Disables autosave.
 function! DisableAutoSave()
+    """ disables autosave
+    """
     if &readonly
         let g:load_autosave = 0
         set nobackup
