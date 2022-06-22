@@ -38,6 +38,9 @@ local function plug()
         use 'hrsh7th/cmp-path'
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/nvim-cmp'
+
+        -- tools
+        use 'dstein64/vim-startuptime'
     end)
 end
 
