@@ -2,18 +2,6 @@ vim.cmd [[
 if exists('g:load_autosave') | finish | endif
 let g:load_autosave = 1
 
-
-function! Writable()
-    """ checks if current buffer is writable
-    """
-    if &modifiable==#'1' && &buftype==#'' && &filetype !=#''
-        return v:true
-    elseif &modifiable!=#'1' || &buftype!=#'' || &filetype ==#''
-        return v:false
-    endif
-endfunction
-
-
 function! IsNvimTree_1()
     """ checks if current buffer is a NvimTree_1 buffer
     """
@@ -23,18 +11,6 @@ function! IsNvimTree_1()
         return v:false
     endif
 endfunction
-
-
-function! IsNoName()
-    """ checks if current buffer is a No Name buffer
-    """
-    if &buftype==#'' && bufname('%')==#'' && &modifiable==#'1'
-        return v:true
-    else
-        return v:false
-    endif
-endfunction
-
 
 function! Savable()
     """ checks if current buffer is a working buffer.
@@ -52,7 +28,6 @@ function! AutoSave()
     """ autoSave
     """
     if Savable() && g:load_autosave ==1
-        silent! execute 'edit!'
         silent! execute 'write'
     endif
 endfunction
@@ -64,8 +39,7 @@ augroup autosave_au
     "   b. when leaving insert mode [ InsertLeave ]
     "   c. before leaving a buffer [ BufLeave ]
     "   d. before exiting vim [ VimLeavePre ]
-    "   d. before exiting vim [ VimLeavePre ]
-    autocmd TextChanged,InsertLeave,BufLeave,VimLeavePre,FileChangedShell * :call AutoSave()
+    autocmd TextChanged,InsertLeave,BufLeave,VimLeavePre * :call AutoSave()
 augroup END
 
 

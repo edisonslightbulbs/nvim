@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd[[
 function! ReplaceWordFunction(arg)
     execute '%s/' . expand('<cword>') . '/' . a:arg . '/gc'
 endfunction
