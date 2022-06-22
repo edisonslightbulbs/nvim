@@ -4,6 +4,7 @@ if not status then
     return
 end
 
+
 -- keybinding
 local function on_attach(client, bufnr)
     local opts = { noremap=true, silent=true, buffer=bufnr }
@@ -23,7 +24,6 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, opts)
 end
-
 
 
 -- lua
@@ -52,6 +52,27 @@ require('lspconfig')['sumneko_lua'].setup{
 }
 
 -- python
+local util = require("lspconfig/util")
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
+
+    settings = {
+        python = {
+            analysis = {
+                extraPaths = {""}
+            }
+        }
+    },
+
+    root_dir = function(fname)
+        return util.root_pattern(
+        ".git",
+        "setup.py",
+        "setup.cfg",
+        "pyproject.toml",
+        "pyrightconfig.json",
+        "requirements.txt")(fname) or
+        util.path.dirname(fname)
+    end
 }
+
