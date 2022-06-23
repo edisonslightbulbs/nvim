@@ -32,15 +32,14 @@ require('lspconfig')['sumneko_lua'].setup{
     settings = {
         Lua = {
             runtime = {
-                -- language server
+                -- server
                 version = 'LuaJIT',
             },
             diagnostics = {
-                -- globals
-                globals = {'vim'},
+                globals = {'vim', 'cmp'},
             },
             workspace = {
-                -- neovim runtime files
+                -- runtime paths
                 library = vim.api.nvim_get_runtime_file("", true),
             },
             -- disable sending telemetry data

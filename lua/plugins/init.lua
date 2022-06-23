@@ -10,17 +10,17 @@ local function plug()
         use 'vim-airline/vim-airline-themes'
 
         -- extensions
+        --use 'ervandew/supertab'
         use 'tpope/vim-fugitive'
         use 'nvim-lua/plenary.nvim'
         use 'voldikss/vim-floaterm'
+        use 'google/vim-searchindex'
+        use 'dstein64/vim-startuptime'
         use 'kyazdani42/nvim-tree.lua'
         use 'nvim-telescope/telescope.nvim'
 
         -- editting
-        --use 'SirVer/ultisnips'
-        --use 'honza/vim-snippets'
         use 'tpope/vim-repeat'
-        --use 'ervandew/supertab'
         use 'tpope/vim-surround'
         use 'yggdroot/indentline'
         use 'raimondi/delimitmate'
@@ -31,14 +31,15 @@ local function plug()
         use 'williamboman/nvim-lsp-installer'
         use 'neovim/nvim-lspconfig'
         use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
-        use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/nvim-cmp'
-
-        -- tools
-        use 'google/vim-searchindex'
-        use 'dstein64/vim-startuptime'
+        -- use 'SirVer/ultisnips'
+        -- use 'honza/vim-snippets'
+        use 'quangnguyen30192/cmp-nvim-ultisnips'
+        use 'L3MON4D3/LuaSnip'
+        use 'rafamadriz/friendly-snippets'
     end)
 end
 
@@ -56,13 +57,14 @@ local function setup()
     require('plugins.custom.autosave')
     require('plugins.config.floatterm')
     require('plugins.config.telescope')
-    require('plugins.config.ultisnipps')
     require('plugins.config.indentline')
     require('plugins.config.autoformat')
     require('plugins.config.treesitter')
     require('plugins.config.lspinstaller')
     require('plugins.config.lspconfig')
     require('plugins.config.cmp')
+    require('plugins.config.luasnip')
+    --require('plugins.config.ultisnipps')
 end
 
 -- local on_windows = vim.loop.os_uname().version:match 'Windows'
