@@ -7,6 +7,9 @@ vim.g.mapleader = ';'
 -- source
 map('n', '<leader>%', ':source % <CR>', opts)      -- source current file
 
+-- yanking
+map('n', '<leader><ENTER>', '"k', opts)             -- yank into k
+
 -- searching
 map('n', '<leader>;', ';',  opts)                  -- repeat find-in-line
 map('n', '<leader>c', ':let @/=""<CR>', opts)      -- clear search highlight
