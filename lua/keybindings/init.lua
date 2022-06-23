@@ -1,9 +1,11 @@
+local map =  vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
 -- leader
 vim.g.mapleader = ';'
 
--- aliases
-local map =  vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+-- source
+map('n', '<leader>%', ':source % <CR>', opts)      -- source current file
 
 -- searching
 map('n', '<leader>;', ';',  opts)                  -- repeat find-in-line
@@ -29,13 +31,8 @@ map('n', '<C-H>', '<C-W><C-H>', opts)              -- to left window
 map('n', '<C-L>', '<C-W><C-L>', opts)              -- to right window
 
 
--- buffer manipulation
-map('n', '<S-Tab>', ':bN<CR>', opts)               -- previous buffer
-map('n', '<leader>0', ':edit!', opts)              -- reload buffer << @todo: make auto >>
-map('n', '<leader>d', ':bd!<CR>', opts)            -- delete buffer
-map('n', '<leader><Tab>', ':bn<CR>', opts)         -- next buffer
-map('n', '<leader><ENTER>', ':w!<CR>', opts)       -- write buffer
 
 require('keybindings.undo')
+require('keybindings.buffer')
 require('keybindings.replace')
 require('keybindings.numberline')
