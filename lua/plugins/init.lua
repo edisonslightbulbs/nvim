@@ -5,17 +5,9 @@ local function plug()
 
         -- theme
         use 'morhetz/gruvbox'
-        use 'google/vim-searchindex'
         use 'vim-airline/vim-airline'
         use 'kyazdani42/nvim-web-devicons'
         use 'vim-airline/vim-airline-themes'
-
-        -- editting
-        --use 'SirVer/ultisnips'
-        use 'tpope/vim-repeat'
-        use 'ervandew/supertab'
-        use 'honza/vim-snippets'
-        use 'tpope/vim-surround'
 
         -- extensions
         use 'tpope/vim-fugitive'
@@ -24,7 +16,12 @@ local function plug()
         use 'kyazdani42/nvim-tree.lua'
         use 'nvim-telescope/telescope.nvim'
 
-        -- formatting
+        -- editting
+        --use 'SirVer/ultisnips'
+        --use 'honza/vim-snippets'
+        use 'tpope/vim-repeat'
+        --use 'ervandew/supertab'
+        use 'tpope/vim-surround'
         use 'yggdroot/indentline'
         use 'raimondi/delimitmate'
         use 'Chiel92/vim-autoformat'
@@ -40,6 +37,7 @@ local function plug()
         use 'hrsh7th/nvim-cmp'
 
         -- tools
+        use 'google/vim-searchindex'
         use 'dstein64/vim-startuptime'
     end)
 end
