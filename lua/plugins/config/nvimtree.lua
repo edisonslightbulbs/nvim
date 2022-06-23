@@ -6,6 +6,7 @@ require("nvim-tree").setup({
     update_cwd = true,
     sort_by = "case_sensitive",
     hijack_unnamed_buffer_when_opening = true,
+    hijack_netrw = true,
 
     view = {
         number = true,
@@ -49,6 +50,7 @@ require("nvim-tree").setup({
 
     filters = {
         dotfiles = false,
+        exclude = {"*.metainfo", "*.py.lock"},
     },
 
     update_focused_file = {
@@ -60,8 +62,8 @@ require("nvim-tree").setup({
 
     git = {
         enable = false,
-        ignore = true,
-        timeout = 400,
+        ignore = false,
+        timeout = 1,
     },
 
 })
