@@ -11,7 +11,7 @@ local function plug()
         use 'vim-airline/vim-airline-themes'
 
         -- editting
-        use 'SirVer/ultisnips'
+        --use 'SirVer/ultisnips'
         use 'tpope/vim-repeat'
         use 'ervandew/supertab'
         use 'honza/vim-snippets'
