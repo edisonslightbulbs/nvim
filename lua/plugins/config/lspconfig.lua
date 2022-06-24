@@ -50,8 +50,9 @@ require('lspconfig')['sumneko_lua'].setup{
     },
 }
 
+
 -- python
-local util = require("lspconfig/util")
+local util = require("lspconfig/util") -- switch to (.) format
 require('lspconfig')['pyright'].setup{
     on_attach = on_attach,
 
@@ -75,3 +76,20 @@ require('lspconfig')['pyright'].setup{
     end
 }
 
+-- cpp
+local util = require("lspconfig/util") -- switch to (.) format
+require('lspconfig')['clangd'].setup{
+    on_attach = on_attach,
+
+    root_dir = function(fname)
+        return util.root_pattern(
+          ".git",
+          ".clangd",
+          ".clang-tidy",
+          ".clang-format",
+          "compile_commands.json",
+          "compile_flags.txt",
+          "configure.ac")(fname) or
+        util.path.dirname(fname)
+    end
+}
