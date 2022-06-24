@@ -35,11 +35,11 @@ local function plug()
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
         use 'hrsh7th/nvim-cmp'
-        -- use 'SirVer/ultisnips'
-        -- use 'honza/vim-snippets'
-        -- use 'quangnguyen30192/cmp-nvim-ultisnips'
-        use 'L3MON4D3/LuaSnip'
-        use 'rafamadriz/friendly-snippets'
+        use 'SirVer/ultisnips'
+        use 'honza/vim-snippets'
+        use 'quangnguyen30192/cmp-nvim-ultisnips'
+        -- use 'L3MON4D3/LuaSnip'
+        -- use 'rafamadriz/friendly-snippets'
     end)
 end
 
@@ -52,7 +52,6 @@ local function setup()
     require('plugins.config.airline')
     require('plugins.config.bufonly')
     require('plugins.config.fugitive')
-    --require('plugins.config.supertab')
     require('plugins.config.nvimtree')
     require('plugins.custom.autosave')
     require('plugins.config.floatterm')
@@ -61,10 +60,11 @@ local function setup()
     require('plugins.config.autoformat')
     require('plugins.config.treesitter')
     require('plugins.config.lspinstaller')
+    require('plugins.config.ultisnipps')
     require('plugins.config.lspconfig')
+    --require('plugins.config.supertab')
+    --require('plugins.config.luasnip')
     require('plugins.config.cmp')
-    require('plugins.config.luasnip')
-    --require('plugins.config.ultisnipps')
 end
 
 -- local on_windows = vim.loop.os_uname().version:match 'Windows'
@@ -92,6 +92,8 @@ end
     -- if vim.fn.isdirectory(install_path) == 0 then
     --     vim.fn.system { 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path }
     -- end
+
+
 
     plug()
     -- require('packer').sync()
