@@ -43,10 +43,10 @@ let g:autoformat_verbosemode=1
 " keybinds
 "
 function! Retab()
-let l:view = winsaveview()
-execute ':retab!'
-execute ':Autoformat'
-call winrestview(l:view)
+    let l:view = winsaveview()
+    execute ':retab!'
+    execute ':Autoformat'
+    call winrestview(l:view)
 endfunction
 
 nnoremap <Leader>i :call Retab()<CR>
