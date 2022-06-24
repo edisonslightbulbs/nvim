@@ -10,7 +10,7 @@ local function plug()
         use 'vim-airline/vim-airline-themes'
 
         -- extensions
-        --use 'ervandew/supertab'
+        use 'ervandew/supertab'
         use 'tpope/vim-fugitive'
         use 'nvim-lua/plenary.nvim'
         use 'voldikss/vim-floaterm'
@@ -37,7 +37,7 @@ local function plug()
         use 'hrsh7th/nvim-cmp'
         -- use 'SirVer/ultisnips'
         -- use 'honza/vim-snippets'
-        use 'quangnguyen30192/cmp-nvim-ultisnips'
+        -- use 'quangnguyen30192/cmp-nvim-ultisnips'
         use 'L3MON4D3/LuaSnip'
         use 'rafamadriz/friendly-snippets'
     end)
@@ -52,7 +52,7 @@ local function setup()
     require('plugins.config.airline')
     require('plugins.config.bufonly')
     require('plugins.config.fugitive')
-    require('plugins.config.supertab')
+    --require('plugins.config.supertab')
     require('plugins.config.nvimtree')
     require('plugins.custom.autosave')
     require('plugins.config.floatterm')
