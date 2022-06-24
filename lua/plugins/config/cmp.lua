@@ -9,8 +9,8 @@ cmp.setup({
     snippet = {
         -- snippet engines
         expand = function(args)
-           require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-           --vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            --require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
     },
     window = {
@@ -22,13 +22,13 @@ cmp.setup({
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-j>'] = cmp.mapping.scroll_docs(-1),
         ['<C-k>'] = cmp.mapping.scroll_docs(1),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        --['<ESCAPE>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        --['<CR>'] = cmp.mapping.complete(),
+        ['<ESCAPE>'] = cmp.mapping.abort(),
+        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
-        { name = 'luasnip' },
-        --{ name = 'ultisnips' },
+        --{ name = 'luasnip' },
+        { name = 'ultisnips' },
     }, {
         { name = 'buffer' },
     })
