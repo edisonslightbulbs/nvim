@@ -23,7 +23,7 @@ cmp.setup({
         ['<C-j>'] = cmp.mapping.scroll_docs(-1),
         ['<C-k>'] = cmp.mapping.scroll_docs(1),
         --['<CR>'] = cmp.mapping.complete(),
-        ['<ESCAPE>'] = cmp.mapping.abort(),
+        --['<ESCAPE>'] = cmp.mapping.abort(),
         ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
