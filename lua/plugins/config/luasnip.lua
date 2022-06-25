@@ -5,4 +5,3 @@ if not status then
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
-
