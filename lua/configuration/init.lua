@@ -31,6 +31,7 @@ local settings = {
     number = true,           -- enable numbers
     mouse = "a",             -- enable mouse
     wrap = true,             -- wrap @ line 80
+    foldenable = false,      -- disable folding
 
     -- status line
     laststatus = 2,          -- show status
