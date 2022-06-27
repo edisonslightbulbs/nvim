@@ -8,7 +8,7 @@ local settings = {
     fileencoding = "utf-8",  -- encoding for written files
 
     -- ignore patterns
-    wildignore = "*.swp, *.bak, *.pyc, *.class, *.metainfo",
+    wildignore = "*.swp, *.bak, *.pyc, *.class, *.metainfo *.lock",
 
     -- windowing
     previewheight = 5,       -- preview-window height
