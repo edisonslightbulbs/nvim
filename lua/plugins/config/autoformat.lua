@@ -3,12 +3,12 @@ vim.cmd [[
 " formatter paths
 "
 if has('win32')
-    let g:formatterpath = ['C:\Users\zoemthun\go\bin\',
+    let g:formatterpath = [
+    \ 'C:\Users\zoemthun\go\bin\',
     \ 'C:\ProgramData\chocolatey\bin\',
     \ 'C:\Users\zoemthun\AppData\Roaming\npm\',
     \ 'C:\Users\zoemthun\AppData\Roaming\Python\Python39\Scripts\',
     \ 'C:\Users\zoemthun\AppData\Roaming\Python\Python38\Scripts\']
-else
 endif
 
 "
