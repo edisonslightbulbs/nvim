@@ -1,132 +1,417 @@
 local settings = {
-    termguicolors = true,    -- use gui colors
-    colorcolumn = "65,80",   -- show column highlight @ lines [65, 80]
-    background = "dark",     -- background color
-    syntax =  "on",          -- highlight syntax based on filetype
+    termguicolors = true, -- use gui colors
+    colorcolumn = "65,80", -- show column highlight @ lines [65, 80]
+    background = "dark", -- background color
+    syntax = "on" -- highlight syntax based on filetype
 }
 
 for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
-vim.cmd [[
-" color scheme overrides:
-augroup set_colors
-    autocmd!
-    " background and font
-    autocmd ColorScheme * highlight Normal
-                \ term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=#1d2021 guifg=#abb2b9
+local augroup = vim.api.nvim_create_augroup("BaseColorScheme", {clear = true})
 
-    " cursor line
-    autocmd ColorScheme * highlight CursorLine
-                \ term=NONE cterm=underline ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=black  guifg=NONE
+-- hint: highlight options
+--   fg = "",
+--   bg = "black",
+--   ctermbg = "",
+--   ctermfg = "",
+--   bold = false,
+--   standout = false,
+--   underline = false,
+--   underlineline = false,
+--   undercurl = false,
+--   underdot = false,
+--   underdash = false,
+--   strikethrough = false,
+--   italic = false,
+--   reverse = false,
+--   nocombine = false
 
-    " cursor line number
-    autocmd ColorScheme * highlight CursorLineNr
-                \ term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=#1d2021 guifg=White
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "background-foreground highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "Normal",
+                {
+                    fg = "#abb2b9",
+                    bg = "#1d2021"
+                }
+            )
+        end
+    }
+)
 
-    " number line
-    autocmd ColorScheme * highlight LineNr
-                \ term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=#1d2021 guifg=#808b96
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "cursor-line highlihgt",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "CursorLine",
+                {
+                    fg = "",
+                    bg = "Black"
+                }
+            )
+        end
+    }
+)
 
-    " popup menu
-    autocmd ColorScheme * highlight Menu
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1c2833 guifg=#eaecee
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "cursor line number",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "CursorLineNr",
+                {
+                    fg = "White",
+                    bg = "#1d2021"
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight Pmenu
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1c2833 guifg=#eaecee
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "number-line highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "LineNr",
+                {
+                    fg = "#808b96",
+                    bg = "#1d2021"
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight PmenuSel
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#eaecee guifg=#1c2833
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "menu highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "Menu",
+                {
+                    fg = "#eaecee",
+                    bg = "#1c2833",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "Pmenu",
+                {
+                    fg = "#eaecee",
+                    bg = "#1c2833",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "PmenuSel",
+                {
+                    fg = "#1c2833",
+                    bg = "#eaecee",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "PmenuSbar",
+                {
+                    fg = "#eaecee",
+                    bg = "#1c2833",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "PmenuThumb",
+                {
+                    fg = "#eaecee",
+                    bg = "#1c2833",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight PmenuSbar
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1c2833 guifg=#eaecee
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "sign-column highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "SignColumn",
+                {
+                    fg = "",
+                    bg = "#21262c"
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight PmenuThumb
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1c2833 guifg=#eaecee
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "column highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "ColorColumn",
+                {
+                    fg = "",
+                    bg = "#21262c"
+                }
+            )
+        end
+    }
+)
 
-    " sign gutter
-    autocmd ColorScheme * highlight SignColumn
-                \ term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=#21262c guifg=NONE
+-- @todo find better color for spellings
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "spellings highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "SpellBad",
+                {
+                    fg = "#8f3f71",
+                    bg = "#1d2021",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "SpellCap",
+                {
+                    fg = "#8f3f71",
+                    bg = "#1d2021",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "SpellLocal",
+                {
+                    fg = "#8f3f71",
+                    bg = "#1d2021",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "SpellRare",
+                {
+                    fg = "#8f3f71",
+                    bg = "#1d2021",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    " wrapping column
-    autocmd ColorScheme * highlight ColorColumn
-                \ term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE
-                \ gui=NONE guibg=#21262c guifg=NONE
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "search highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "Search",
+                {
+                    fg = "black",
+                    bg = "#F6D55C",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "IncSearch",
+                {
+                    fg = "black",
+                    bg = "#F6D55C",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "Visual",
+                {
+                    fg = "#1c2833",
+                    bg = "#f8f5d7",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    " spellings
-    autocmd ColorScheme * highlight SpellBad
-                \ term=bold cterm=underline,bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1d2021 guifg=#8f3f71
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "split-boarder highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "VertSplit",
+                {
+                    fg = "#5a5c5d",
+                    bg = "#21262c",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight SpellCap
-                \ term=bold cterm=underline,bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1d2021 guifg=#8f3f71
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "matching-enclosure highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "MatchParen",
+                {
+                    fg = "white",
+                    bg = "black",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight SpellLocal
-                \ term=bold cterm=underline,bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1d2021 guifg=#8f3f71
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "status-line highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "StatusLine",
+                {
+                    fg = "Grey",
+                    bg = "Black",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    autocmd ColorScheme * highlight SpellRare
-                \ term=bold cterm=underline,bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#1d2021 guifg=#8f3f71
+-- @todo: incremental improvements from this
+--       point downwards
+-- date: 2020-08-14 09:25
+vim.api.nvim_create_autocmd(
+    "ColorScheme",
+    {
+        pattern = "",
+        group = augroup,
+        desc = "tab-line highlight",
+        callback = function()
+            vim.api.nvim_set_hl(
+                0,
+                "TabLine",
+                {
+                    fg = "Grey",
+                    bg = "White",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "TabLineFill",
+                {
+                    fg = "Grey",
+                    bg = "White",
+                    bold = true
+                }
+            )
+            vim.api.nvim_set_hl(
+                0,
+                "TabLineSel",
+                {
+                    fg = "Grey",
+                    bg = "White",
+                    bold = true
+                }
+            )
+        end
+    }
+)
 
-    " search
-    autocmd ColorScheme * highlight Search
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#F6D55C guifg=black
+-- vim.api.nvim_create_autocmd(
+--     "ColorScheme",
+--     {
+--         pattern = "",
+--         group = augroup,
+--         desc = "cursor highlight",
+--         callback = function()
+--             vim.api.nvim_set_hl(
+--                 0,
+--                 "Cursor",
+--                 {
+--                     fg = "White",
+--                     bg = "Red",
+--                     bold = true
+--                 }
+--             )
+--             vim.api.nvim_set_hl(
+--                 0,
+--                 "iCursor",
+--                 {
+--                     fg = "White",
+--                     bg = "Red",
+--                     bold = true
+--                 }
+--             )
+--         end
+--     }
+-- )
 
-    " incremental search
-    autocmd ColorScheme * highlight IncSearch
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#F6D55C guifg=black
-
-    " visual
-    autocmd ColorScheme * highlight Visual
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#f8f5d7 guifg=#1c2833
-
-    " vertical split
-    autocmd ColorScheme * highlight VertSplit
-                \ term=bold cterm=bold ctermbg=NONE ctermfg=NONE
-                \ gui=bold guibg=#21262c guifg=#5a5c5d
-
-    " todo: incremental improvements from this
-    "       point downwards
-    " date: 2020-08-14 09:25
-    " parenthesis
-    autocmd ColorScheme * highlight MatchParen   guibg=Black guifg=White
-
-    " status line
-    autocmd ColorScheme * highlight StatusLine   guibg=Black guifg=Grey
-
-    " tab line
-    autocmd ColorScheme * highlight TabLine      guibg=White guifg=Grey
-    autocmd ColorScheme * highlight TabLineFill  guibg=White guifg=Grey
-    autocmd ColorScheme * highlight TabLineSel   guibg=White guifg=Grey
-
-
-    "  " cursor
-    "  autocmd ColorScheme * highlight Cursor
-    "              \ term=NONE cterm=underline ctermbg=NONE ctermfg=NONE
-    "              \ gui=NONE guibg=red  guifg=white
-
-    "  " cursor
-    "  autocmd ColorScheme * highlight iCursor
-    "              \ term=NONE cterm=underline ctermbg=NONE ctermfg=NONE
-    "              \ gui=NONE guibg=red  guifg=white
-
-augroup END
-]]
-
-require('color-schemes.gruvbox')
+require("color-schemes.gruvbox")
