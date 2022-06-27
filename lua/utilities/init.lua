@@ -1,7 +1,7 @@
 vim.cmd [[
 function! IsLastWindow()
 """ Checks if current window is last window
-"""   
+"""
     if winnr() == winnr('$')
         return v:true
     else
@@ -11,7 +11,7 @@ endfunction
 
 function! IsLastBuffer()
 """ Verifies current buffer is last buffer
-"""   
+"""
     let l:buffer_count = 0
     for i in range(0, bufnr('$'))
         if buflisted(i)
@@ -46,3 +46,12 @@ function! IsNoName()
     endif
 endfunction
 ]]
+
+-- detect os
+function opsys()
+    if vim.fn.has("unix") == 1 then
+        print("unix")
+    elseif vim.fn.has("win32") == 1 then
+        print("win32")
+    end
+end
