@@ -25,6 +25,18 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, opts)
 end
 
+-- -- Setup lspconfig.
+-- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- require('lspconfig')['sumneko_lua'].setup {
+--     capabilities = capabilities,
+--     settings = {
+--         Lua = {
+--             diagnostics = {
+--                 globals = {"vim"},
+--             },
+--         },
+--     },
+-- }
 
 -- lua
 require('lspconfig')['sumneko_lua'].setup{
@@ -93,3 +105,5 @@ require('lspconfig')['clangd'].setup{
         util.path.dirname(fname)
     end
 }
+
+
