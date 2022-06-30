@@ -25,36 +25,23 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, opts)
 end
 
--- -- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- require('lspconfig')['sumneko_lua'].setup {
---     capabilities = capabilities,
---     settings = {
---         Lua = {
---             diagnostics = {
---                 globals = {"vim"},
---             },
---         },
---     },
--- }
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- lua
 require('lspconfig')['sumneko_lua'].setup{
+    capabilities = capabilities,
     on_attach = on_attach,
     settings = {
         Lua = {
             runtime = {
-                -- server
                 version = 'LuaJIT',
             },
             diagnostics = {
                 globals = {'vim', 'cmp'},
             },
             workspace = {
-                -- runtime paths
                 library = vim.api.nvim_get_runtime_file("", true),
             },
-            -- disable sending telemetry data
             telemetry = {
                 enable = false,
             },
@@ -64,10 +51,10 @@ require('lspconfig')['sumneko_lua'].setup{
 
 
 -- python
-local util = require("lspconfig/util") -- switch to (.) format
+local util = require("lspconfig.util")
 require('lspconfig')['pyright'].setup{
+    capabilities = capabilities,
     on_attach = on_attach,
-
     settings = {
         python = {
             analysis = {
@@ -75,7 +62,6 @@ require('lspconfig')['pyright'].setup{
             }
         }
     },
-
     root_dir = function(fname)
         return util.root_pattern(
         ".git",
@@ -89,21 +75,18 @@ require('lspconfig')['pyright'].setup{
 }
 
 -- cpp
-local util = require("lspconfig/util") -- switch to (.) format
 require('lspconfig')['clangd'].setup{
+    capabilities = capabilities,
     on_attach = on_attach,
-
     root_dir = function(fname)
         return util.root_pattern(
-          ".git",
-          ".clangd",
-          ".clang-tidy",
-          ".clang-format",
-          "compile_commands.json",
-          "compile_flags.txt",
-          "configure.ac")(fname) or
+        ".git",
+        ".clangd",
+        ".clang-tidy",
+        ".clang-format",
+        "compile_commands.json",
+        "compile_flags.txt",
+        "configure.ac")(fname) or
         util.path.dirname(fname)
     end
 }
-
-
