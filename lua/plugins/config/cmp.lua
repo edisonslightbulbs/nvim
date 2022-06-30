@@ -35,12 +35,12 @@ cmp.setup({
     }),
 
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'path' },
         --{ name = 'git' },
-        { name = 'nvim_lua' },
-        { name = 'ultisnips' },
-        { name = 'buffer', keyword_length = 5 },
+        { name = 'nvim_lsp', keyword_length = 5 },
+        { name = 'path' , keyword_length = 5},
+        { name = 'nvim_lua' , keyword_length = 5},
+        { name = 'ultisnips' , keyword_length = 5},
+        { name = 'buffer', keyword_length = 5},
     }),
 
     formatting = {
