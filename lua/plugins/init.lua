@@ -19,7 +19,7 @@ local function plug()
         use 'kyazdani42/nvim-tree.lua'
         use 'nvim-telescope/telescope.nvim'
 
-        -- editting
+        -- editting/formatting
         use 'tpope/vim-repeat'
         use 'tpope/vim-surround'
         use 'yggdroot/indentline'
@@ -37,7 +37,6 @@ local function plug()
         use 'hrsh7th/cmp-nvim-lsp'
         use 'onsails/lspkind.nvim'
         use 'SirVer/ultisnips'
-        use 'honza/vim-snippets'
         use 'quangnguyen30192/cmp-nvim-ultisnips'
     end)
 end
