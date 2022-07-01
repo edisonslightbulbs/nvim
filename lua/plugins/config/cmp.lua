@@ -33,12 +33,6 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
         --['<CR>'] = cmp.mapping.complete(),
         --['<ESCAPE>'] = cmp.mapping.abort(),
-        ['<C-n>'] = cmp.mapping(
-        function(fallback)
-            cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-        end,
-        { "i", "s", }
-        ),
     }),
 
     sources = cmp.config.sources({
