@@ -10,13 +10,14 @@ if not status then
     return
 end
 
-local cmp = require'cmp'
+local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+            require('luasnip').lsp_expand(args.body)
         end,
     },
 
@@ -27,20 +28,29 @@ cmp.setup({
 
     mapping = cmp.mapping.preset.insert({
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-        ['<Tab>'] = cmp.mapping.select_next_item(),
+        --['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-j>'] = cmp.mapping.scroll_docs(-1),
         ['<C-k>'] = cmp.mapping.scroll_docs(1),
         ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
         --['<CR>'] = cmp.mapping.complete(),
         --['<ESCAPE>'] = cmp.mapping.abort(),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
     }),
 
     sources = cmp.config.sources({
         --{ name = 'git' },
-        { name = 'nvim_lsp', keyword_length = 4 },
-        { name = 'path' , keyword_length = 5},
-        { name = 'nvim_lua' , keyword_length = 3},
-        { name = 'ultisnips' , keyword_length = 3},
+        { name = 'luasnip'},
+        { name = 'path' , keyword_length = 3},
+        { name = 'nvim_lsp', keyword_length = 5 },
+        { name = 'nvim_lua' , keyword_length = 5},
         { name = 'buffer', keyword_length = 5},
     }),
 
@@ -48,12 +58,12 @@ cmp.setup({
         format = lspkind.cmp_format({
             mode = 'symbol_text',
             menu = {
-                nvim_lsp = "[lsp]",
+                --git = "[git]",
+                luasnip = "[snipp]",
                 path = "[path]",
-                git = "[git]",
+                nvim_lsp = "[lsp]",
                 nvim_lua = "[lua]",
-                ultisnips = "[snipp]",
-                buffer = "[buf]",
+                buffer = "[buff]",
             },
             -- maxwidth = 50,
             --before = function (entry, vim_item)

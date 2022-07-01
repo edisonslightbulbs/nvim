@@ -27,10 +27,9 @@ local function plug()
         use 'Chiel92/vim-autoformat'
 
         -- intellisence
-        use 'L3MON4D3/LuaSnip'
-        use 'rafamadriz/friendly-snippets'
         use 'nvim-treesitter/nvim-treesitter'
         use 'williamboman/nvim-lsp-installer'
+        use 'rafamadriz/friendly-snippets'
         use 'neovim/nvim-lspconfig'
         use 'hrsh7th/nvim-cmp'
         use 'hrsh7th/cmp-path'
@@ -38,6 +37,7 @@ local function plug()
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp'
         use 'onsails/lspkind.nvim'
+        use 'L3MON4D3/LuaSnip'
     end)
 end
 
