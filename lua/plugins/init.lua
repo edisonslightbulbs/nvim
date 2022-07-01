@@ -27,6 +27,8 @@ local function plug()
         use 'Chiel92/vim-autoformat'
 
         -- intellisence
+        use 'L3MON4D3/LuaSnip'
+        use 'rafamadriz/friendly-snippets'
         use 'nvim-treesitter/nvim-treesitter'
         use 'williamboman/nvim-lsp-installer'
         use 'neovim/nvim-lspconfig'
@@ -36,8 +38,6 @@ local function plug()
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp'
         use 'onsails/lspkind.nvim'
-        use 'SirVer/ultisnips'
-        use 'quangnguyen30192/cmp-nvim-ultisnips'
     end)
 end
 
@@ -58,10 +58,9 @@ local function setup()
     require('plugins.config.autoformat')
     require('plugins.config.treesitter')
     require('plugins.config.lspinstaller')
-    require('plugins.config.ultisnipps')
     require('plugins.config.lspconfig')
     --require('plugins.config.supertab')
-    --require('plugins.config.luasnip')
+    require('plugins.config.luasnip')
     require('plugins.config.cmp')
 end
 

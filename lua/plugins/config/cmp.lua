@@ -12,6 +12,7 @@ end
 
 local cmp = require'cmp'
 local lspkind = require('lspkind')
+
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -29,17 +30,23 @@ cmp.setup({
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-j>'] = cmp.mapping.scroll_docs(-1),
         ['<C-k>'] = cmp.mapping.scroll_docs(1),
+        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
         --['<CR>'] = cmp.mapping.complete(),
         --['<ESCAPE>'] = cmp.mapping.abort(),
-        ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-n>'] = cmp.mapping(
+        function(fallback)
+            cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+        end,
+        { "i", "s", }
+        ),
     }),
 
     sources = cmp.config.sources({
         --{ name = 'git' },
-        { name = 'nvim_lsp', keyword_length = 5 },
+        { name = 'nvim_lsp', keyword_length = 4 },
         { name = 'path' , keyword_length = 5},
-        { name = 'nvim_lua' , keyword_length = 5},
-        { name = 'ultisnips' , keyword_length = 5},
+        { name = 'nvim_lua' , keyword_length = 3},
+        { name = 'ultisnips' , keyword_length = 3},
         { name = 'buffer', keyword_length = 5},
     }),
 
@@ -88,4 +95,3 @@ cmp.setup({
             })
         },
     })
-
