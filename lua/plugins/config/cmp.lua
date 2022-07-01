@@ -61,7 +61,7 @@ cmp.setup({
                 --git = "[git]",
                 luasnip = "[snipp]",
                 path = "[path]",
-                nvim_lsp = "[lsp]",
+                nvim_lsp = "[symbol]",
                 nvim_lua = "[lua]",
                 buffer = "[buff]",
             },
