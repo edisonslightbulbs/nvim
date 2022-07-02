@@ -1,7 +1,34 @@
+-- local file = vim.api.nvim_buf_get_name(0)
+-- local nr = vim.api.nvim_get_current_buf()
+
+local function empty(str)
+    -- checks for an empty str
+    return str == nil or str == ""
+end
+
+local function opsys()
+    -- checks operating system
+    if vim.fn.has("unix") == 1 then
+        print("unix")
+    elseif vim.fn.has("win32") == 1 then
+        print("win32")
+    end
+end
+
+function IsNoname()
+    -- checks for a [No Name] buf
+    if vim.bo.modifiable and empty(vim.bo.buftype) and empty(vim.fn.expand("%")) then
+        return true
+    else
+        return false
+    end
+end
+
+
 vim.cmd [[
 function! IsLastWindow()
-""" Checks if current window is last window
-"""
+    """ Checks if current window is last window
+    """
     if winnr() == winnr('$')
         return v:true
     else
@@ -10,8 +37,8 @@ function! IsLastWindow()
 endfunction
 
 function! IsLastBuffer()
-""" Verifies current buffer is last buffer
-"""
+    """ Verifies current buffer is last buffer
+    """
     let l:buffer_count = 0
     for i in range(0, bufnr('$'))
         if buflisted(i)
@@ -36,6 +63,8 @@ function! Writable()
     endif
 endfunction
 
+""""""""""" functions migrated to luascript """""""""""
+
 function! IsNoName()
     """ checks if current buffer is a No Name buffer
     """
@@ -46,12 +75,3 @@ function! IsNoName()
     endif
 endfunction
 ]]
-
--- detect os
-function opsys()
-    if vim.fn.has("unix") == 1 then
-        print("unix")
-    elseif vim.fn.has("win32") == 1 then
-        print("win32")
-    end
-end
