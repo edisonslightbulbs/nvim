@@ -16,6 +16,7 @@ endfunction
 
 map('n', '<S-Tab>', ':bN<CR>', opts)               -- previous buffer
 map('n', '<leader>0', ':edit!', opts)              -- reload buffer << @todo: make auto >>
+map("n", '<leader>o', ':%bd|e#<CR>', opts)         -- cloase all except current buf
 map('n', '<leader><Tab>', ':bn<CR>', opts)         -- next buffer
 map('n', '<leader>d', ':call BuffNav()<CR>', opts) -- delete buffer
-map("n", "<leader>t", ":NvimTreeToggle<CR>", opts) -- toggle
+map("n", '<leader>t', ':NvimTreeToggle<CR>', opts) -- toggle
