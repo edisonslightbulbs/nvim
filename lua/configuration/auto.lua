@@ -1,18 +1,16 @@
--- where elegance meets consistency
-local group = vim.api.nvim_create_augroup("startup", { clear = true })
-vim.api.nvim_create_autocmd("VimEnter", { command = "echo 'Now then, lets get started, shall we?'", group = "startup"})
-
--- concept
+-- EXAMPLE:
+--
 -- vim.api.nvim_create_autocmd("FileType", {
 --     pattern = { "lua", "text"},
 --     callback = function()
 --
---         -- my data table
+--         -- an arbitrary data table
 --         local data = {
 --             buf = vim.fn.expand("<abuf>"),
 --             file = vim.fn.expand("<afile>"),
 --             match = vim.fn.expand("<amatch>"),
 --         }
+--
 --         vim.schedule(function()
 --             print("Hey, we go called")
 --             print(vim.inspect(data))
@@ -20,43 +18,38 @@ vim.api.nvim_create_autocmd("VimEnter", { command = "echo 'Now then, lets get st
 --     end,
 -- })
 
-
+local startup = vim.api.nvim_create_augroup("StartupMessage", {clear = true})
+vim.api.nvim_create_autocmd(
+    "VimEnter",
+    {
+        pattern = "",
+        group = startup,
+        desc = "all systems go",
+        callback = function()
+            if IsNoname then
+                vim.opt.readonly = true
+            end
+            print("Now then, lets get started, shall we?")
+        end
+    }
+)
 
 vim.cmd [[
 " use dir of working buffer
-augroup to_buff_dir
-autocmd!
-autocmd BufEnter * silent! lcd %:p:h
-augroup END
+" augroup to_buff_dir
+" autocmd!
+" autocmd BufEnter * silent! lcd %:p:h
+" augroup END
 
 " silence pesky read only for git diff
-augroup noro_in_diff
-autocmd!
-autocmd BufEnter * if &diff | set noro |endif
-augroup END
-
-" allow external file updates
-augroup check_ext_buff_changes
-autocmd!
-autocmd CursorHold,CursorHoldI,FocusGained,BufEnter * checktime
-augroup END
-
-" allow external file updates
-" augroup update_ext_buff_changes
-"     autocmd!
-"     autocmd BufEnter * silent! execute 'edit!'
+" augroup noro_in_diff
+" autocmd!
+" autocmd BufEnter * if &diff | set noro |endif
 " augroup END
 
-" trim white spaces:
-augroup strip_white_spaces
-autocmd!
-autocmd BufWritePre * %s/\s\+$//e
-augroup END
-
-" line wrapping:
-" augroup wrap_lines
-"     autocmd!
-"     autocmd BufRead,BufNewFile * setlocal textwidth=80
+" allow external file updates
+" augroup check_ext_buff_changes
+" autocmd!
+" autocmd CursorHold,CursorHoldI,FocusGained,BufEnter * checktime
 " augroup END
-
 ]]
