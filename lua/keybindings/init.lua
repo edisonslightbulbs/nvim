@@ -8,7 +8,7 @@ vim.g.mapleader = ';'
 map('n', '<leader>%', ':source % <CR>', opts)      -- source current file
 
 -- yanking
-map('', '<leader><ENTER>', '"k', opts)            -- yank into k (all modes)
+map('', '<leader><ENTER>', '"k', opts)             -- yank into k (all modes)
 
 -- searching
 map('n', '<leader>;', ';',  opts)                  -- repeat find-in-line
