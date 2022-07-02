@@ -60,20 +60,4 @@ require("nvim-tree").setup(
     }
 )
 
-vim.cmd[[
-function! NvimTreeStart()
-if IsNoName()
-    let l:buff = bufname('')
-    silent! execute ':NvimTreeOpen'
-    silent! execute ':BufOnly'
-endif
-endfunction
-
-augroup nvimtree_startup_au
-    autocmd!
-    autocmd VimEnter * :call NvimTreeStart ()
-augroup END
-
-]]
-
 map("n", "<leader>t", ":NvimTreeToggle<CR>", opts) -- toggle
