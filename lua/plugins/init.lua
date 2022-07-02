@@ -48,7 +48,6 @@ local function setup()
     a plugin's state is erroraneous setup is not executed. ]]
     require('plugins.config.repeat')
     require('plugins.config.airline')
-    require('plugins.config.bufonly')
     require('plugins.config.fugitive')
     require('plugins.config.nvimtree')
     require('plugins.custom.autosave')
