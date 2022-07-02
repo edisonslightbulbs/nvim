@@ -20,12 +20,13 @@ end
 
 function IsNoname()
     -- checks for a [No Name] buf
-    if vim.bo.modifiable and empty(vim.bo.buftype) and empty(vim.fn.expand("%")) then
+    if vim.bo.modifiable and empty(vim.bo.buftype) and empty(vim.fn.expand("%")) and empty(vim.bo.filetype) then
         return true
     else
         return false
     end
 end
+
 
 vim.cmd [[
 function! IsLastWindow()
