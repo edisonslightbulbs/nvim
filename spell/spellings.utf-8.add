@@ -7,17 +7,13 @@ bashrc
 bibliographystyle
 bibsamples
 booktitle
-booktitle
 british
 BufferedReader
 citep
 codebase
 combinatory
 conf
-conf
 config
-config
-const
 const
 CPUT
 CSAEMS
@@ -37,7 +33,6 @@ html
 https
 ip
 isbn
-isbn
 isiXhosa
 isiZulu
 issn
@@ -45,17 +40,14 @@ javascript
 JSON
 linux
 Matrikelnummer
-Matrikelnummer
 metadata
 MetadataRebuffer
 microcontroller
-Mitarbeiter
 Mitarbeiter
 MKP
 mondliwethu
 mthunzi
 Mthunzi
-NERDTree
 NERDTree
 ontologies
 OOD
@@ -65,7 +57,6 @@ println
 rebuffering
 RefFactory
 refs
-RequirePackage
 RequirePackage
 softwareupdate
 src
@@ -114,7 +105,6 @@ bg
 colour235
 colour250
 colour016
-tmux
 unbind
 Resizing
 resize
@@ -173,7 +163,6 @@ tex
 stderr
 fRamEwork
 SURFace
-SURFace
 interACtion
 systEms
 SISs
@@ -228,7 +217,6 @@ zeiss
 hachenberg
 fabian
 of
-of
 EE
 Yildiz
 ECSA
@@ -244,7 +232,6 @@ CLion
 A2
 CPP
 resizing
-tmux
 zsh
 init
 keymap
@@ -261,7 +248,6 @@ colour19
 colour0
 colour9
 brightcyan
-brightblack
 brightblack
 tmuxrc
 concretizing
@@ -296,8 +282,6 @@ tikz
 LaTeX2e
 multicols
 flushright
-everettmthunzi
-https
 Curcive
 mthunzi2016
 mthunzi2019
@@ -378,7 +362,6 @@ fsSL
 robbyrussell
 AH3SL3LSDG2JJLAIDWXKNK26QTHMK
 githubusercontent
-sudo
 chown
 whoami
 lfs
@@ -529,10 +512,6 @@ khrplatform
 openGL
 WIP
 Hotspot
-Hotspot
-Hotspot
-Hotspot
-Hotspot
 Unshakey
 taglist
 CMaking
@@ -540,9 +519,7 @@ viewport
 hammer_and_wrench
 gitignore
 pinentry
-config
 submodules
-set
 set
 realname
 smtp
@@ -562,14 +539,12 @@ spoolfile
 mailboxes
 abook
 cachedir
-set
 sendmail
 imap_keepalive
 nosubject
 recieved
 
 attr
-
 nounderscore
 noitalics
 nobold
@@ -577,9 +552,6 @@ nobold
 
 
 dev
-di
-ci
-pinentry
 gnupg
 bowtie
 Vec3
@@ -632,8 +604,6 @@ loadDriverFunction
 openWindow
 closeWindow
 ptrs
-GLFWwindow
-GLFWwindow
 ycm
 jonasdevlieghere
 gc
@@ -661,7 +631,6 @@ polychromatic
 openrazer
 ctags
 citeproc
-fzf
 tty
 build
 libboost
@@ -704,7 +673,6 @@ MTE
 setbufline
 call
 ruby
-ruby
 nl
 noindent
 authorsaddresses
@@ -716,7 +684,6 @@ syntastic
 Shahpaski2017
 Chen2013
 LightYellow
-LightYellow
 cmd
 java11
 printf
@@ -727,7 +694,6 @@ elif
 gpgconf
 gitconfig
 eq
-LightYellow
 Keybinds
 gngpu
 gngpg
@@ -780,7 +746,6 @@ curl
 rustup
 sSf
 snapd
-zsh
 coreutils
 chsh
 pip3
@@ -820,7 +785,6 @@ CriminalMasterMind
 CursorMoved
 MoneyHeist
 endfunction
-autocmd
 keybind
 demarkation
 vsplit
@@ -828,7 +792,6 @@ vnew
 venter_disable_vertsplit
 PCL
 PCLEngine
-pmatrix
 pmatrix
 textwidth
 sdk
@@ -865,7 +828,6 @@ yiw
 toplevel
 Cuda
 CMP0072
-points
 points
 tinyply
 cudaGLSetGLDevice
@@ -966,7 +928,6 @@ LGC
 RMSE
 epipolar
 buffer
-buffer
 homography
 photometric
 popup
@@ -974,7 +935,6 @@ PmenuSbar
 PmenuThumb
 libtrace
 rhs
-3D
 goyo
 vimtext
 nerdtree
@@ -999,7 +959,6 @@ nav
 gflags
 glog
 OTHERLIBSHERE
-cmake
 YcmCompleter
 GoToReferences
 GoToInclude
@@ -1008,8 +967,6 @@ RandInt
 dfatal
 argv
 dbg
-glog
-glog
 logtostderr
 cmakegen
 Findglog
@@ -1042,7 +999,6 @@ ove
 MvFile
 MkFileFunction
 RmFileFunction
-PmenuThumb
 romainl
 f91fa40533175dfaec4c833f2f
 BufferState
@@ -1068,7 +1024,6 @@ err34
 dcl58
 dcl21
 dcl03
-cppcoreguidelines
 cppcoreguidelines
 bitwise
 baseclass
@@ -1111,12 +1066,10 @@ BufferTransitions
 workflow
 autosave
 YOLO
-vim
 plugins
 plugin
 IsModifiable
 IsNERDTree
-vim
 Zhang2000
 Anwar2012
 Moreno2012
@@ -1161,7 +1114,6 @@ Tsais
 goolge
 Mod4
 bindsym
-bindsym
 i3
 HDMI
 ws2
@@ -1194,15 +1146,12 @@ cmdtest
 libgflags
 libgoogle
 pomodoro
-zsh
-vim
 aptPackages
 snapPackages
 pipPackages
 npnPackages
 npmPackages
 py3Packages
-aptPackages
 xmobar
 refactor
 vnoremap
@@ -1273,11 +1222,7 @@ interpretability
 ctex
 findMain
 grep
-mondliwethu
-mondliwethu
-mondliwethu
 Rodehorst
-mondliwethu
 weimar
 habil
 rodehorst
@@ -1324,7 +1269,6 @@ Bergmann1995
 Boroomand2016
 Ashdown2004
 Okatani2005
-Kimura2007
 Griesser2006
 Juang2007
 Martynov2011
@@ -1357,7 +1301,6 @@ wakho
 umbono
 techonologies
 uint8
-k4a
 brm
 test2
 matrixA
@@ -1377,7 +1320,6 @@ cz
 nonstopmode
 Defence
 pluginconfig
-vim
 ransac
 Circas
 uchar
@@ -1463,9 +1405,7 @@ metamodeling
 ISIs
 Kaltenbrunner2015
 iCAP
-iCAP
 GISpL
-iCAP
 Echtler2012
 Bardram2004
 Kin2012
@@ -1476,7 +1416,6 @@ neighbours
 neighbourhoods
 ENF
 iCap
-reacTIVision
 knn
 currfiledir
 icap
@@ -1490,7 +1429,6 @@ ep
 templating
 tablature
 tablatures
-iCAP
 neighbour
 Rationalizable
 middleware
@@ -1527,7 +1465,6 @@ case2
 case3
 case4
 case5
-case5
 case6
 case7
 Likert
@@ -1559,8 +1496,6 @@ Denoising
 denoising
 preprocesses
 IMU
-Fujita2019
-Fujita2019
 Wallbridge2017
 Rahman2019
 Mousavian2017
@@ -1580,7 +1515,6 @@ tikzpicture
 dont
 undivulged
 RQs
-iCAP
 R2
 R3
 R4
@@ -1707,9 +1641,6 @@ Wilson2010a
 Interactable
 interactable
 Neovim
-vim
-vim
-vim
 neovim
 and
 print0
@@ -1894,12 +1825,6 @@ introductionfalse
 introductiontrue
 conclusiontrue
 conclusionfalse
-introductionfalse
-backmatterfalse
-mainmatterfalse
-frontmatterfalse
-conclusiontrue
-introductiontrue
 mainmattertrue
 backmattertrue
 frontmattertrue
@@ -1935,7 +1860,6 @@ outlookfalse
 manuscriptoutlookfalse
 manuscriptoutlooktrue
 makealetter
-matter
 matter
 Toolset
 floech
@@ -2116,7 +2040,6 @@ Postanschriffct
 LightSpace
 Beamatron
 numpages
-mthunzi2021a
 mthunzi2021d
 outroduction
 mthunzi2021ACMc
@@ -2161,15 +2084,11 @@ getschmann2021
 multibbl
 bibcmds
 error
-error
-error
-error
 myblue
 man3
 imageonly
 GPUs
 impactful
-faith
 faith
 listofrepositories
 newenvironment
@@ -2195,7 +2114,6 @@ qtree
 Nadin
 labelImg
 cleanfiles
-vim
 rsync
 dst
 xbar
@@ -2267,10 +2185,8 @@ basedir
 spelldir
 spellfile
 stdpath
-stdpath
 utf
 filetype
-cmd
 iskeyword
 whichwrap
 unnamedplus
