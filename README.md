@@ -2,7 +2,7 @@
 
 ##### @todo finish `lua` migration
 
--   [ ] color-schemes
+-   [x] color-schemes
 -   [ ] configuration
 -   [ ] keybindings
 -   [ ] plugins
