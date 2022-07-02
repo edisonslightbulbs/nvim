@@ -2,7 +2,7 @@ local settings = {
     termguicolors = true, -- use gui colors
     colorcolumn = "65,80", -- show column highlight @ lines [65, 80]
     background = "dark", -- background color
-    syntax = "on" -- highlight syntax based on filetype
+    -- syntax = "on" -- highlight syntax based on filetype
 }
 
 for k, v in pairs(settings) do
