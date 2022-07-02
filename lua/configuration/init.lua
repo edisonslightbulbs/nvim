@@ -1,10 +1,10 @@
-
 local settings = {
     -- file handling
     autoread = true,         -- auto read ext. modified files
     backup = false,          -- create backup files
     writebackup = false,     -- create backup before writing a file
     swapfile = true,         -- create swap files
+    encoding = "utf-8",      -- encoding
     fileencoding = "utf-8",  -- encoding for written files
 
     -- ignore patterns
@@ -33,6 +33,12 @@ local settings = {
     wrap = true,             -- wrap @ line 80
     foldenable = false,      -- disable folding
 
+    --spell
+    spell = true,            -- check spellings
+    spellcapcheck= "",       -- no cap check
+    spelllang = "en_us",     -- spell language
+    spellfile = JoinPath(vim.fn.stdpath("config"),  "spell",  "spellings.utf-8.add"),
+
     -- status line
     laststatus = 2,          -- show status
     cmdheight = 2,           -- cmd message height
@@ -59,12 +65,6 @@ end
 vim.cmd [[ set clipboard+=unnamedplus ]] -- clipboard
 vim.cmd [[ set iskeyword+=- ]]           -- add '-' to  keyword match
 vim.cmd [[ set whichwrap+=<,>[,],h,l ]]  -- allow wrapping with keys
-
--- syntax highlighting
-vim.cmd [[
-    filetype indent on
-    filetype plugin on
-]]
 
 require('configuration.hosts')
 require('configuration.auto')
