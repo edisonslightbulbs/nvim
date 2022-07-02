@@ -1,18 +1,21 @@
 -- local file = vim.api.nvim_buf_get_name(0)
 -- local nr = vim.api.nvim_get_current_buf()
 
+function JoinPath(...)
+    -- cross platform paths
+    local sep = ''
+    if vim.fn.has("unix") == 1 then
+        sep = '/'
+    elseif vim.fn.has("win32") == 1 then
+        sep = '\\'
+    end
+    local joined = table.concat({...}, sep)
+    return joined
+end
+
 local function empty(str)
     -- checks for an empty str
     return str == nil or str == ""
-end
-
-local function opsys()
-    -- checks operating system
-    if vim.fn.has("unix") == 1 then
-        print("unix")
-    elseif vim.fn.has("win32") == 1 then
-        print("win32")
-    end
 end
 
 function IsNoname()
@@ -23,7 +26,6 @@ function IsNoname()
         return false
     end
 end
-
 
 vim.cmd [[
 function! IsLastWindow()
