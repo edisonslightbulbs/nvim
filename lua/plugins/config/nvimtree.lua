@@ -44,7 +44,8 @@ require("nvim-tree").setup(
         },
         filters = {
             dotfiles = false,
-            exclude = {"*.metainfo", "*.py.lock"}
+            exclude = {"*.metainfo", "*.py.lock"},
+            custom = {"autoload", "autosave", "plugin", "spell", ".git"}
         },
         update_focused_file = {
             enable = false,
