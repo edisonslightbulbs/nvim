@@ -2303,3 +2303,11 @@ colorcolumn
 infynity
 onewest
 ret
+WorkDir
+SetWorkDir
+workdir
+WinEnter
+BufWinEnter
+BufReadPre
+WinLeave
+FileChangedShell
