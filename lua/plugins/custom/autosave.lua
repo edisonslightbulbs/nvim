@@ -13,7 +13,7 @@ end
 
 local autosave = vim.api.nvim_create_augroup("AutoSave", {clear = true})
 vim.api.nvim_create_autocmd(
-    {"TextChanged", "InsertLeave", "BufLeave", "VimLeavePre"},
+    {"TextChanged", "InsertLeave", "BufLeave", "VimLeavePre", "WinLeave", "TextChangedI"},
     {
         pattern = "*",
         group = autosave,
@@ -23,7 +23,6 @@ vim.api.nvim_create_autocmd(
         end
     }
 )
-
 
 -- deactivates autosave plugin
 function NoAutoSave()
@@ -38,7 +37,6 @@ end
 -- autocmd!
 -- autocmd BufReadPost * : call NoAutoSave()
 -- augroup END
-
 
 local undodir = JoinPath(vim.fn.stdpath("config"), "autosave", "undo")
 if vim.fn.isdirectory(undodir) == 0 then
