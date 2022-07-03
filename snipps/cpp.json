@@ -1,0 +1,27 @@
+{
+    "class doc": {
+        "prefix": "cdoc",
+        "body": [
+            "/**",
+            " * @file ${1:file}.h",
+            " * @b Brief",
+            " *    ${2:a brief description}",
+            " *",
+            " * @b Description",
+            " *    ${3:a detailed description}",
+            " *",
+            " * @b Rationale",
+            " *    ${4:rationale}",
+            " *",
+            " * @b Resource",
+            " *    <${5:ref}>",
+            " *",
+            " * @b Notes",
+            " *    @version: 1.2",
+            " *    @author : Everett",
+            " *    @date: ${6:date & time }",
+            " */"
+        ],
+        "description": "Code snippet for class doc"
+    }
+}
