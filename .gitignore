@@ -1,3 +1,5 @@
+*.cpp
+
 autoload/
 autosave/
 plugged/
