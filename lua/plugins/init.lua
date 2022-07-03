@@ -49,6 +49,7 @@ local function setup()
     executing setup commands. The pcalls run un-interrupted. If
     a plugin's state is erroneous setup is not executed. ]]
     require("plugins.config.repeat")
+    require("plugins.custom.bufonly")
     require("plugins.config.airline")
     require("plugins.config.fugitive")
     require("plugins.config.nvimtree")
