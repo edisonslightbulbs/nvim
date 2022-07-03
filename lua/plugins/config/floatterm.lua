@@ -1,21 +1,20 @@
-vim.cmd [[
-if has('unix')
-    let g:floaterm_shell='zsh'
-endif
+local shell = ""
+if vim.fn.has("unix") == 1 then
+    shell = "/bin/zsh"
+elseif vim.fn.has("macunix") == 1 then
+    shell = "/usr/bin/zsh"
+end
 
-let g:floaterm_wintitle=v:false
+if vim.fn.has("win32") == 1 then
+else
+    vim.api.nvim_command("let g:floaterm_shell='zsh'")
+end
 
-" use zsh
-function! TermShell()
-    if has('macunix')
-        set shell=/bin/zsh
-    elseif has('unix')
-        set shell=/usr/bin/zsh
-    endif
-endfunction
+vim.api.nvim_command("let g:floaterm_wintitle=v:false")
 
-" use gruvbox color palette
-function! TermColors()
+-- gruvbox colors
+local function gruvbox()
+    vim.cmd [[
     let g:terminal_ansi_colors = [
                 \'#282828',
                 \'#cc241d',
@@ -33,24 +32,15 @@ function! TermColors()
                 \'#d3869b',
                 \'#8ec07c',
                 \'#ebdbb2']
-endfunc
-
-
-"" Config
-"    Settings for floating term environment
-function! Configure()
-endfunction
-
-
-"" CallFloatTerm
-"    Call floating window
-function! CallFloatTerm()
-    call Configure()
-    if has('nvim')
-        FloatermNew --height=0.8 --width=0.8 --wintype=floating --name=terminalwin
-    else
-        execute 'vert term'
-    endif
-endfunction
-nnoremap <silent><C-O> :call CallFloatTerm()<CR>
 ]]
+end
+
+function Floatterm()
+    gruvbox()
+    vim.api.nvim_command("FloatermNew --height=0.8 --width=0.8 --wintype=floating --name=terminalwin --autoclose=1")
+end
+
+local map = vim.api.nvim_set_keymap
+local opts = {noremap = true, silent = true}
+
+map("n", "<C-o>", ":lua Floatterm()<CR>", opts)
