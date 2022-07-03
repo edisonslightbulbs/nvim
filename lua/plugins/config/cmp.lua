@@ -30,7 +30,7 @@ cmp.setup({
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
         --['<Tab>'] = cmp.mapping.select_next_item(),
         ['<C-j>'] = cmp.mapping.scroll_docs(-1),
-        ['<C-h>'] = cmp.mapping.scroll_docs(1),
+        --['<C-h>'] = cmp.mapping.scroll_docs(1),
         ['<C-Space>'] = cmp.mapping.confirm({ select = true }),
         --['<CR>'] = cmp.mapping.complete(),
         --['<ESCAPE>'] = cmp.mapping.abort(),
