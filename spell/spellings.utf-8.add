@@ -2259,7 +2259,6 @@ buflisted
 bo
 ReloadModifiedFiles
 nvim_create_augroup
-nvim_create_augroup
 nvim_create_autocmd
 if
 buf
@@ -2269,7 +2268,6 @@ FocusGained
 BufEnter
 nvim_command
 checktime
-nvim_command
 noro
 ReloadFiles
 noreadonly
@@ -2281,7 +2279,6 @@ mapleader
 Repword
 noautosave
 au
-IsLastWindow
 nvimtree
 floatterm
 lspinstaller
@@ -2289,17 +2286,13 @@ luasnip
 IsLastBuf
 bufcount
 winnr
-IsLastBuf
-buflisted
 fn
 bufloaded
-IsWritable
 IsNvimTree
 NvimTree
 buftype
 IsSavable
 winsaveview
-winrestview
 winrestview
 NoAutoSave
 undofile
