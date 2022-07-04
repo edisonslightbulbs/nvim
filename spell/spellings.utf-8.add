@@ -2312,3 +2312,15 @@ BufReadPre
 WinLeave
 FileChangedShell
 unlogged
+cerr
+exc
+msg
+outfile
+td
+ReadCache
+anno
+UpdateCacheMetaInfo
+idx
+GetNext
+LoadCache
+voxel
