@@ -13,7 +13,7 @@ end
 
 local autosave = vim.api.nvim_create_augroup("AutoSave", {clear = true})
 vim.api.nvim_create_autocmd(
-    {"TextChanged", "InsertLeave", "BufLeave", "VimLeavePre", "WinLeave", "TextChangedI"},
+    {"TextChanged", "InsertLeave", "BufLeave", "VimLeavePre", "WinLeave"},
     {
         pattern = "*",
         group = autosave,
