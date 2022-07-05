@@ -2,31 +2,12 @@ local settings = {
     termguicolors = true,  -- use gui colors
     colorcolumn = "65,80", -- show column highlight @ lines [65, 80]
     background = "dark"    -- background color
-    -- syntax = "on"          -- highlight syntax based on filetype
 }
-
 for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
 local augroup = vim.api.nvim_create_augroup("BaseColorScheme", {clear = true})
-
--- hint: highlight options
---   fg = "",
---   bg = "black",
---   ctermbg = "",
---   ctermfg = "",
---   bold = false,
---   standout = false,
---   underline = false,
---   underlineline = false,
---   undercurl = false,
---   underdot = false,
---   underdash = false,
---   strikethrough = false,
---   italic = false,
---   reverse = false,
---   nocombine = false
 
 vim.api.nvim_create_autocmd(
     "ColorScheme",
@@ -385,33 +366,21 @@ vim.api.nvim_create_autocmd(
     }
 )
 
--- vim.api.nvim_create_autocmd(
---     "ColorScheme",
---     {
---         pattern = "",
---         group = augroup,
---         desc = "cursor highlight",
---         callback = function()
---             vim.api.nvim_set_hl(
---                 0,
---                 "Cursor",
---                 {
---                     fg = "White",
---                     bg = "Red",
---                     bold = true
---                 }
---             )
---             vim.api.nvim_set_hl(
---                 0,
---                 "iCursor",
---                 {
---                     fg = "White",
---                     bg = "Red",
---                     bold = true
---                 }
---             )
---         end
---     }
--- )
-
 require("color-schemes.gruvbox")
+
+-- hint: highlight options
+--   fg = "",
+--   bg = "black",
+--   ctermbg = "",
+--   ctermfg = "",
+--   bold = false,
+--   standout = false,
+--   underline = false,
+--   underlineline = false,
+--   undercurl = false,
+--   underdot = false,
+--   underdash = false,
+--   strikethrough = false,
+--   italic = false,
+--   reverse = false,
+--   nocombine = false
