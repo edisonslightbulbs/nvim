@@ -41,8 +41,7 @@ vim.api.nvim_create_autocmd(
 
 local workdir = vim.api.nvim_create_augroup("SetWorkDir", {clear = true})
 vim.api.nvim_create_autocmd(
-    --{"BufEnter", "BufReadPre", "BufWinEnter", "WinEnter"},
-    {"BufEnter"},
+    {"BufEnter", "TextChanged"},
     {
         pattern = "*",
         group = workdir,
