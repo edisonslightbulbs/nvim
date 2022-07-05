@@ -2324,3 +2324,13 @@ idx
 GetNext
 LoadCache
 voxel
+BaseColorScheme
+nvim_create_augroup
+underlineline
+undercurl
+underdot
+underdash
+strikethrough
+nocombine
+TermOpen
+WinNew
