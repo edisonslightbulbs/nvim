@@ -5,8 +5,8 @@ local opts = { noremap = true, silent = true }
 -- leader
 vim.g.mapleader = ';'
 
--- souro init.luasourcede current buffer
-map('n', '<space>5', ':source % <CR>', opt)
+-- source
+map('n', '<space>5', ':source % | echo bufname() "sourced successfully" <CR>', opt)
 
 -- yanking
 map('', '<leader><ENTER>', '"k', opts)             -- yank into k (all modes)
