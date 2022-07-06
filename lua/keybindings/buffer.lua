@@ -1,6 +1,3 @@
-local map =  vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
-
 vim.cmd[[
 function! BuffNav()
     if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
@@ -13,6 +10,9 @@ function! BuffNav()
     endif
 endfunction
 ]]
+
+local map =  vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
 map('n', '<S-Tab>', ':bN<CR>', opts)               -- previous buffer
 map('n', '<leader>0', ':edit!', opts)              -- reload buffer << @todo: make auto >>
