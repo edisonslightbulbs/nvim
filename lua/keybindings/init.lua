@@ -1,11 +1,12 @@
 local map =  vim.api.nvim_set_keymap
+local opt = { noremap = true, silent = false }
 local opts = { noremap = true, silent = true }
 
 -- leader
 vim.g.mapleader = ';'
 
--- source
-map('n', '<leader>%', ':source % <CR>', opts)      -- source current file
+-- souro init.luasourcede current buffer
+map('n', '<space>5', ':source % <CR>', opt)
 
 -- yanking
 map('', '<leader><ENTER>', '"k', opts)             -- yank into k (all modes)
