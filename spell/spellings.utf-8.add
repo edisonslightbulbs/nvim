@@ -2351,3 +2351,9 @@ DLL
 PyInstaller
 pytests
 pathlib
+shutil
+formatter
+logname
+dirname
+basename
+isfile
