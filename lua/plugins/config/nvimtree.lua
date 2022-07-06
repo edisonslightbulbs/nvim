@@ -61,4 +61,4 @@ require("nvim-tree").setup(
     }
 )
 
-map("n", "<leader>t", ":NvimTreeToggle<CR>", opts) -- toggle
+map("n", "<leader><Space>", ":NvimTreeToggle<CR>", opts) -- toggle
