@@ -48,7 +48,7 @@ require("nvim-tree").setup(
             custom = {"autoload", "spell"}
         },
         update_focused_file = {
-            enable = false,
+            enable = true,
             update_cwd = true,
             update_root = true,
             ignore_list = {}
@@ -61,4 +61,4 @@ require("nvim-tree").setup(
     }
 )
 
-map("n", "<leader><Space>", ":NvimTreeToggle<CR>", opts) -- toggle
+map("n", "<leader><Space>", ":NvimTreeToggle<CR>", opts)
