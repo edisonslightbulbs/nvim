@@ -6,16 +6,15 @@ end
 
 require("telescope").setup {}
 
-local function root()
-    local handle = assert(io.popen("git rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r"))
-    local str = handle:read("*all")
-    handle:close()
-    local path = string.gsub(str, "%s+", "")
-    return path
-end
-
 local telescope_opts = {
-    cwd = root(),
+    cwd = git_root(),
+    file_ignore_patterns = {
+        "^.git/",
+        "^build/",
+        "%.metainfo",
+        "^autosave/",
+        "^deprecated/"
+    },
     hidden = true,
     no_ignore = true
 }
