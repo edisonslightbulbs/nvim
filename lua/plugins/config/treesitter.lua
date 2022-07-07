@@ -6,7 +6,7 @@ local status, ret = pcall(require, "nvim-treesitter.configs")
 
 require'nvim-treesitter.configs'.setup {
   -- parsers
-  ensure_installed = {"c", "cpp", "bash", "cmake", "lua", "make", "markdown", "python", "vim", "yaml" },
+  ensure_installed = {"c", "cpp", "bash", "cmake", "lua", "make", "python", "vim", "yaml" },
   sync_install = false,
 
   highlight = {
@@ -21,3 +21,4 @@ require'nvim-treesitter.configs'.setup {
 -- folding
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
