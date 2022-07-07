@@ -1,5 +1,5 @@
 -- joins paths (cross platform)
-function JoinPath(...)
+_G.join_path = function(...)
     local sep = ""
     if vim.fn.has("unix") == 1 then
         sep = "/"
@@ -11,12 +11,12 @@ function JoinPath(...)
 end
 
 -- checks for an empty str
-local function empty(str)
+_G.empty = function(str)
     return str == nil or str == ""
 end
 
 -- checks for a [No Name] buf
-function IsNoname()
+_G.noname = function()
     if vim.bo.modifiable and empty(vim.bo.buftype) and empty(vim.fn.expand("%")) and empty(vim.bo.filetype) then
         return true
     else
@@ -24,14 +24,14 @@ function IsNoname()
     end
 end
 
--- checks if current tab is the last tab
-function IsLastTab()
+-- @todo: checks if current tab is the last tab
+_G.lastab = function()
     return true
 end
 
--- checks if current win is the last window
-function IsLastWin()
-    if IsLastTab() then
+-- @todo: checks if current win is the last window
+_G.lastwin = function()
+    if lastab() then
         if vim.fn.winnr() == vim.fn.winnr("$") then
             return true
         else
@@ -42,9 +42,9 @@ function IsLastWin()
     end
 end
 
--- checks if current buf is the last buf [@todo: buggy implementation]
-function IsLastBuf()
-    if IsLastWin() then
+-- @todo: checks if current buf is the last buf [@todo: buggy implementation]
+_G.lastbuf = function()
+    if lastwin() then
         local bufcount = 0
         for buf = 0, vim.fn.bufnr("$"), 1 do
             if vim.fn.buflisted(buf) == 1 and vim.fn.bufloaded(buf) == 1 and vim.fn.empty(vim.fn.win_findbuf(buf)) == 1 then
@@ -64,8 +64,8 @@ function IsLastBuf()
     end
 end
 
-function IsWritable()
-    -- checks if current buffer is writable
+-- checks if current buffer is writable
+_G.writable = function()
     if vim.bo.modifiable and empty(vim.bo.buftype) and not empty(vim.bo.filetype) then
         return true
     else
@@ -73,8 +73,8 @@ function IsWritable()
     end
 end
 
-function IsNvimTree()
-    -- checks if current buffer NvimTree
+-- checks if current buffer NvimTree
+_G.nvtree = function()
     if vim.bo.filetype == "NvimTree" then
         return true
     else
@@ -82,11 +82,34 @@ function IsNvimTree()
     end
 end
 
-function IsSavable()
-    -- checks if current buffer is a working/savable buffer
-    if IsWritable() and not IsNvimTree() and not IsNoname() then
+-- checks if current buffer is writable
+_G.savable = function()
+    if writable() and not nvtree() and not noname() then
         return true
     else
         return false
     end
+end
+
+-- recursively finds a git root directory regardless of submodules nested git repos
+_G.git_root = function()
+    local handle = assert(io.popen("git rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r"))
+    local str = handle:read("*all")
+    handle:close()
+    local path = string.gsub(str, "%s+", "")
+
+    local parentdir = join_path(path, "..")
+
+    handle =
+        assert(
+        io.popen("git -C " .. parentdir .. " rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r")
+    )
+    str = handle:read("*all")
+    handle:close()
+    local super = string.gsub(str, "%s+", "")
+
+    if not empty(super) then
+        return super
+    end
+    return path
 end

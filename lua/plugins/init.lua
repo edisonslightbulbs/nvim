@@ -67,7 +67,7 @@ local function setup()
 end
 
 local sync = false
-local target = JoinPath(vim.fn.stdpath("data"), "site", "pack", "packer", "start", "packer.nvim")
+local target = join_path(vim.fn.stdpath("data"), "site", "pack", "packer", "start", "packer.nvim")
 
 if vim.fn.isdirectory(target) == 0 then
     vim.fn.system {"git", "clone", "https://github.com/wbthomason/packer.nvim", target}
