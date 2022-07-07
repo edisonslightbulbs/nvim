@@ -37,7 +37,7 @@ local settings = {
     spell = true,            -- check spellings
     spellcapcheck= "",       -- no cap check
     spelllang = "en_us",     -- spell language
-    spellfile = JoinPath(vim.fn.stdpath("config"), "spell", "spellings.utf-8.add"),
+    spellfile = join_path(vim.fn.stdpath("config"), "spell", "spellings.utf-8.add"),
 
     -- status line
     laststatus = 2,          -- show status

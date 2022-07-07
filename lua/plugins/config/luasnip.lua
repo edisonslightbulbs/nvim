@@ -9,5 +9,5 @@ require("luasnip.loaders.from_vscode").lazy_load()
 require "luasnip".filetype_extend("cpp", {"cpp"})
 
 -- load custom snippets
-local snippets = JoinPath(vim.fn.stdpath("config"), "snipps")
+local snippets = join_path(vim.fn.stdpath("config"), "snipps")
 require("luasnip.loaders.from_vscode").lazy_load({paths = {snippets}})
