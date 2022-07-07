@@ -4,22 +4,32 @@ if not status then
     return
 end
 
-require('telescope').setup{
-    no_ignore = true,
+require("telescope").setup {}
+
+local function root()
+    local handle = assert(io.popen("git rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r"))
+    local str = handle:read("*all")
+    handle:close()
+    local path = string.gsub(str, "%s+", "")
+    return path
+end
+
+local telescope_opts = {
+    cwd = root(),
+    hidden = true,
+    no_ignore = true
 }
 
-local map =  vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+_G.telescope_live_grep = function()
+    require("telescope.builtin").live_grep(telescope_opts)
+end
 
--- search git project (honor .gitignore)
-map('n', 'tr', ':Telescope git_files <CR>', opts)
+_G.telescope_find_files = function()
+    require("telescope.builtin").find_files(telescope_opts)
+end
 
--- search git project (disregard .gitignore)
-map('n', 'tg', ':Telescope live_grep <CR>', opts)
+local map = vim.api.nvim_set_keymap
+local opts = {noremap = true, silent = true}
 
--- search git project (disregard .gitignore)
-map('n', 'tf', '<cmd>lua require("telescope.builtin").find_files({ no_ignore = true })<CR>', opts)
-
---[[ { no_ignore = true }
-       show files ignored by .gitignore,.ignore, etc. (default: false)
---]]
+map("n", "tg", ":lua telescope_live_grep()<CR>", opts)
+map("n", "tf", ":lua telescope_find_files()<CR>", opts)
