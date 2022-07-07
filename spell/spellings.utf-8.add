@@ -2373,3 +2373,9 @@ dirname
 basename
 isfile
 os
+superproject
+dir
+live_grep
+find_files
+tg
+root
