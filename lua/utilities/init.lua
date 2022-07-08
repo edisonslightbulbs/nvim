@@ -91,25 +91,33 @@ _G.savable = function()
     end
 end
 
+-- strips spaces from a string
+_G.strip = function(str)
+    local stripped =string.gsub(str, "%s+", "")
+    return stripped
+end
+
+-- fix seperator on win32
+_G.win32_sep = function(str)
+    if vim.fn.has("win32") == 1 then
+        str = string.gsub(str, "/", "\\")
+    end
+    return str
+end
+
 -- recursively finds a git root directory regardless of submodules nested git repos
 _G.git_root = function()
-    local handle = assert(io.popen("git rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r"))
-    local str = handle:read("*all")
-    handle:close()
-    local path = string.gsub(str, "%s+", "")
 
-    local parentdir = join_path(path, "..")
+    local root = vim.fn.system('git rev-parse --show-superproject-working-tree --show-toplevel | head -1')
+    root = strip(root)
 
-    handle =
-        assert(
-        io.popen("git -C " .. parentdir .. " rev-parse --show-superproject-working-tree --show-toplevel | head -1", "r")
-    )
-    str = handle:read("*all")
-    handle:close()
-    local super = string.gsub(str, "%s+", "")
+    local parentdir = join_path(root..'/..')
+    parentdir = win32_sep(parentdir)
 
-    if not empty(super) then
-        return super
+    local super = vim.fn.system('git -C '..parentdir..' rev-parse --show-superproject-working-tree --show-toplevel | head -1')
+
+    if string.match(super, 'not a git') then
+        return root
     end
-    return path
+    return super
 end
