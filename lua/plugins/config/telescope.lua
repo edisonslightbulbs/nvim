@@ -11,6 +11,10 @@ local telescope_opts = {
     file_ignore_patterns = {
         "^.git/",
         "^build/",
+        "^.cache/",
+        "^./.cache/",
+        "^./.git/",
+        "^./build/",
         "%.metainfo",
         "^autosave/",
         "^deprecated/"
