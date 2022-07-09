@@ -2325,7 +2325,6 @@ GetNext
 LoadCache
 voxel
 BaseColorScheme
-nvim_create_augroup
 underlineline
 undercurl
 underdot
@@ -2347,8 +2346,6 @@ Ruby30
 x64
 Python37
 win32
-has
-cmd
 os
 getframeinfo
 currentframe
@@ -2372,7 +2369,6 @@ logname
 dirname
 basename
 isfile
-os
 superproject
 dir
 live_grep
@@ -2400,17 +2396,13 @@ pytest
 tdata
 dirs
 git_root
-git_root
 savable
 lastbuf
 lastwin
 lastab
 noname
-lastab
 ausave
 noausave
-ausave
-ausave
 parsers
 yaml
 foldexpr
@@ -2420,7 +2412,6 @@ nvtree
 BufReadPost
 bufsave
 nobufsave
-git_root
 metainfo
 parentdir
 subprocess
@@ -2429,3 +2420,11 @@ AddTrainData
 RemoveTrainData
 voxels
 devops
+vscode
+mcdoc
+mdoc
+classname
+adoc
+IQSX
+cdoc
+arg
