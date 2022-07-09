@@ -3,7 +3,6 @@ if not status then
     print("-- something went wrong while setting up telescope!")
     return
 end
-
 require("telescope").setup {}
 
 local telescope_opts = {
@@ -31,8 +30,14 @@ _G.telescope_find_files = function()
     require("telescope.builtin").find_files(telescope_opts)
 end
 
+_G.telescope_find_snippets = function()
+    local snippets = join_path(vim.fn.stdpath("config"), "snipps")
+    require("telescope.builtin").find_files({search_dirs = {snippets}})
+end
+
 local map = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true}
 
 map("n", "tg", ":lua telescope_live_grep()<CR>", opts)
 map("n", "tf", ":lua telescope_find_files()<CR>", opts)
+map("n", "ts", ":lua telescope_find_snippets()<CR>", opts)
