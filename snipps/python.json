@@ -1,0 +1,63 @@
+{
+    "author doc": {
+        "prefix": "adoc",
+        "body": [
+            "\"\"\"",
+            "\t@author    : ZEISS IQSX",
+            "\t@contact   : everett.mthunzi@zeiss.com",
+            "\t@license   : Proprietary License",
+            "\t@date      : ${1:02 Jun. 2022}",
+            "\t@version   : ${2:0.2} Beta",
+            "\t@status    : Production",
+            "\"\"\""
+        ],
+        "description": "author doc"
+    },
+    "class doc": {
+        "prefix": "cdoc",
+        "body": [
+            "\"\"\"",
+            "\t@class ${1:class name}",
+            "\t",
+            "\t@brief",
+            "\t  ${2:a brief description}",
+            "\t",
+            "\t@description",
+            "\t  ${3:a detailed description}",
+            "\t",
+            "\t@${4:members}",
+            "\t  ${5:a} (${6:type}): ${7:description} ",
+            "\t  ${8:b} (${9:type}): ${10:description} ",
+            "\t",
+            "\t@${11:methods}",
+            "\t  (${12:ret type}) ${13:member name}: (${14:type}, ${15:type}, ${16:type}) ",
+            "\t  (${17:ret type}) ${18:member name}: (${19:type}, ${20:type}, ${21:type}) ",
+            "\"\"\""
+        ],
+        "description": "class doc"
+    },
+    "method doc": {
+        "prefix": "mdoc",
+        "body": [
+            "\"\"\"",
+            "\t@method ${1:method name}",
+            "\t",
+            "\t@brief",
+            "\t  ${2:a brief description}",
+            "\t",
+            "\t@description",
+            "\t  ${3:a detailed description}",
+            "\t",
+            "\t@${4:params}",
+            "\t ${5:a} (${6:type}): ${7:description} ",
+            "\t",
+            "\t@${8:params}",
+            "\t ${9:b} (${10:type}): ${11:description} ",
+            "\t",
+            "\t@${12:rtype}",
+            "\t  (${13:type}) ${14:description} ",
+            "\"\"\""
+        ],
+        "description": "method doc"
+    }
+}

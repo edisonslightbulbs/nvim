@@ -8,6 +8,22 @@
       {
         "language": "cpp",
         "path": "./cpp.json"
+      },
+      {
+        "language": "cmake",
+        "path": "./cmake.json"
+      },
+      {
+        "language": "cpp",
+        "path": "./cpp.json"
+      },
+      {
+        "language": "lua",
+        "path": "./lua.json"
+      },
+      {
+        "language": "python",
+        "path": "./python.json"
       }
     ]
   }

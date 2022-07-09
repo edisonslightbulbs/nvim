@@ -1,27 +1,63 @@
 {
+    "author doc": {
+        "prefix": "adoc",
+        "body": [
+            "/**",
+            " * @author    : ZEISS IQSX",
+            " * @contact   : everett.mthunzi@zeiss.com",
+            " * @license   : Proprietary License",
+            " * @date      : ${1:02 Jun. 2022}",
+            " * @version   : ${2:0.2} Beta",
+            " * @status    : Production",
+            " */"
+        ],
+        "description": "author doc"
+    },
     "class doc": {
         "prefix": "cdoc",
         "body": [
             "/**",
-            " * @file ${1:file}.h",
-            " * @b Brief",
-            " *    ${2:a brief description}",
+            " * @class ${1:class name}",
             " *",
-            " * @b Description",
-            " *    ${3:a detailed description}",
+            " * @brief",
+            " *   ${2:a brief description}",
             " *",
-            " * @b Rationale",
-            " *    ${4:rationale}",
+            " * @description",
+            " *   ${3:a detailed description}",
             " *",
-            " * @b Resource",
-            " *    <${5:ref}>",
+            " * @rationale",
+            " *   ${4:rationale}",
             " *",
-            " * @b Notes",
-            " *    @version: 1.2",
-            " *    @author : Everett",
-            " *    @date: ${6:date & time }",
+            " * @resource",
+            " *   <${5:ref}>",
+            " *",
+            " * @notes",
+            " *   @version: 1.2",
+            " *   @author : Everett",
+            " *   @date: ${6:date & time }",
             " */"
         ],
-        "description": "Code snippet for class doc"
+        "description": "class doc"
+    },
+    "method doc": {
+        "prefix": "mdoc",
+        "body": [
+            "/**",
+            " * @method ${1:method}",
+            " *",
+            " * @brief",
+            " *   ${2:a brief description}",
+            " *",
+            " * @description",
+            " *   ${3:a detailed description}",
+            " *",
+            " * @${4:param}",
+            " *   ${5:description}",
+            " *",
+            " * @${6:retval}",
+            " *   ${7:description}",
+            " */"
+        ],
+        "description": "method doc"
     }
 }
