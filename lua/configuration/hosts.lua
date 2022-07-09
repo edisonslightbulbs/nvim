@@ -13,5 +13,6 @@ if has('win32')
 else
     let g:python3_host_prog='/usr/bin/python3.8'
     let g:python_host_prog='/usr/bin/python'
+    set shell=/bin/bash\ --login
 endif
 ]]
