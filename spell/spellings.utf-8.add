@@ -2430,3 +2430,7 @@ cdoc
 arg
 EnumMember
 TypeParameter
+ok
+rename
+getcwd
+iter
