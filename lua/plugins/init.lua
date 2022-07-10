@@ -14,7 +14,8 @@ local function plug()
             use "ervandew/supertab"
             use "tpope/vim-fugitive"
             use "nvim-lua/plenary.nvim"
-            use "voldikss/vim-floaterm"
+            --use "voldikss/vim-floaterm"
+            use {"akinsho/toggleterm.nvim", tag = 'v2.*'}
             use "google/vim-searchindex"
             use "dstein64/vim-startuptime"
             use "kyazdani42/nvim-tree.lua"
@@ -54,7 +55,8 @@ local function setup()
     require("plugins.config.fugitive")
     require("plugins.config.nvimtree")
     require("plugins.custom.autosave")
-    require("plugins.config.floatterm")
+    --require("plugins.config.floatterm")
+    require("plugins.config.toggleterm")
     require("plugins.config.telescope")
     require("plugins.config.indentline")
     require("plugins.config.autoformat")
