@@ -38,20 +38,6 @@ vim.api.nvim_create_autocmd(
         end
     }
 )
-
-local workdir = vim.api.nvim_create_augroup("SetWorkDir", {clear = true})
-vim.api.nvim_create_autocmd(
-    {"BufEnter", "TextChanged"},
-    {
-        pattern = "*",
-        group = workdir,
-        desc = "set working directory to current buffer",
-        callback = function()
-            vim.api.nvim_command("lcd %:p:h")
-        end
-    }
-)
-
 -- EXAMPLE:
 --
 -- vim.api.nvim_create_autocmd("FileType", {
