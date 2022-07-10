@@ -9,13 +9,15 @@ local telescope_opts = {
     cwd = git_root(),
     file_ignore_patterns = {
         "^.git/",
+        "^undo/",
         "^build/",
+        "^./undo/",
         "^.cache/",
-        "^./.cache/",
         "^./.git/",
         "^./build/",
         "%.metainfo",
         "^autosave/",
+        "^./.cache/",
         "^deprecated/"
     },
     hidden = true,
