@@ -10,26 +10,47 @@ _G.join_path = function(...)
     return joined
 end
 
+-- returns os-specific separator
+_G.path_separator = function()
+    if vim.fn.has("win32") == 1 then
+        return "\\"
+    else
+        return "/"
+    end
+end
+
 -- checks for an empty str
-_G.empty = function(str)
+_G.empty_str = function(str)
     return str == nil or str == ""
 end
 
--- checks for a [No Name] buf
+-- checks if file or dir exists
+_G.exists = function(path)
+    local ok, err, code = os.rename(path, path)
+    if not ok then
+        -- edge case: permission denied, but it exists
+        if code == 13 then
+            return true
+        end
+    end
+    return ok, err
+end
+
+-- checks for [No Name] buf
 _G.noname = function()
-    if vim.bo.modifiable and empty(vim.bo.buftype) and empty(vim.fn.expand("%")) and empty(vim.bo.filetype) then
+    if vim.bo.modifiable and empty_str(vim.bo.buftype) and empty_str(vim.fn.expand("%")) and empty_str(vim.bo.filetype) then
         return true
     else
         return false
     end
 end
 
--- @todo: checks if current tab is the last tab
+-- @todo: checks last tab[ @todo ]
 _G.lastab = function()
     return true
 end
 
--- @todo: checks if current win is the last window
+-- @todo: checks last window[ @todo ]
 _G.lastwin = function()
     if lastab() then
         if vim.fn.winnr() == vim.fn.winnr("$") then
@@ -42,7 +63,7 @@ _G.lastwin = function()
     end
 end
 
--- @todo: checks if current buf is the last buf [@todo: buggy implementation]
+-- @todo: checks last buf [ @todo: buggy implementation ]
 _G.lastbuf = function()
     if lastwin() then
         local bufcount = 0
@@ -64,16 +85,16 @@ _G.lastbuf = function()
     end
 end
 
--- checks if current buffer is writable
+-- checks if buffer is modifiable
 _G.writable = function()
-    if vim.bo.modifiable and empty(vim.bo.buftype) and not empty(vim.bo.filetype) then
+    if vim.bo.modifiable and empty_str(vim.bo.buftype) and not empty_str(vim.bo.filetype) then
         return true
     else
         return false
     end
 end
 
--- checks if current buffer NvimTree
+-- checks if buffer is NvimTree
 _G.nvtree = function()
     if vim.bo.filetype == "NvimTree" then
         return true
@@ -82,7 +103,7 @@ _G.nvtree = function()
     end
 end
 
--- checks if current buffer is writable
+-- checks if buffer is writable
 _G.savable = function()
     if writable() and not nvtree() and not noname() then
         return true
@@ -92,12 +113,12 @@ _G.savable = function()
 end
 
 -- strips spaces from a string
-_G.strip = function(str)
-    local stripped =string.gsub(str, "%s+", "")
+_G.strip_str = function(str)
+    local stripped = string.gsub(str, "%s+", "")
     return stripped
 end
 
--- fix seperator on win32
+-- fix separator on win32
 _G.win32_sep = function(str)
     if vim.fn.has("win32") == 1 then
         str = string.gsub(str, "/", "\\")
@@ -105,19 +126,47 @@ _G.win32_sep = function(str)
     return str
 end
 
--- recursively finds a git root directory regardless of submodules nested git repos
-_G.git_root = function()
+-- find git root directory
+-- _G.git_root = function()
+--     local root = vim.fn.system("git rev-parse --show-superproject-working-tree --show-toplevel | head -1")
+--     root = strip_str(root)
+--
+--     local parentdir = join_path(root .. "/..")
+--     parentdir = win32_sep(parentdir)
+--
+--     local super =
+--         vim.fn.system("git -C " .. parentdir .. " rev-parse --show-superproject-working-tree --show-toplevel | head -1")
+--
+--     if string.match(super, "not a git") then
+--         return root
+--     end
+--     return super
+-- end
 
-    local root = vim.fn.system('git rev-parse --show-superproject-working-tree --show-toplevel | head -1')
-    root = strip(root)
-
-    local parentdir = join_path(root..'/..')
-    parentdir = win32_sep(parentdir)
-
-    local super = vim.fn.system('git -C '..parentdir..' rev-parse --show-superproject-working-tree --show-toplevel | head -1')
-
-    if string.match(super, 'not a git') then
-        return root
+-- iterate parent dirs | max level = 4
+local iter = 0
+local toplevel = ""
+_G.git_root = function(path)
+    local parentdir = ""
+    if empty_str(path) then
+        local dir = vim.fn.getcwd()
+        parentdir = join_path(vim.fn.getcwd() .. path_separator() .. "..")
+        git_root(parentdir)
+    else
+        parentdir = join_path(path .. path_separator() .. "..")
+        local level = parentdir .. path_separator() .. ".git"
+        if iter < 6 then
+            iter = iter + 1
+            if exists(level) then
+                toplevel = parentdir
+                print(toplevel)
+            end
+            git_root(parentdir)
+        end
     end
-    return super
+    iter = 0
+    if empty_str(toplevel) then
+        return vim.fn.getcwd()
+    end
+    return toplevel
 end
