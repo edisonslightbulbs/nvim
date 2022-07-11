@@ -4,7 +4,7 @@
         "body": [
             "/**",
             " * @author    : ZEISS IQSX",
-            " * @contact   : everett.mthunzi@zeiss.com",
+            " * @contact   : everett.mthunzi[@]zeiss.com",
             " * @license   : Proprietary License",
             " * @date      : ${1:02 Jun. 2022}",
             " * @version   : ${2:0.2} Beta",
