@@ -2439,3 +2439,13 @@ toggleterm
 akinsho
 setup
 TermExec
+segmenter
+ZADDSegmentation
+ZEISSgroup
+XrayApp
+IQR
+branchName
+repoName
+definitionId
+subtree
+changelog
