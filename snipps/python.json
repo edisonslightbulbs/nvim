@@ -4,7 +4,7 @@
         "body": [
             "\"\"\"",
             "\t@author    : ZEISS IQSX",
-            "\t@contact   : everett.mthunzi@zeiss.com",
+            "\t@contact   : everett.mthunzi[@]zeiss.com",
             "\t@license   : Proprietary License",
             "\t@date      : ${1:02 Jun. 2022}",
             "\t@version   : ${2:0.2} Beta",

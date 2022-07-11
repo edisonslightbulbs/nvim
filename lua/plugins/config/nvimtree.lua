@@ -4,6 +4,9 @@ local opts = {noremap = true, silent = true}
 
 require("nvim-tree").setup(
     {
+        -- update_cwd = true,
+        -- hijack_unnamed_buffer_when_opening = true,
+        -- sync_root_with_cwd = true,
         view = {
             number = true,
             relativenumber = true,
@@ -48,10 +51,13 @@ require("nvim-tree").setup(
             custom = {"autoload", "spell"}
         },
         update_focused_file = {
-            enable = false,
-            update_cwd = false,
-            update_root = false,
+            enable = true,
+            update_root = true,
             ignore_list = {}
+        },
+        hijack_directories = {
+            enable = true,
+            --auto_open = true
         },
         git = {
             enable = false,
