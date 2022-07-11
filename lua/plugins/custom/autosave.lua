@@ -7,7 +7,7 @@ _G.bufsave = function()
         local view = vim.fn.winsaveview()
         vim.api.nvim_command("%s/\\s\\+$//e")
         vim.fn.winrestview(view)
-        vim.api.nvim_command("write")
+        vim.api.nvim_command("silent! write")
     end
 end
 
