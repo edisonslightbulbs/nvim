@@ -2449,3 +2449,9 @@ repoName
 definitionId
 subtree
 changelog
+glyphs
+symlink
+unstaged
+unmerged
+untracked
+devicons
