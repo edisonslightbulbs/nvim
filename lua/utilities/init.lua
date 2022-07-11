@@ -126,30 +126,12 @@ _G.win32_sep = function(str)
     return str
 end
 
--- find git root directory
--- _G.git_root = function()
---     local root = vim.fn.system("git rev-parse --show-superproject-working-tree --show-toplevel | head -1")
---     root = strip_str(root)
---
---     local parentdir = join_path(root .. "/..")
---     parentdir = win32_sep(parentdir)
---
---     local super =
---         vim.fn.system("git -C " .. parentdir .. " rev-parse --show-superproject-working-tree --show-toplevel | head -1")
---
---     if string.match(super, "not a git") then
---         return root
---     end
---     return super
--- end
-
 -- iterate parent dirs | max level = 4
 local iter = 0
 local toplevel = ""
 _G.git_root = function(path)
     local parentdir = ""
     if empty_str(path) then
-        local dir = vim.fn.getcwd()
         parentdir = join_path(vim.fn.getcwd() .. path_separator() .. "..")
         git_root(parentdir)
     else
@@ -159,7 +141,6 @@ _G.git_root = function(path)
             iter = iter + 1
             if exists(level) then
                 toplevel = parentdir
-                print(toplevel)
             end
             git_root(parentdir)
         end
