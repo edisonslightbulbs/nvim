@@ -24,7 +24,6 @@ local settings = {
 
     -- editor
     relativenumber = true,   -- enable relative numbers
-    concealcursor = "n",     -- conceal in cursor mode iff in [n] mode
     signcolumn = "yes",      -- show sign column
     cursorline = true,       -- enable cursor line
     showtabline = 2,         -- show tabs (do I need this?)
