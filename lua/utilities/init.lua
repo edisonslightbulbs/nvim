@@ -1,6 +1,6 @@
 -- joins paths (cross platform)
 _G.join_path = function(...)
-    local sep = package.config:sub(1,1)
+    local sep = package.config:sub(1, 1)
     local joined = table.concat({...}, sep)
     return joined
 end
@@ -104,20 +104,12 @@ _G.strip_str = function(str)
     return stripped
 end
 
--- fix separator on win32
-_G.win32_sep = function(str)
-    if vim.fn.has("win32") == 1 then
-        str = string.gsub(str, "/", "\\")
-    end
-    return str
-end
-
 -- iterate parent dirs
 local iter = 0
 local max_iter = 4
-local toplevel = ""
+local super = ""
 _G.git_root = function(path)
-    local sep = package.config:sub(1,1)
+    local sep = package.config:sub(1, 1)
     local parentdir = ""
     if empty_str(path) then
         parentdir = join_path(vim.fn.getcwd() .. sep .. "..")
@@ -129,14 +121,14 @@ _G.git_root = function(path)
         if iter < max_iter then
             iter = iter + 1
             if exists(level) then
-                toplevel = parentdir
+                super = parentdir
             end
             git_root(parentdir)
         end
     end
     iter = 0
-    if empty_str(toplevel) then
+    if empty_str(super) then
         return vim.fn.getcwd()
     end
-    return toplevel
+    return super
 end
