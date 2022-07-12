@@ -5,7 +5,8 @@ if not status then
 end
 
 local function term()
-    if vim.fn.has("unix") then
+    local os = vim.loop.os_uname().sysname
+    if not os == "Windows_NT" then
         return "zsh"
     end
     return ""
