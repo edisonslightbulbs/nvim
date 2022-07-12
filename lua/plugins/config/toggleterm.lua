@@ -4,16 +4,17 @@ if not status then
     return
 end
 
-local function term()
+local function zsh_term()
     local os = vim.loop.os_uname().sysname
-    if not os == "Windows_NT" then
+    if os == "Linux" then
         return "zsh"
+    elseif os == "Windows_NT" then
+        return ""
     end
-    return ""
 end
 
 require("toggleterm").setup {
-    shell = term(),
+    shell = zsh_term(),
     open_mapping = [[<c-o>]],
     direction = "float",
     hide_numbers = true,
