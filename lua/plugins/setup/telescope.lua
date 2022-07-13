@@ -1,49 +1,41 @@
-local status, ret = pcall(require, 'telescope')
+local status, telescope = pcall(require, 'telescope')
 if not status then
     print('-- something went wrong while setting up telescope!')
     return
 end
-require('telescope').setup({})
 
-local telescope_opts = {
+telescope.setup({})
+local sep = package.config:sub(1, 1)
+
+local opts = {
     cwd = git_root(),
     file_ignore_patterns = {
         '%.metainfo',
-        '^./.git/',
-        '^.\\.git\\',
-        '^./spell/',
-        '^.\\spell\\',
-        '^./build/',
-        '^.\\build\\',
-        '^./.cache/',
-        '^.\\.cache\\',
-        '^./autosave/',
-        '^.\\autosave\\',
-        '^./deprecated/',
-        '^.\\deprecated\\',
-        '^.git/',
-        '^.git\\',
-        '^build/',
-        '^build\\',
-        '^.spell/',
-        '^.spell\\',
-        '^.cache/',
-        '^.cache\\',
-        '^autosave/',
-        '^autosave\\',
-        '^deprecated/',
-        '^deprecated\\',
+
+        '^.git' .. sep,
+        '^spell' .. sep,
+        '^build' .. sep,
+        '^cache' .. sep,
+        '^autosave' .. sep,
+        '^deprecated' .. sep,
+
+        '^.' .. sep .. '.git' .. sep,
+        '^.' .. sep .. 'spell' .. sep,
+        '^.' .. sep .. 'build' .. sep,
+        '^.' .. sep .. 'cache' .. sep,
+        '^.' .. sep .. 'autosave' .. sep,
+        '^.' .. sep .. 'deprecated' .. sep,
     },
     hidden = true,
     no_ignore = true,
 }
 
 _G.telescope_live_grep = function()
-    require('telescope.builtin').live_grep(telescope_opts)
+    require('telescope.builtin').live_grep(opts)
 end
 
 _G.telescope_find_files = function()
-    require('telescope.builtin').find_files(telescope_opts)
+    require('telescope.builtin').find_files(opts)
 end
 
 _G.telescope_find_snippets = function()
@@ -52,8 +44,8 @@ _G.telescope_find_snippets = function()
 end
 
 local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local opt = { noremap = true, silent = true }
 
-map('n', 'tg', ':lua telescope_live_grep()<CR>', opts)
-map('n', 'tf', ':lua telescope_find_files()<CR>', opts)
-map('n', 'ts', ':lua telescope_find_snippets()<CR>', opts)
+map('n', 'tg', ':lua telescope_live_grep()<CR>', opt)
+map('n', 'tf', ':lua telescope_find_files()<CR>', opt)
+map('n', 'ts', ':lua telescope_find_snippets()<CR>', opt)
