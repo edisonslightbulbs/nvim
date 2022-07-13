@@ -1,4 +1,4 @@
-local startup = vim.api.nvim_create_augroup('StartupMessage', { clear = true })
+local startup = vim.api.nvim_create_augroup('Startup', { clear = true })
 vim.api.nvim_create_autocmd('VimEnter', {
 	pattern = '',
 	group = startup,
@@ -8,7 +8,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 	end,
 })
 
-local autoread = vim.api.nvim_create_augroup('ReloadFiles', { clear = true })
+local autoread = vim.api.nvim_create_augroup('Reload', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter' }, {
 	pattern = '*',
 	group = autoread,
@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEn
 	end,
 })
 
-local noreadonly = vim.api.nvim_create_augroup('EditGitDiff', { clear = true })
+local noreadonly = vim.api.nvim_create_augroup('DiffMode', { clear = true })
 vim.api.nvim_create_autocmd('BufEnter', {
 	pattern = '*',
 	group = noreadonly,
@@ -30,11 +30,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
 	end,
 })
 
-local conceal = vim.api.nvim_create_augroup('DisableConceal', { clear = true })
+local conceal = vim.api.nvim_create_augroup('UnConceal', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 	pattern = { '*.md', '*.json' },
 	group = conceal,
-	desc = 'disables conceal for *.md and *.json',
+	desc = 'un-conceal in *.md and *.json files',
 	callback = function()
 		vim.opt.conceallevel = 0
 	end,
