@@ -1,16 +1,9 @@
--- aliases
-local map = vim.api.nvim_set_keymap
-local opts = {noremap = true, silent = true}
-
 require("nvim-tree").setup(
     {
-        -- update_cwd = true,
-        -- hijack_unnamed_buffer_when_opening = true,
-        -- sync_root_with_cwd = true,
         view = {
             number = true,
             relativenumber = true,
-            adaptive_size = true,
+            adaptive_size = false,
             mappings = {
                 list = {
                     {key = "u", action = "dir_up"}
@@ -30,8 +23,8 @@ require("nvim-tree").setup(
                         open = "",
                         empty = "",
                         empty_open = "",
-                        symlink = "",
-                        symlink_open = ""
+                        symlink = "",
+                        symlink_open = ""
                     },
                     git = {
                         unstaged = "",
@@ -50,15 +43,6 @@ require("nvim-tree").setup(
             exclude = {"*.metainfo", "*.py.lock"},
             custom = {"autoload", "spell"}
         },
-        update_focused_file = {
-            enable = true,
-            update_root = true,
-            ignore_list = {}
-        },
-        hijack_directories = {
-            enable = true,
-            --auto_open = true
-        },
         git = {
             enable = false,
             ignore = false,
@@ -67,4 +51,6 @@ require("nvim-tree").setup(
     }
 )
 
+local map = vim.api.nvim_set_keymap
+local opts = {noremap = true, silent = true}
 map("n", "<leader><Space>", ":NvimTreeToggle<CR>", opts)
