@@ -36,6 +36,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 	group = conceal,
 	desc = 'un-conceal in *.md and *.json files',
 	callback = function()
-		vim.opt.conceallevel = 0
+		vim.opt.conceallevel=0
 	end,
 })
