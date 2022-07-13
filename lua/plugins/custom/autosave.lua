@@ -3,34 +3,31 @@ local load_autosave = 1
 
 -- autosave current buffer
 _G.bufsave = function()
-    if savable() and load_autosave == 1 then
-        local view = vim.fn.winsaveview()
-        vim.api.nvim_command("%s/\\s\\+$//e")
-        vim.fn.winrestview(view)
-        vim.api.nvim_command("silent! write")
-    end
+	if savable() and load_autosave == 1 then
+		local view = vim.fn.winsaveview()
+		vim.api.nvim_command('%s/\\s\\+$//e')
+		vim.fn.winrestview(view)
+		vim.api.nvim_command('silent! write')
+	end
 end
 
-local ausave = vim.api.nvim_create_augroup("AutoSave", {clear = true})
-vim.api.nvim_create_autocmd(
-    {"TextChanged", "InsertLeave", "BufLeave", "VimLeavePre", "WinLeave"},
-    {
-        pattern = "*",
-        group = ausave,
-        desc = "auto saves current buffer",
-        callback = function()
-            bufsave()
-        end
-    }
-)
+local ausave = vim.api.nvim_create_augroup('AutoSave', { clear = true })
+vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'BufLeave', 'VimLeavePre', 'WinLeave' }, {
+	pattern = '*',
+	group = ausave,
+	desc = 'auto saves current buffer',
+	callback = function()
+		bufsave()
+	end,
+})
 
 -- disable autosave
 _G.nobufsave = function()
-    load_autosave = 0
-    vim.opt.backup = false
-    vim.opt.writebackup = false
-    vim.opt.swapfile = false
-    vim.api.nvim_command("noundofile")
+	load_autosave = 0
+	vim.opt.backup = false
+	vim.opt.writebackup = false
+	vim.opt.swapfile = false
+	vim.api.nvim_command('noundofile')
 end
 
 -- augroup noautosave_au
@@ -38,9 +35,9 @@ end
 -- autocmd BufReadPost * : call nobufsave()
 -- augroup END
 
-local undodir = join_path(vim.fn.stdpath("config"), "autosave", "undo")
+local undodir = join_path(vim.fn.stdpath('config'), 'autosave', 'undo')
 if vim.fn.isdirectory(undodir) == 0 then
-    vim.fn.system {"mkdir", "-p", undodir}
+	vim.fn.system({ 'mkdir', '-p', undodir })
 end
 
 vim.opt.undodir = undodir

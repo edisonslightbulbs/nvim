@@ -32,7 +32,7 @@ map('n', '<C-K>', '<C-W><C-K>', opts)              -- to top window
 map('n', '<C-H>', '<C-W><C-H>', opts)              -- to left window
 map('n', '<C-L>', '<C-W><C-L>', opts)              -- to right window
 
-require('keybindings.undo')
-require('keybindings.buffer')
-require('keybindings.replace')
-require('keybindings.numberline')
+require('keybinds.undo')
+require('keybinds.buffer')
+require('keybinds.replace')
+require('keybinds.numberline')

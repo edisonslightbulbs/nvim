@@ -11,7 +11,7 @@
     buffer name/number supplied is kept.
 ]]
 
-vim.cmd [[
+vim.cmd([[
 command! -nargs=? -complete=buffer -bang Bonly
     \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BOnly
@@ -63,4 +63,4 @@ function! BufOnly(buffer, bang)
 	endif
 endfunction
 nnoremap <silent><Leader>o :BufOnly<CR>
-]]
+]])

@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
 function! CommitFunction(...)
     execute ':Gwrite'
     silent execute ":Git commit -m \"" . join(a:000) . "\""
@@ -13,4 +13,4 @@ command! -nargs=* GitPush :call PushFunction(<f-args>)
 
 nnoremap <Leader>gc :GitCommitMessage
 nnoremap <Leader>gp :GitPush<CR>
-]]
+]])

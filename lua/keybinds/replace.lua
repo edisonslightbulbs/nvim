@@ -1,4 +1,4 @@
-vim.cmd[[
+vim.cmd([[
 function! ReplaceWordFunction(arg)
     let l:view = winsaveview()
     execute '%s/' . expand('<cword>') . '/' . a:arg . '/gc'
@@ -15,4 +15,4 @@ command! -nargs=* RepWORD :call ReplaceWORDFunction(<f-args>)
 
 nnoremap <Leader>r  :Repword
 nnoremap <Leader>R  :RepWORD
-]]
+]])

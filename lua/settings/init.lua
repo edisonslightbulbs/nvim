@@ -4,11 +4,11 @@ local settings = {
     backup = false,          -- create backup files
     writebackup = false,     -- create backup before writing a file
     swapfile = true,         -- create swap files
-    encoding = "utf-8",      -- encoding
-    fileencoding = "utf-8",  -- encoding for written files
+    encoding = 'utf-8',      -- encoding
+    fileencoding = 'utf-8',  -- encoding for written files
 
     -- ignore patterns
-    wildignore = "*.swp, *.bak, *.pyc, *.class, *.metainfo *.lock",
+    wildignore = '*.swp, *.bak, *.pyc, *.class, *.metainfo *.lock',
 
     -- windowing
     previewheight = 5,       -- preview-window height
@@ -24,25 +24,25 @@ local settings = {
 
     -- editor
     relativenumber = true,   -- enable relative numbers
-    signcolumn = "yes",      -- show sign column
+    signcolumn = 'yes',      -- show sign column
     cursorline = true,       -- enable cursor line
     showtabline = 2,         -- show tabs (do I need this?)
     number = true,           -- enable numbers
-    mouse = "a",             -- enable mouse
+    mouse = 'a',             -- enable mouse
     wrap = true,             -- wrap @ line 80
     foldenable = false,      -- disable folding
 
     --spell
     spell = true,            -- check spellings
-    spellcapcheck= "",       -- no cap check
-    spelllang = "en_us",     -- spell language
-    spellfile = join_path(vim.fn.stdpath("config"), "spell", "spellings.utf-8.add"),
+    spellcapcheck= '',       -- no cap check
+    spelllang = 'en_us',     -- spell language
+    spellfile = join_path(vim.fn.stdpath('config'), 'spell', 'spellings.utf-8.add'),
 
     -- status line
     laststatus = 2,          -- show status
     cmdheight = 2,           -- cmd message height
     wildmenu = true,         -- use menu for cmd-line completions
-    shortmess = "at",        -- file messages based on args [a, t]
+    shortmess = 'at',        -- file messages based on args [a, t]
 
     -- search
     incsearch = true,        -- highlight match while typing
@@ -61,9 +61,9 @@ for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
-vim.cmd [[ set clipboard+=unnamedplus ]] -- clipboard
-vim.cmd [[ set iskeyword+=- ]]           -- add '-' to  keyword match
-vim.cmd [[ set whichwrap+=<,>[,],h,l ]]  -- allow wrapping with keys
+vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
+vim.cmd([[ set iskeyword+=- ]])           -- add '-' to  keyword match
+vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
-require('configuration.hosts')
-require('configuration.auto')
+require('settings.hosts')
+require('settings.auto')

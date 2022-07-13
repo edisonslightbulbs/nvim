@@ -1,4 +1,4 @@
-vim.cmd[[
+vim.cmd([[
 function! ToggleNumLineStyle()
     if(&relativenumber == 1)
         set norelativenumber
@@ -25,4 +25,4 @@ endfunction
 " key maps
 ""nnoremap <silent><C-n> :call ToggleNumLine()<CR>
 nnoremap <silent><C-N> :call ToggleNumLineStyle()<CR>
-]]
+]])

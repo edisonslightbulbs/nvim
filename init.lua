@@ -1,5 +1,5 @@
-require('utilities')
+require('utils')
 require('color-schemes')
-require('configuration')
-require('keybindings')
+require('settings')
+require('keybinds')
 require('plugins')
