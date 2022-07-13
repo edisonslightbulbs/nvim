@@ -25,7 +25,7 @@ local function plug()
             use "tpope/vim-surround"
             use "yggdroot/indentline"
             use "raimondi/delimitmate"
-            use "Chiel92/vim-autoformat"
+            use "jose-elias-alvarez/null-ls.nvim"
 
             -- intellisence
             use "nvim-treesitter/nvim-treesitter"
@@ -54,15 +54,15 @@ local function setup()
     require("plugins.config.fugitive")
     require("plugins.config.nvimtree")
     require("plugins.custom.autosave")
-    require("plugins.config.toggleterm")
     require("plugins.config.telescope")
     require("plugins.config.indentline")
-    require("plugins.config.autoformat")
     require("plugins.config.treesitter")
+    require("plugins.config.toggleterm")
     require("plugins.config.lspinstaller")
     require("plugins.config.lspconfig")
     require('plugins.config.supertab')
     require("plugins.config.luasnip")
+    require("plugins.config.null-ls")
     require("plugins.config.cmp")
 end
 
