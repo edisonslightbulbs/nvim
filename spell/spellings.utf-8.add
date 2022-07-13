@@ -2475,3 +2475,9 @@ dirname
 fname
 globals
 root_pattern
+AutoPreferSingle
+ForceSingle
+latexindent
+nvim_set_hl
+bN
+BuffNav
