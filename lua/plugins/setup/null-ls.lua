@@ -17,6 +17,7 @@ null_ls.setup({
 		formatting.cmake_format,
 		formatting.latexindent,
 		formatting.shfmt,
+		formatting.fixjson,
 		formatting.tidy, --xml
 	},
 })

@@ -94,3 +94,21 @@ lspconfig['clangd'].setup({
         )(fname) or util.path.dirname(fname)
     end,
 })
+
+--json
+lspconfig['jsonls'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    -- root_dir = function(fname)
+    --     return util.root_pattern(
+    --         '.git',
+    --         '.clangd',
+    --         '.clang-tidy',
+    --         '.clang-format',
+    --         'compile_commands.json',
+    --         'compile_flags.txt',
+    --         'configure.ac'
+    --     )(fname) or util.path.dirname(fname)
+    -- end,
+})
+
