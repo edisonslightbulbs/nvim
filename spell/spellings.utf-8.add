@@ -2481,3 +2481,5 @@ latexindent
 nvim_set_hl
 bN
 BuffNav
+nmap
+snipps
