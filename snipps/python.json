@@ -2,8 +2,7 @@
     "author doc": {
         "prefix": "adoc",
         "body": [
-            "\"\"\"",
-            "\t@author    : ZEISS IQSX",
+            "\"\"\" @author    : ZEISS IQSX",
             "\t@contact   : everett.mthunzi[@]zeiss.com",
             "\t@license   : Proprietary License",
             "\t@date      : ${1:02 Jun. 2022}",
