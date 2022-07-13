@@ -9,7 +9,7 @@ local function zsh_term()
     if os == 'Linux' then
         return 'zsh'
     elseif os == 'Windows_NT' then
-        return ''
+        return vim.o.shell
     end
 end
 
@@ -18,7 +18,7 @@ toggleterm.setup({
     open_mapping = [[<c-o>]],
     direction = 'float',
     hide_numbers = true,
-    close_on_exit = true,
+    close_on_exit = false,
     insert_mappings = true,
     start_in_insert = false,
     terminal_mappings = true,
