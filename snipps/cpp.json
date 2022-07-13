@@ -59,5 +59,168 @@
             " */"
         ],
         "description": "method doc"
+    },
+    "include shared": {
+        "prefix": "Inc",
+        "body": [
+            "#include <${1:lib}>"
+        ],
+        "description": "include shared library"
+    },
+    "include relative": {
+        "prefix": "inc",
+        "body": [
+            "#include '${1:lib}'"
+        ],
+        "description": "include relative library"
+    },
+    "include guard": {
+        "prefix": "head",
+        "body": [
+            "#ifndef ${1: header}",
+            "#define $1",
+            "${0}",
+            "#endif /* end of include guard: $1 */"
+        ],
+        "description": "include guard"
+    },
+    "calloc": {
+        "prefix": "clc",
+        "body": [
+            "${1:ptr} = (${2:type}*) calloc(${3:size}, sizeof($2))"
+        ],
+        "description": "memory allocation"
+    },
+    "malloc": {
+        "prefix": "mlc",
+        "body": [
+            "${1:ptr} = (${2:type}*) malloc(sizeof($2))"
+        ],
+        "description": "memory allocation"
+    },
+    "realloc": {
+        "prefix": "rlc",
+        "body": [
+            "${1:ptr} = realloc($1, ${2:size} * sizeof(${3:type}))"
+        ],
+        "description": "memory allocation"
+    },
+    "todo": {
+        "prefix": "todo",
+        "body": [
+            "/**",
+            " * todo: ${1:todo}",
+            " * date: ${2:date}",
+            " */"
+        ],
+        "description": "todo note"
+    },
+    "ref": {
+        "prefix": "ref",
+        "body": [
+            "/**",
+            " * ${1:implementation}",
+            " * see:",
+            " * ${2:reference}",
+            " * date: ${3:date}",
+            " */"
+        ],
+        "description": "reference note"
+    },
+    "block doc": {
+        "prefix": "bdoc",
+        "body": [
+            "/** ${1:Block title}:",
+            " *  ${2:Block description}",
+            " */"
+        ],
+        "description": "block comment"
+    },
+    "to string": {
+        "prefix": "tos",
+        "body": [
+            "std::to_string(${1:int})"
+        ],
+        "description": "to string"
+    },
+    "to int": {
+        "prefix": "toi",
+        "body": [
+            "std::stoi(${1:str})"
+        ],
+        "description": "to integer"
+    },
+    "to long": {
+        "prefix": "tol",
+        "body": [
+            "std::stol(${1:str})"
+        ],
+        "description": "to integer"
+    },
+    "std string": {
+        "prefix": "str",
+        "body": [
+            "std::string ${1:str}"
+        ],
+        "description": "std string"
+    },
+    "std vector": {
+        "prefix": "vec",
+        "body": [
+            "std::vector<${1:vector}>"
+        ],
+        "description": "std vector"
+    },
+    "std array": {
+        "prefix": "arr",
+        "body": [
+            "std::array<${1:array}>"
+        ],
+        "description": "std array"
+    },
+    "std stack": {
+        "prefix": "stk",
+        "body": [
+            "std::stack<${1:stack}>"
+        ],
+        "description": "std stack"
+    },
+    "std map": {
+        "prefix": "map",
+        "body": [
+            "std::unordered_map<${1:map}>"
+        ],
+        "description": "std (unordered) map"
+    },
+    "std shared ptr": {
+        "prefix": "s_",
+        "body": [
+            "std::shared_ptr<${1:var}>"
+        ],
+        "description": "std shared ptr"
+    },
+    "std make shared ptr": {
+        "prefix": "mks_",
+        "body": [
+            "std::make_shared<${1:var}>"
+        ],
+        "description": "std make shared ptr"
+    },
+    "read int": {
+        "prefix": ">>i",
+        "body": [
+            "int n;",
+            "std::cin >> n;",
+            "std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');"
+        ],
+        "description": "read int from standard input"
+    },
+    "read str": {
+        "prefix": ">>str",
+        "body": [
+            "std::string str;",
+            "getline(std::cin, str);"
+        ],
+        "description": "read str from standard input"
     }
 }

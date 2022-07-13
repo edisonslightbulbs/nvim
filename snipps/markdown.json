@@ -1,0 +1,40 @@
+{
+    "hyper link": {
+        "prefix": "link",
+        "body": [
+            "[${1:description}](${2:link})"
+        ],
+        "description": "hyper link"
+    },
+    "bold text": {
+        "prefix": "bold",
+        "body": [
+            "__${1:bold}__"
+        ],
+        "description": "bold text"
+    },
+    "italicized text": {
+        "prefix": "ital",
+        "body": [
+            "*${1:italics}*"
+        ],
+        "description": "italicized text"
+    },
+    "comment": {
+        "prefix": "note",
+        "body": [
+            "<!---",
+            "${1:comment}'",
+            "-->"
+        ],
+        "description": "comment section"
+    },
+    "code block": {
+        "prefix": "exc",
+        "body": [
+            "```{${1:lang}}",
+            "${0:code}",
+            "```"
+        ]
+    }
+}
