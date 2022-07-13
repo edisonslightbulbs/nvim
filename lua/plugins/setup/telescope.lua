@@ -1,54 +1,54 @@
 local status, ret = pcall(require, 'telescope')
 if not status then
-	print('-- something went wrong while setting up telescope!')
-	return
+    print('-- something went wrong while setting up telescope!')
+    return
 end
 require('telescope').setup({})
 
 local telescope_opts = {
-	cwd = git_root(),
-	file_ignore_patterns = {
-		'%.metainfo',
-		'^./.git/',
-		'^.\\.git\\',
-		'^./spell/',
-		'^.\\spell\\',
-		'^./build/',
-		'^.\\build\\',
-		'^./.cache/',
-		'^.\\.cache\\',
-		'^./autosave/',
-		'^.\\autosave\\',
-		'^./deprecated/',
-		'^.\\deprecated\\',
-		'^.git/',
-		'^.git\\',
-		'^build/',
-		'^build\\',
-		'^.spell/',
-		'^.spell\\',
-		'^.cache/',
-		'^.cache\\',
-		'^autosave/',
-		'^autosave\\',
-		'^deprecated/',
-		'^deprecated\\',
-	},
-	hidden = true,
-	no_ignore = true,
+    cwd = git_root(),
+    file_ignore_patterns = {
+        '%.metainfo',
+        '^./.git/',
+        '^.\\.git\\',
+        '^./spell/',
+        '^.\\spell\\',
+        '^./build/',
+        '^.\\build\\',
+        '^./.cache/',
+        '^.\\.cache\\',
+        '^./autosave/',
+        '^.\\autosave\\',
+        '^./deprecated/',
+        '^.\\deprecated\\',
+        '^.git/',
+        '^.git\\',
+        '^build/',
+        '^build\\',
+        '^.spell/',
+        '^.spell\\',
+        '^.cache/',
+        '^.cache\\',
+        '^autosave/',
+        '^autosave\\',
+        '^deprecated/',
+        '^deprecated\\',
+    },
+    hidden = true,
+    no_ignore = true,
 }
 
 _G.telescope_live_grep = function()
-	require('telescope.builtin').live_grep(telescope_opts)
+    require('telescope.builtin').live_grep(telescope_opts)
 end
 
 _G.telescope_find_files = function()
-	require('telescope.builtin').find_files(telescope_opts)
+    require('telescope.builtin').find_files(telescope_opts)
 end
 
 _G.telescope_find_snippets = function()
-	local snippets = join_path(vim.fn.stdpath('config'), 'snipps')
-	require('telescope.builtin').find_files({ search_dirs = { snippets } })
+    local snippets = join_path(vim.fn.stdpath('config'), 'snipps')
+    require('telescope.builtin').find_files({ search_dirs = { snippets } })
 end
 
 local map = vim.api.nvim_set_keymap
