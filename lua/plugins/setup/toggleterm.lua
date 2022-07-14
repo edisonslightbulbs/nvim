@@ -15,17 +15,12 @@ end
 
 toggleterm.setup({
     shell = zsh_term(),
-    --open_mapping = [[<c-o>]],
     direction = 'float',
     hide_numbers = true,
     close_on_exit = false,
     insert_mappings = true,
     start_in_insert = false,
     terminal_mappings = true,
-    -- shade_filetypes = {},
-    -- insert_mappings = true,
-    -- persist_size = true,
-    -- persist_mode = true,
 })
 
 local map = vim.api.nvim_set_keymap

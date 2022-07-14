@@ -30,11 +30,6 @@ _G.nobufsave = function()
 	vim.api.nvim_command('noundofile')
 end
 
--- augroup noautosave_au
--- autocmd!
--- autocmd BufReadPost * : call nobufsave()
--- augroup END
-
 local undodir = join_path(vim.fn.stdpath('config'), 'autosave', 'undo')
 if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.system({ 'mkdir', '-p', undodir })
