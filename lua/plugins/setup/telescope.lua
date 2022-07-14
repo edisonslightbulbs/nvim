@@ -5,7 +5,6 @@ if not status then
 end
 
 telescope.setup({})
-local sep = package.config:sub(1, 1)
 
 local opts = {
     cwd = git_root(),

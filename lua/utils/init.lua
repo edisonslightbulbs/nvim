@@ -1,6 +1,8 @@
--- joins paths (cross platform)
+-- path sep (cross platform)
+_G.sep = package.config:sub(1, 1)
+
+-- joins path (cross platform)
 _G.join_path = function(...)
-    local sep = package.config:sub(1, 1)
     local joined = table.concat({ ... }, sep)
     return joined
 end
@@ -117,7 +119,6 @@ local iter = 0
 local max_iter = 4
 local super = ''
 _G.git_root = function(path)
-    local sep = package.config:sub(1, 1)
     local parentdir = ''
     if empty_str(path) then
         parentdir = join_path(vim.fn.getcwd() .. sep .. '..')
