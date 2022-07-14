@@ -1,18 +1,34 @@
--- path sep (cross platform)
+-- CURRENT BUFFER
+
+-- path sep
 _G.sep = package.config:sub(1, 1)
 
--- joins path (cross platform)
+-- joins path
 _G.join_path = function(...)
     local joined = table.concat({ ... }, sep)
     return joined
 end
 
 -- checks for an empty str
-_G.empty_str = function(str)
+_G.is_empty = function(str)
     return str == nil or str == ''
 end
 
--- checks if file or dir exists
+-- returns *current* buffer directory
+_G.bufdir = function()
+    local bufpath = vim.api.nvim_buf_get_name(0)
+    if is_empty(bufpath:match("(.*" .. sep .. ")")) then
+        return vim.fn.getcwd()
+    end
+    return bufpath:match("(.*" .. sep .. ")")
+end
+
+-- returns parent directory of *current* buffer
+_G.parentdir = function()
+    return join_path(bufdir() .. '..')
+end
+
+-- checks if file/dir exists
 _G.exists = function(path)
     local ok, err, code = os.rename(path, path)
     if not ok then
@@ -24,12 +40,12 @@ _G.exists = function(path)
     return ok, err
 end
 
--- checks for [No Name] buf
-_G.noname = function()
+-- checks if buf [No Name]
+_G.is_noname = function()
     if vim.bo.modifiable
-        and empty_str(vim.bo.buftype)
-        and empty_str(vim.fn.expand('%'))
-        and empty_str(vim.bo.filetype)
+        and is_empty(vim.bo.buftype)
+        and is_empty(vim.fn.expand('%'))
+        and is_empty(vim.bo.filetype)
     then
         return true
     else
@@ -38,13 +54,13 @@ _G.noname = function()
 end
 
 -- @todo: checks last tab[ @todo ]
-_G.lastab = function()
+_G.is_lastab = function()
     return true
 end
 
 -- @todo: checks last window[ @todo ]
-_G.lastwin = function()
-    if lastab() then
+_G.is_lastwin = function()
+    if is_lastab() then
         if vim.fn.winnr() == vim.fn.winnr('$') then
             return true
         else
@@ -56,8 +72,8 @@ _G.lastwin = function()
 end
 
 -- @todo: checks last buf [ @todo: buggy implementation ]
-_G.lastbuf = function()
-    if lastwin() then
+_G.is_lastbuf = function()
+    if is_lastwin() then
         local bufcount = 0
         for buf = 0, vim.fn.bufnr('$'), 1 do
             if vim.fn.buflisted(buf) == 1
@@ -80,17 +96,17 @@ _G.lastbuf = function()
     end
 end
 
--- checks if buffer is modifiable
-_G.writable = function()
-    if vim.bo.modifiable and empty_str(vim.bo.buftype) and not empty_str(vim.bo.filetype) then
+-- checks if buffer modifiable
+_G.is_writable = function()
+    if vim.bo.modifiable and is_empty(vim.bo.buftype) and not is_empty(vim.bo.filetype) then
         return true
     else
         return false
     end
 end
 
--- checks if buffer is NvimTree
-_G.nvtree = function()
+-- checks if NvimTree buffer
+_G.is_nvtree = function()
     if vim.bo.filetype == 'NvimTree' then
         return true
     else
@@ -99,8 +115,8 @@ _G.nvtree = function()
 end
 
 -- checks if buffer is writable
-_G.savable = function()
-    if writable() and not nvtree() and not noname() then
+_G.is_savable = function()
+    if is_writable() and not is_nvtree() and not is_noname() then
         return true
     else
         return false
@@ -108,36 +124,35 @@ _G.savable = function()
 end
 
 -- strips spaces from a string
-_G.strip_str = function(str)
+_G.strip = function(str)
     local stripped = string.gsub(str, '%s+', '')
     return stripped
 end
 
--- iterate parent dirs
--- todo: getcwd() is no what we are looking for here
 local iter = 0
-local max_iter = 4
 local super = ''
+local max_iter = 4
+
+-- find top level git root
 _G.git_root = function(path)
-    local parentdir = ''
-    if empty_str(path) then
-        parentdir = join_path(vim.fn.getcwd() .. sep .. '..')
-        git_root(parentdir)
+    local next = ''
+    if is_empty(path) then
+        git_root(parentdir())
     else
-        parentdir = join_path(path .. sep .. '..')
-        local level = parentdir .. sep .. '.git'
+        next = join_path(path .. sep .. '..')
+        local gitdir = next .. sep .. '.git'
 
         if iter < max_iter then
             iter = iter + 1
-            if exists(level) then
-                super = parentdir
+            if exists(gitdir) then
+                super = next
             end
-            git_root(parentdir)
+            git_root(next)
         end
     end
     iter = 0
-    if empty_str(super) then
-        return vim.fn.getcwd()
+    if is_empty(super) then
+        return bufdir
     end
     return super
 end
