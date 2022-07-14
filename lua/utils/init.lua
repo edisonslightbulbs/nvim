@@ -133,7 +133,7 @@ _G.git_root = function(path)
 
 		if iter < max_iter then
 			iter = iter + 1
-			if exists(gitdir) then
+			if vim.fn.isdirectory(gitdir) == 0 then
 				super = next
 			end
 			git_root(next)
