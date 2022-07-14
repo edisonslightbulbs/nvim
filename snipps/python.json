@@ -58,5 +58,15 @@
             "\"\"\""
         ],
         "description": "method doc"
+    },
+    "todo": {
+        "prefix": "todo",
+        "body": [
+            "#",
+            "# todo: ${1:todo}",
+            "# date: ${2:date}",
+            "#"
+        ],
+        "description": "todo note"
     }
 }
