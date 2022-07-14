@@ -2513,3 +2513,13 @@ zsh_term
 ToggleTerm
 bufpath
 spl
+bufdir
+bufpath
+gitdir
+testsuite
+uuids
+alu
+zadd
+voxelizer
+zv
+zs
