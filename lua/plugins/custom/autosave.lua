@@ -3,7 +3,7 @@ local load_autosave = 1
 
 -- autosave current buffer
 _G.bufsave = function()
-	if savable() and load_autosave == 1 then
+	if is_savable() and load_autosave == 1 then
 		local view = vim.fn.winsaveview()
 		vim.api.nvim_command('%s/\\s\\+$//e')
 		vim.fn.winrestview(view)
