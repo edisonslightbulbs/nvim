@@ -112,6 +112,7 @@ _G.strip_str = function(str)
 end
 
 -- iterate parent dirs
+-- todo: getcwd() is no what we are looking for here
 local iter = 0
 local max_iter = 4
 local super = ''
