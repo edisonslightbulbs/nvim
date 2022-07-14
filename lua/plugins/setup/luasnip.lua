@@ -1,7 +1,7 @@
 local status, luasnip = pcall(require, 'luasnip')
 if not status then
-    print('-- something went wrong while setting up luasnip!')
-    return
+	print('-- something went wrong while setting up luasnip!')
+	return
 end
 
 local snippets = join_path(vim.fn.stdpath('config'), 'snipps')
