@@ -2509,3 +2509,6 @@ msptr
 mksptr
 streamsize
 ignore
+zsh_term
+ToggleTerm
+bufpath
