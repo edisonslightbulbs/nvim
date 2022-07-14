@@ -14,7 +14,7 @@ local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_clie
 
 -- keybinds
 local function on_attach(client, bufnr)
-	local opts = { noremap = true, s, ilent = true, buffer = bufnr }
+	local opts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
