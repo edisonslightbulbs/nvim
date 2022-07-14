@@ -152,7 +152,7 @@ _G.git_root = function(path)
     end
     iter = 0
     if is_empty(super) then
-        return bufdir
+        return bufdir()
     end
     return super
 end
