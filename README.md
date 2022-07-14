@@ -1,9 +1,9 @@
-## nvim setup using lua
+## example nvim setup in lua
 
-##### @todo finish `lua` migration
+###### because sharing is caring
 
 -   [x] utilities
--   [ ] keybindings
+-   [x] keybindings
 -   [x] color-schemes
 -   [x] configuration
--   [ ] plugin settings
+-   [x] plugin settings
