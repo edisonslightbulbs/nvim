@@ -10,7 +10,7 @@ null_ls.setup({
 	debug = true,
 	sources = {
 		formatting.stylua.with({ extra_args = { '--quote-style', 'AutoPreferSingle' } }),
-		formatting.autopep8,
+		formatting.autopep8.with({ extra_args = {'--aggressive'}}),
 		formatting.clang_format,
 		formatting.cmake_format,
 		formatting.latexindent,
