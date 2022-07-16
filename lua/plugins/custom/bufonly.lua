@@ -1,16 +1,3 @@
---[[ BufOnly.lua
-      Deletes all the buffers except the current/named buffer.
-
-      Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
-      Distributed under the terms of the Vim license.  See ":help license".
-
-     Usage
-      :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
-
-    Without any arguments the current buffer is kept. With an argument the
-    buffer name/number supplied is kept.
-]]
-
 vim.cmd([[
 command! -nargs=? -complete=buffer -bang Bonly
     \ :call BufOnly('<args>', '<bang>')
@@ -20,15 +7,17 @@ command! -nargs=? -complete=buffer -bang Bufonly
     \ :call BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BufOnly
     \ :call BufOnly('<args>', '<bang>')
+
+
 function! BufOnly(buffer, bang)
 	if a:buffer ==# ''
-		" No buffer provided, use the current buffer.
+		" no buffer provided, use current buffer
 		let buffer = bufnr('%')
 	elseif (a:buffer + 0) > 0
-		" A buffer number was provided.
+		" buffer number provided
 		let buffer = bufnr(a:buffer + 0)
 	else
-		" A buffer name was provided.
+		" a buffer name
 		let buffer = bufnr(a:buffer)
 	endif
 	if buffer == -1
@@ -62,5 +51,6 @@ function! BufOnly(buffer, bang)
 		echomsg delete_count 'buffers deleted'
 	endif
 endfunction
+
 nnoremap <silent><Leader>o :BufOnly<CR>
 ]])

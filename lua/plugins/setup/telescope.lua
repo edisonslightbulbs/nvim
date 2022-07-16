@@ -7,7 +7,7 @@ end
 telescope.setup({})
 
 local opts = {
-	cwd = git_root(),
+	cwd = find_gitdir(),
 	file_ignore_patterns = {
 		'%.metainfo',
 
