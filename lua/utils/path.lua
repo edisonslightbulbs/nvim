@@ -1,7 +1,7 @@
--- seperator
+-- seperator (cross platform)
 _G.sep = package.config:sub(1, 1)
 
--- join path
+-- returns a joined path
 _G.join_path = function(...)
 	return table.concat({ ... }, sep)
 end
