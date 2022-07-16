@@ -46,7 +46,7 @@ local function setup()
     Use pcalls (protected calls) to verify plugin state before
     executing setup commands. The pcalls run un-interrupted. If
     a plugin's state is erroneous setup is not executed. ]]
-	require('plugins.custom.bufonly')
+	require('plugins.custom.smart-buf')
 	require('plugins.custom.autosave')
 	require('plugins.setup.repeat')
 	require('plugins.setup.airline')

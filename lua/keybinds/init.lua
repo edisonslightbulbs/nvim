@@ -18,7 +18,6 @@ map('n', '#', ':keepjumps normal! mi*`i<CR>', opts)-- swap # and *, hold cursor 
 
 -- window managing
 map('n', '<leader>q', ':q!<CR>', opts)             -- quit window
-map('n', '<leader>|', ':vnew %<CR>', opts)           -- create new v-window
 map('n', '<leader>\\', ':new<CR>', opts)           -- create new h-window
 
 map('n', '+', ':vertical resize +25<CR>', opts)    -- re-size v-window +25

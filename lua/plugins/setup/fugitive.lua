@@ -10,7 +10,6 @@ function! PushFunction(...)
 endfunction
 command! -nargs=* GitPush :call PushFunction(<f-args>)
 
-
 nnoremap <Leader>gc :GitCommitMessage
 nnoremap <Leader>gp :GitPush<CR>
 ]])
