@@ -2625,3 +2625,5 @@ GCommit
 GPush
 swp
 bak
+autosave
+savebuf
