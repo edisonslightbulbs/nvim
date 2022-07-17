@@ -40,7 +40,7 @@ _G.close_other_tabs = function()
             --[[ ... iff a buffer is associated with the current window,
                  write changes made to it and unload it ]]
             if other_tabs(bufid, winid, cur_buf, cur_win) then
-                bufsave()
+                savebuf()
                 vim.api.nvim_command('bd ' .. bufid)
             end
         end
