@@ -2,7 +2,7 @@
 local load_autosave = 1
 
 -- autosave current buffer
-_G.bufsave = function()
+_G.savebuf = function()
 	if is_savable() and load_autosave == 1 then
 		local view = vim.fn.winsaveview()
 		vim.api.nvim_command('%s/\\s\\+$//e')
@@ -17,12 +17,12 @@ vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'BufLeave', 'VimLeav
 	group = ausave,
 	desc = 'auto saves current buffer',
 	callback = function()
-		bufsave()
+		savebuf()
 	end,
 })
 
 -- disable autosave
-_G.nobufsave = function()
+_G.disable_savebuf = function()
 	load_autosave = 0
 	vim.opt.backup = false
 	vim.opt.writebackup = false
