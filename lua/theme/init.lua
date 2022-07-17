@@ -232,7 +232,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end,
 })
 
-require('color-schemes.gruvbox')
+require('theme.gruvbox')
 
 -- hint: highlight options
 --   fg = "",
