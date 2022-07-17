@@ -1,5 +1,6 @@
 vim.api.nvim_create_user_command('GCommit ', function(opts)
-	local command = 'Git commit -m ' .. opts.args
+	local command = 'Git commit -m "' .. opts.args ..'"'
+	vim.api.nvim_command('Gwrite')
 	vim.api.nvim_command(command)
 end, { nargs = 1, bang = true, desc = 'git commit' })
 
