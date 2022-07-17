@@ -2614,3 +2614,12 @@ bufname
 sumneko
 work_buf
 roadmap
+buftab
+bufenum
+bp
+keepjumps
+numline
+ReplaceWord
+ReplaceWORD
+GCommit
+GPush
