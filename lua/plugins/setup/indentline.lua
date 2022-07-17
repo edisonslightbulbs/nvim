@@ -1,5 +1,3 @@
-vim.cmd([[
-let g:indentLine_color_term = 239
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_fileTypeExclude = ['tex']
-]])
+vim.g.indentLine_color_term = 239
+vim.g.indentLine_char_list = {'|', '¦', '┆', '┊'}
+vim.g.indentLine_fileTypeExclude = {'tex'}

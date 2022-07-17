@@ -1,15 +1,9 @@
-vim.cmd([[
-function! CommitFunction(...)
-    execute ':Gwrite'
-    silent execute ":Git commit -m \"" . join(a:000) . "\""
-endfunction
-command! -nargs=* GitCommitMessage :call CommitFunction(<f-args>)
+vim.api.nvim_create_user_command('GCommit ', function(opts)
+	local command = 'Git commit -m ' .. opts.args
+	vim.api.nvim_command(command)
+end, { nargs = 1, bang = true, desc = 'git commit' })
 
-function! PushFunction(...)
-    silent execute ':Git! push'
-endfunction
-command! -nargs=* GitPush :call PushFunction(<f-args>)
-
-nnoremap <Leader>gc :GitCommitMessage
-nnoremap <Leader>gp :GitPush<CR>
-]])
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = false }
+map('n', '<leader>gc', ':GCommit ', opts)
+map('n', '<leader>gp', ':Git! push <CR>', opts)

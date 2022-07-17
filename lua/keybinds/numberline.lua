@@ -1,28 +1,11 @@
-vim.cmd([[
-function! ToggleNumLineStyle()
-    if(&relativenumber == 1)
-        set norelativenumber
-        set number
+_G.toggle_numline_style = function()
+	if vim.o.relativenumber == true then
+		vim.opt.relativenumber = false
     else
-        set relativenumber
-        set number
-        set number relativenumber
-    endif
-endfunction
+		vim.opt.relativenumber = true
+	end
+end
 
-" toggle line numbers on/off
-function! ToggleNumLine()
-    if &relativenumber == 1 || &number == 1
-        set norelativenumber
-        set nonumber
-    else
-        set relativenumber
-        set number
-        set number relativenumber
-    endif
-endfunction
-
-" key maps
-""nnoremap <silent><C-n> :call ToggleNumLine()<CR>
-nnoremap <silent><C-N> :call ToggleNumLineStyle()<CR>
-]])
+local map =  vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+map('n', '<C-n>', ':lua toggle_numline_style() <CR>', opts)
