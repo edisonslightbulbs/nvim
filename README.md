@@ -1,9 +1,6 @@
-## example nvim setup in lua
+## An example template to help setup Neovim in Lua
 
-###### because sharing is caring
+## Doc
 
--   [x] utilities
--   [x] keybindings
--   [x] color-schemes
--   [x] configuration
--   [x] plugin settings
+* [roadmap](./doc/issues.txt)
+* [issues](./doc/roadmap.txt)
