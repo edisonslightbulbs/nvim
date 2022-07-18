@@ -6,7 +6,7 @@ _G.close_buftab = function()
     end
 end
 
-local function other_tabs(bufid, winid, cur_buf, cur_win)
+local function other_buftabs(bufid, winid, cur_buf, cur_win)
     if vim.fn.buflisted(bufid) and vim.fn.bufloaded(bufid) == 1 and not is_empty(vim.fn.bufname(bufid)) and
         vim.fn.bufname(bufid) ~= 'NvimTree_1' and bufid ~= cur_buf and winid == cur_win then
         return true
@@ -39,7 +39,7 @@ _G.close_other_buftabs = function()
 
             --[[ ... iff a buffer is associated with the current window,
                  write changes made to it and unload it ]]
-            if other_tabs(bufid, winid, cur_buf, cur_win) then
+            if other_buftabs(bufid, winid, cur_buf, cur_win) then
                 --savebuf()
                 vim.api.nvim_command('bd ' .. bufid)
             end
@@ -54,8 +54,8 @@ local opts = { noremap = true, silent = true }
 map('n', '<S-Tab>', ':bN<CR>', opts) -- cycle to previous buffer
 map('n', '<leader><Tab>', ':bn<CR>', opts) -- cycle to next buffer
 map('n', '<leader>|', ':vnew %<CR>', opts) -- create new v-window
-map('n', '<leader>d', ':lua close_tab()<CR>', opts) -- unload current buffer
-map('n', '<leader>o', ':lua close_other_tabs()<CR>', opts) -- unload other buffers
+map('n', '<leader>d', ':lua close_buftab()<CR>', opts) -- unload current buffer
+map('n', '<leader>o', ':lua close_other_buftabs()<CR>', opts) -- unload other buffers
 
 _G.test = function()
     close_buftab()
