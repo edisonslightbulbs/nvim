@@ -1,4 +1,4 @@
-_G.close_tab = function()
+_G.close_buftab = function()
     if bufenum() > 1 then
         vim.api.nvim_command('bp |bd #')
     else
@@ -14,7 +14,7 @@ local function other_tabs(bufid, winid, cur_buf, cur_win)
     return false
 end
 
-_G.close_other_tabs = function()
+_G.close_other_buftabs = function()
     local cur_buf = vim.fn.bufnr('%')
     local lst_buf = vim.fn.bufnr('$')
 
@@ -40,7 +40,7 @@ _G.close_other_tabs = function()
             --[[ ... iff a buffer is associated with the current window,
                  write changes made to it and unload it ]]
             if other_tabs(bufid, winid, cur_buf, cur_win) then
-                savebuf()
+                --savebuf()
                 vim.api.nvim_command('bd ' .. bufid)
             end
         end
@@ -58,7 +58,7 @@ map('n', '<leader>d', ':lua close_tab()<CR>', opts) -- unload current buffer
 map('n', '<leader>o', ':lua close_other_tabs()<CR>', opts) -- unload other buffers
 
 _G.test = function()
-    close_tab()
+    close_buftab()
 end
 
 
