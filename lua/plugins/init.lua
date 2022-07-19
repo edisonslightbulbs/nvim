@@ -63,16 +63,22 @@ local function setup()
 	require('plugins.setup.cmp')
 end
 
-local sync = false
-local target = join_path(vim.fn.stdpath('data'), 'site', 'pack', 'packer', 'start', 'packer.nvim')
+
+local status, packer = pcall(require, 'packer')
+if not status then
+local packer= join_path(vim.fn.stdpath('data'), 'site', 'pack', 'packer', 'start', 'packer.nvim')
 
 if vim.fn.isdirectory(target) == 0 then
-	vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', target })
-	sync = true
+	vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', packer})
+ vim.api.nvim_command('luafile $MYVIMRC')
+plug()
+	packer.sync()
+setup()
+end
 end
 
-plug()
-if sync then
-	require('packer').sync()
-end
-setup()
+
+
+
+
+
