@@ -9,5 +9,5 @@ _G.strip = function(str)
 	return stripped
 end
 
-require('utils.path')
-require('utils.buffer')
+require('utilities.path')
+require('utilities.buffer')

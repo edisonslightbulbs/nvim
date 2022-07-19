@@ -65,5 +65,6 @@ vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
 vim.cmd([[ set iskeyword+=- ]])           -- add '-' to  keyword match
 vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
-require('settings.hosts')
 require('settings.auto')
+require('settings.hosts')
+require('settings.colors')

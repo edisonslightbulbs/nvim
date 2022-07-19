@@ -232,8 +232,6 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     end,
 })
 
-require('theme.gruvbox')
-
 -- hint: highlight options
 --   fg = "",
 --   bg = "black",

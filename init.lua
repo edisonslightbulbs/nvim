@@ -1,5 +1,4 @@
-require('utils')
+require('utilities')
 require('settings')
 require('keybinds')
 require('plugins')
-require('theme')
