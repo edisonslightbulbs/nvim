@@ -27,6 +27,7 @@ _G.close_other_buftabs = function()
 
     -- iterate over all the windows
     for winid = FIRST_WIN, lst_win, 1 do
+        print("working on window: "..winid)
 
         --[[ iff a window has one buffer, check if  its an 'NvimTree_1'
               buffer iff it is, ignore that specific window ]]
@@ -41,6 +42,7 @@ _G.close_other_buftabs = function()
                  write changes made to it and unload it ]]
             if other_buftabs(bufid, winid, cur_buf, cur_win) then
                 --savebuf()
+                print('deleting' .. bufid)
                 vim.api.nvim_command('bd ' .. bufid)
             end
         end
@@ -49,17 +51,13 @@ _G.close_other_buftabs = function()
 end
 
 local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = false }
 
 map('n', '<S-Tab>', ':bN<CR>', opts) -- cycle to previous buffer
 map('n', '<leader><Tab>', ':bn<CR>', opts) -- cycle to next buffer
 map('n', '<leader>|', ':vnew %<CR>', opts) -- create new v-window
 map('n', '<leader>d', ':lua close_buftab()<CR>', opts) -- unload current buffer
 map('n', '<leader>o', ':lua close_other_buftabs()<CR>', opts) -- unload other buffers
-
-_G.test = function()
-    close_buftab()
-end
 
 
 -- ROADMAP:

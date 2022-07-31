@@ -53,7 +53,7 @@ _G.is_nvtree = function()
 end
 
 -- buffer savable?
-_G.is_savable = function()
+_G.is_workbuf = function()
 	if is_writable() and not is_nvtree() and not is_noname() then
 		return true
 	end
