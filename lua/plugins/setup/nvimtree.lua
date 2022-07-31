@@ -46,14 +46,14 @@ nvim_tree.setup({
         },
     },
     update_focused_file = {
-        enable = true,
-        update_root = true,
+        enable = false,
+        update_root = false,
         ignore_list = {},
     },
     filters = {
         dotfiles = false,
         --exclude = {},
-        custom = { 'autoload', 'spell', '.metainfo', '.py.lock', 'pyrightconfig.json' },
+        custom = { 'autoload', 'autosave', 'spell', '.metainfo', '.py.lock', 'pyrightconfig.json' },
     },
     git = {
         enable = false,
