@@ -40,7 +40,7 @@ local settings = {
 
     -- status line
     laststatus = 2,          -- show status
-    cmdheight = 2,           -- cmd message height
+    cmdheight = 3,           -- cmd message height
     wildmenu = true,         -- use menu for cmd-line completions
     shortmess = 'at',        -- file messages based on args [a, t]
 
