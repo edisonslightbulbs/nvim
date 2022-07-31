@@ -1,13 +1,12 @@
--- returns an enumeration of *all*
-_G.bufenum = function()
+-- returns buffer count including no name buffer
+_G.bufcount = function()
 	-- in vanilla vim: return len(getbufinfo({'buflisted':1}))
 	return vim.fn.len(vim.fn.getbufinfo({ buflisted = true }))
 end
 
 -- last buffer?
 _G.is_lastbuf = function()
-	-- includes noname buffer
-	if bufenum() <= 1 then
+	if bufcount() <= 1 then
 		return true
 	end
 	return false
@@ -16,8 +15,7 @@ end
 -- last win?
 _G.is_lastwin = function()
 	local winid = vim.fn.winnr()
-	local wincount = vim.fn.winnr('$')
-	if winid == 1 and winid == wincount then
+	if winid == 1 and winid == vim.fn.winnr('$') then
 		return true
 	end
 	return false
@@ -53,8 +51,20 @@ _G.is_nvtree = function()
 end
 
 -- buffer savable?
-_G.is_workbuf = function()
+_G.is_savable = function()
 	if is_writable() and not is_nvtree() and not is_noname() then
+		return true
+	end
+	return false
+end
+
+_G.is_workbuf = function(bufid)
+	if
+		vim.fn.buflisted(bufid)
+		and vim.fn.bufloaded(bufid) == 1
+		and not is_empty(vim.fn.bufname(bufid))
+		and vim.fn.bufname(bufid) ~= 'NvimTree_1'
+	then
 		return true
 	end
 	return false
