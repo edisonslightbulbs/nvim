@@ -6,7 +6,7 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = ';'
 
 -- source
-map('n', '<space>5', ':luafile $MYVIMRC | echo bufname() "init.lua sourced successfully" <CR>', opt)
+map('n', '<space>5', ':source % | echo bufname() "sourced successfully"<CR>', opt)
 
 -- yanking
 map('', '<leader><ENTER>', '"k', opts)             -- yank into k (all modes)
@@ -18,7 +18,6 @@ map('n', '#', ':keepjumps normal! mi*`i<CR>', opts)-- swap # and *, hold cursor 
 
 -- window managing
 map('n', '<leader>q', ':q!<CR>', opts)             -- quit window
--- map('n', '<leader>\\', ':new<CR>', opts)           -- create new h-window
 
 map('n', '+', ':vertical resize +25<CR>', opts)    -- re-size v-window +25
 map('n', '_', ':vertical resize -25<CR>', opts)    -- re-size v-window -25
