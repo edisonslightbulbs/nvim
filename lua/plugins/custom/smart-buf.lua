@@ -102,14 +102,6 @@ _G.prev_buf = function()
 	end
 end
 
---_G.unload_buf = function()
---    if bufenum() > 1 then
---        vim.api.nvim_command('bp |bd #')
---    else
---        vim.api.nvim_command('bd!')
---    end
---end
-
 _G.unload_other_bufs = function()
 	for bufid = 1, vim.fn.bufnr('$'), 1 do
 		if is_workbuf(bufid) and vim.fn.bufwinnr(bufid) == -1 then
@@ -117,6 +109,15 @@ _G.unload_other_bufs = function()
 		end
 	end
 end
+
+_G.unload_buf = function()
+    if bufcount() > 1 then
+        vim.api.nvim_command('bp |bd #')
+    else
+        vim.api.nvim_command('bd!')
+    end
+end
+
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = false }
@@ -126,4 +127,4 @@ map('n', '<leader><Tab>', ':lua next_buf()<CR>', opts) -- to next buffer
 map('n', '<leader>o', ':lua unload_other_bufs()<CR>', opts) -- unload other buffers
 
 map('n', '<leader>|', ':vnew %<CR>', opts) -- create new v-window
-map('n', '<leader>d', ':lua close_buftab()<CR>', opts) -- unload current buffer
+map('n', '<leader>d', ':lua unload_buf()<CR>', opts) -- unload current buffer

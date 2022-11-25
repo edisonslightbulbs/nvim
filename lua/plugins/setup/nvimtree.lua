@@ -53,7 +53,7 @@ nvim_tree.setup({
     filters = {
         dotfiles = false,
         --exclude = {},
-        custom = { 'autoload', 'autosave', 'spell', '.metainfo', '.py.lock', 'pyrightconfig.json' },
+        custom = { 'autoload', 'spell', '.py.lock', 'pyrightconfig.json' },
     },
     git = {
         enable = false,

@@ -21,5 +21,5 @@ null_ls.setup({
 })
 
 local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = false }
-map('n', '<leader>i', ':lua vim.lsp.buf.format()<CR>', opts)
+local opts = { noremap = true, silent = true }
+map('n', '<leader>i', ':lua vim.lsp.buf.format({ timeout_ms = 6000 })<CR>', opts)

@@ -7,13 +7,13 @@ _G.savebuf = function()
 		--local view = vim.fn.winsaveview()
 		--vim.api.nvim_command('%s/\\s\\+$//e')
 		--vim.fn.winrestview(view)
-		vim.api.nvim_command('silent! write')
+		vim.api.nvim_command('silent! write!')
 	end
 end
 
 local ausave = vim.api.nvim_create_augroup('AutoSave', { clear = true })
 vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave', 'BufLeave', 'VimLeavePre', 'WinLeave' }, {
-	pattern = '*',
+	pattern = {'*', 'yml', 'yaml', 'metainfo'},
 	group = ausave,
 	desc = 'auto saves current buffer',
 	callback = function()
