@@ -22,7 +22,7 @@ map('n', '<leader>q', ':q!<CR>', opts)             -- quit window
 map('n', '+', ':vertical resize +25<CR>', opts)    -- re-size v-window +25
 map('n', '_', ':vertical resize -25<CR>', opts)    -- re-size v-window -25
 map('n', '[', ':horizontal resize +25<CR>', opts)  -- re-size h-window +25
-map('n', ']', ':horizontal resize +25<CR>', opts)  -- re-size h-window -25
+map('n', ']', ':horizontal resize -25<CR>', opts)  -- re-size h-window -25
 
 -- window navigation
 map('n', '<C-J>', '<C-W><C-J>', opts)              -- to bottom window
