@@ -10,10 +10,20 @@ if not cmp_nvim_lsp_status then
     return
 end
 
+local lsp_status_status, lsp_status = pcall(require, 'lsp_status')
+if not lsp_status_status then
+    print('-- something went wrong while setting up lsp_status!')
+    return
+end
+
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+lsp_status.register_progress()
+
 
 -- keybinds
 local function on_attach(client, bufnr)
+    lsp_status.on_attach(client)
     local opts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
