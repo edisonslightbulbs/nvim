@@ -3390,3 +3390,6 @@ wa
 wr
 wl
 rn
+wincmd
+esc
+jk
