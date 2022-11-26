@@ -20,7 +20,7 @@ toggleterm.setup({
 	hide_numbers = false,
 	close_on_exit = false,
 	insert_mappings = true,
-	start_in_insert = false,
+	start_in_insert = true,
 	terminal_mappings = true,
     autochdir = false,
     auto_scroll = false,
@@ -40,5 +40,5 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
-local toggle = ':ToggleTerm size=50 dir=' .. bufdir() .. ' insert_mappings=true direction=horizontal<CR> '
+local toggle = ':ToggleTerm size=' .. vim.api.nvim_buf_line_count(0)*0.40 .. ' dir=' .. bufdir() .. ' insert_mappings=true direction=horizontal<CR> '
 map('n', '<c-o>', toggle, opt)
