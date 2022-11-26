@@ -10,20 +10,11 @@ if not cmp_nvim_lsp_status then
     return
 end
 
-local lsp_status_status, lsp_status = pcall(require, 'lsp_status')
-if not lsp_status_status then
-    print('-- something went wrong while setting up lsp_status!')
-    return
-end
-
 local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-lsp_status.register_progress()
 
 
 -- keybinds
-local function on_attach(client, bufnr)
-    lsp_status.on_attach(client)
+local on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -39,37 +30,39 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, opts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, opts)
 end
 
--- lua
-lspconfig['sumneko_lua'].setup({
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
+
+local util = require('lspconfig.util')
+
+-- cpp
+lspconfig['clangd'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                globals = { 'vim', 'cmp' },
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file('', true),
-                checkThirdParty = false,
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
+    flags = lsp_flags,
+    root_dir = function(fname)
+        return util.root_pattern(
+            '.git',
+            '.clangd',
+            '.clang-tidy',
+            '.clang-format',
+            'compile_commands.json',
+            'compile_flags.txt',
+            'configure.ac'
+        )(fname) or util.path.dirname(fname)
+    end,
 })
 
 -- python
-local util = require('lspconfig.util')
 lspconfig['pyright'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
+    flags = lsp_flags,
+    autostart = true,
     settings = {
         python = {
             analysis = {
@@ -89,22 +82,32 @@ lspconfig['pyright'].setup({
     end,
 })
 
--- cpp
-lspconfig['clangd'].setup({
+
+-- lua
+lspconfig['sumneko_lua'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    root_dir = function(fname)
-        return util.root_pattern(
-            '.git',
-            '.clangd',
-            '.clang-tidy',
-            '.clang-format',
-            'compile_commands.json',
-            'compile_flags.txt',
-            'configure.ac'
-        )(fname) or util.path.dirname(fname)
-    end,
+    autostart = true,
+    flags = lsp_flags,
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = { 'vim', 'cmp' },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+                checkThirdParty = false,
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
 })
+
 
 --json
 lspconfig['jsonls'].setup({
