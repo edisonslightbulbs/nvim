@@ -27,7 +27,6 @@ cmp.setup({
         documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
         ['<C-j>'] = cmp.mapping.select_next_item(),
         ['<C-k>'] = cmp.mapping.select_prev_item(),
         ['<C-b>'] = cmp.mapping.scroll_docs(-1),
@@ -38,8 +37,8 @@ cmp.setup({
             c = cmp.mapping.close(),
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
+            if luasnip.expandable() then
+                luasnip.expand()
             elseif cmp.visible() then
                 cmp.select_next_item()
             else
@@ -50,9 +49,9 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'luasnip' },
         { name = 'path', keyword_length = 3 },
-        { name = 'nvim_lsp', keyword_length = 5 },
-        { name = 'nvim_lua', keyword_length = 5 },
-        { name = 'buffer', keyword_length = 5 },
+        { name = 'nvim_lsp', keyword_length = 3 },
+        { name = 'nvim_lua', keyword_length = 3 },
+        { name = 'buffer', keyword_length = 3 },
     }),
     formatting = {
         format = lspkind.cmp_format({

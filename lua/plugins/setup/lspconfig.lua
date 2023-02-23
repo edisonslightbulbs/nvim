@@ -34,7 +34,7 @@ local on_attach = function(client, bufnr)
 end
 
 local lsp_flags = {
-  debounce_text_changes = 150,
+    debounce_text_changes = 150
 }
 
 local util = require('lspconfig.util')
@@ -61,7 +61,7 @@ lspconfig['clangd'].setup({
 lspconfig['pyright'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    flags = lsp_flags,
+    -- flags = lsp_flags,
     autostart = true,
     settings = {
         python = {

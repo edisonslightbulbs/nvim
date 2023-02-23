@@ -5,7 +5,6 @@ if not status then
 end
 
 nvim_tree.setup({
-    create_in_closed_folder = true,
     hijack_unnamed_buffer_when_opening = true,
     view = {
         number = true,

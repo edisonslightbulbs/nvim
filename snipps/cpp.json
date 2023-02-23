@@ -48,14 +48,11 @@
             " * @brief",
             " *   ${2:a brief description}",
             " *",
-            " * @description",
-            " *   ${3:a detailed description}",
+            " * @${3:param}",
+            " *   ${4:description}",
             " *",
-            " * @${4:param}",
-            " *   ${5:description}",
-            " *",
-            " * @${6:retval}",
-            " *   ${7:description}",
+            " * @${5:ret}",
+            " *   ${6:description}",
             " */"
         ],
         "description": "method doc"
@@ -70,17 +67,17 @@
     "include relative": {
         "prefix": "inc",
         "body": [
-            "#include '${1:lib}'"
+            "#include \"${1:lib}\""
         ],
         "description": "include relative library"
     },
     "include guard": {
         "prefix": "head",
         "body": [
-            "#ifndef ${1: header}",
+            "#ifndef ${1: GUARD_H}",
             "#define $1",
             "${0}",
-            "#endif /* end of include guard: $1 */"
+            "#endif // $1 "
         ],
         "description": "include guard"
     },
@@ -188,7 +185,14 @@
     "std map": {
         "prefix": "map",
         "body": [
-            "std::unordered_map<${1:map}>"
+            "std::map<${1:key}, ${2:value}>"
+        ],
+        "description": "std map"
+    },
+    "std unordered map": {
+        "prefix": "umap",
+        "body": [
+            "std::unordered_map<${1:key}, ${2:value}>"
         ],
         "description": "std (unordered) map"
     },
@@ -205,22 +209,5 @@
             "std::make_shared<${1:var}>"
         ],
         "description": "std make shared ptr"
-    },
-    "read int": {
-        "prefix": ">>i",
-        "body": [
-            "int n;",
-            "std::cin >> n;",
-            "std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');"
-        ],
-        "description": "read int from standard input"
-    },
-    "read str": {
-        "prefix": ">>str",
-        "body": [
-            "std::string str;",
-            "getline(std::cin, str);"
-        ],
-        "description": "read str from standard input"
     }
 }
