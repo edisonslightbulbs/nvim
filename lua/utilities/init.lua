@@ -9,5 +9,6 @@ _G.strip = function(str)
 	return stripped
 end
 
+require('utilities.git')
 require('utilities.path')
 require('utilities.buffer')

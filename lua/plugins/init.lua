@@ -77,8 +77,6 @@ local function conf()
 	require('plugins.setup.null-ls')
 	require('plugins.setup.cmp')
 	require('plugins.setup.gruvbox')
-	require('plugins.custom.smart-buf')
-	require('plugins.custom.autosave')
 end
 
 local plug_status, massage = pcall(plug)

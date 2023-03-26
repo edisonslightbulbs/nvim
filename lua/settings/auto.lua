@@ -1,13 +1,4 @@
-local startup = vim.api.nvim_create_augroup('Startup', { clear = true })
-vim.api.nvim_create_autocmd('VimEnter', {
-	pattern = '',
-	group = startup,
-	desc = 'all systems go',
-	callback = function()
-		print('Now then, lets get started, shall we?')
-	end,
-})
-
+-- reload buffer on 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter'  events
 local autoread = vim.api.nvim_create_augroup('Reload', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter' }, {
 	pattern = '*',
@@ -18,6 +9,7 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEn
 	end,
 })
 
+-- remove readonly on 'BufEnter'
 local noreadonly = vim.api.nvim_create_augroup('DiffMode', { clear = true })
 vim.api.nvim_create_autocmd('BufEnter', {
 	pattern = '*',
@@ -30,12 +22,43 @@ vim.api.nvim_create_autocmd('BufEnter', {
 	end,
 })
 
+-- remove conceal on 'BufEnter'
 local conceal = vim.api.nvim_create_augroup('UnConceal', { clear = true })
 vim.api.nvim_create_autocmd({ 'BufEnter' }, {
 	pattern = { '*.md', '*.json' },
 	group = conceal,
 	desc = 'un-conceal in *.md and *.json files',
 	callback = function()
-		vim.opt.conceallevel=0
+		vim.bo.conceallevel=0
+	end,
+})
+
+-- strip trailing white spaces and save on 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre'
+local autosave_enabled = true
+local autosave_interval = 20 -- ms
+
+local function save_buffer()
+  if autosave_enabled and is_savable() then
+    vim.cmd('silent write')
+  end
+end
+
+local function schedule_autosave()
+  if autosave_enabled then
+    vim.defer_fn(save_buffer, autosave_interval)
+  end
+end
+
+local function disable_autosave()
+  autosave_enabled = false
+end
+
+local autosave = vim.api.nvim_create_augroup('Autosave', { clear = true })
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre', 'CursorMoved','CmdwinLeave' }, {
+	pattern = { '*' },
+	group = autosave,
+	desc = 'autosave buffers',
+	callback = function()
+        schedule_autosave()
 	end,
 })

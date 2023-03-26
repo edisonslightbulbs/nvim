@@ -1,7 +1,7 @@
 local settings = {
-    termguicolors = true, -- use gui colors
+    termguicolors = true,  -- use gui colors
     colorcolumn = '65,80', -- show column highlight @ lines [65, 80]
-    background = 'dark', -- background color
+    background = 'dark',   -- background color
 }
 for k, v in pairs(settings) do
     vim.opt[k] = v

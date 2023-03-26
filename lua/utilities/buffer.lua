@@ -1,10 +1,9 @@
 -- returns buffer count including no name buffer
 _G.bufcount = function()
-	-- in vanilla vim: return len(getbufinfo({'buflisted':1}))
 	return vim.fn.len(vim.fn.getbufinfo({ buflisted = true }))
 end
 
--- last buffer?
+-- returns true or false on last buffer check
 _G.is_lastbuf = function()
 	if bufcount() <= 1 then
 		return true
@@ -12,7 +11,7 @@ _G.is_lastbuf = function()
 	return false
 end
 
--- last win?
+-- returns true or false on last window check
 _G.is_lastwin = function()
 	local winid = vim.fn.winnr()
 	if winid == 1 and winid == vim.fn.winnr('$') then
@@ -21,7 +20,7 @@ _G.is_lastwin = function()
 	return false
 end
 
--- buffer noname?
+-- returns true or false on noname buffer check
 _G.is_noname = function()
 	if
 		vim.bo.modifiable
@@ -34,7 +33,7 @@ _G.is_noname = function()
 	return false
 end
 
--- buffer writable?
+-- returns true or false on buffer writable check
 _G.is_writable = function()
 	if vim.bo.modifiable and is_empty(vim.bo.buftype) and not is_empty(vim.bo.filetype) then
 		return true
@@ -42,7 +41,7 @@ _G.is_writable = function()
 	return false
 end
 
--- buffer NvimTree?
+-- returns true or false on NvimTree buffer check
 _G.is_nvtree = function()
 	if vim.bo.filetype == 'NvimTree' then
 		return true
@@ -50,7 +49,7 @@ _G.is_nvtree = function()
 	return false
 end
 
--- buffer savable?
+-- returns true or false on buffer savable check
 _G.is_savable = function()
 	if is_writable() and not is_nvtree() and not is_noname() then
 		return true
@@ -58,6 +57,7 @@ _G.is_savable = function()
 	return false
 end
 
+-- returns true or false on work buffer check
 _G.is_workbuf = function(bufid)
 	if
 		vim.fn.buflisted(bufid)
