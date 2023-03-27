@@ -40,5 +40,5 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
-local toggle = ':ToggleTerm size=' .. vim.api.nvim_buf_line_count(0)*0.40 .. ' dir=' .. bufdir() .. ' insert_mappings=true direction=horizontal<CR> '
+local toggle = ':ToggleTerm size=' .. vim.api.nvim_buf_line_count(0)*0.40 .. ' dir=' .. config.path.cwd() .. ' insert_mappings=true direction=horizontal<CR> '
 map('n', '<c-o>', toggle, opt)

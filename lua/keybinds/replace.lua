@@ -1,3 +1,4 @@
+-- replace all occurrences of the word under the cursor
 vim.api.nvim_create_user_command('ReplaceWord ', function(opts)
 	local view = vim.fn.winsaveview()
 	local word_under_cursor = vim.call('expand', '<cword>')
@@ -7,6 +8,7 @@ vim.api.nvim_create_user_command('ReplaceWord ', function(opts)
 	vim.fn.winrestview(view)
 end, { nargs = 1, bang = true, desc = 'replace in word' })
 
+-- replace all occurrences of the WORD under the cursor
 vim.api.nvim_create_user_command('ReplaceWORD ', function(opts)
 	local view = vim.fn.winsaveview()
 	local word_under_cursor = vim.call('expand', '<cWORD>')
@@ -18,5 +20,6 @@ end, { nargs = 1, bang = true, desc = 'replace in word' })
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = false }
+
 map('n', '<leader>r', ':ReplaceWord ', opts)
 map('n', '<leader>R', ':ReplaceWORD ', opts)

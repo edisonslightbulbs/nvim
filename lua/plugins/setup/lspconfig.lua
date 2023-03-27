@@ -43,17 +43,10 @@ local util = require('lspconfig.util')
 lspconfig['clangd'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
+    autostart = true,
     flags = lsp_flags,
     root_dir = function(fname)
-        return util.root_pattern(
-            '.git',
-            '.clangd',
-            '.clang-tidy',
-            '.clang-format',
-            'compile_commands.json',
-            'compile_flags.txt',
-            'configure.ac'
-        )(fname) or util.path.dirname(fname)
+        return config.git.root()
     end,
 })
 
@@ -71,14 +64,7 @@ lspconfig['pyright'].setup({
         },
     },
     root_dir = function(fname)
-        return util.root_pattern(
-            '.git',
-            'setup.py',
-            'setup.cfg',
-            'pyproject.toml',
-            'pyrightconfig.json',
-            'requirements.txt'
-        )(fname) or util.path.dirname(fname)
+        return config.git.root()
     end,
 })
 
@@ -106,6 +92,9 @@ lspconfig['lua_ls'].setup({
             },
         },
     },
+    root_dir = function(fname)
+        return config.git.root()
+    end,
 })
 
 
@@ -113,15 +102,7 @@ lspconfig['lua_ls'].setup({
 lspconfig['jsonls'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
-    -- root_dir = function(fname)
-    --     return util.root_pattern(
-    --         '.git',
-    --         '.clangd',
-    --         '.clang-tidy',
-    --         '.clang-format',
-    --         'compile_commands.json',
-    --         'compile_flags.txt',
-    --         'configure.ac'
-    --     )(fname) or util.path.dirname(fname)
-    -- end,
+    root_dir = function(fname)
+        return config.git.root()
+    end,
 })

@@ -7,11 +7,11 @@ for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
-local augroup = vim.api.nvim_create_augroup('BaseColorScheme', { clear = true })
+local autheme = vim.api.nvim_create_augroup('BaseColorScheme', { clear = true })
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'background-foreground highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'Normal', {
@@ -23,8 +23,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
-    desc = 'cursor-line highlihgt',
+    group = autheme,
+    desc = 'cursor-line highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'CursorLine', {
             fg = '',
@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'cursor line number',
     callback = function()
         vim.api.nvim_set_hl(0, 'CursorLineNr', {
@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'number-line highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'LineNr', {
@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'menu highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'Menu', {
@@ -92,7 +92,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'sign-column highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'SignColumn', {
@@ -104,7 +104,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'column highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'ColorColumn', {
@@ -116,7 +116,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'spellings highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'SpellBad', {
@@ -146,7 +146,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'search highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'Search', {
@@ -169,7 +169,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'split-boarder highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'VertSplit', {
@@ -182,7 +182,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'matching-enclosure highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'MatchParen', {
@@ -195,7 +195,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'status-line highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'StatusLine', {
@@ -211,7 +211,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 -- date: 2020-08-14 09:25
 vim.api.nvim_create_autocmd('ColorScheme', {
     pattern = '',
-    group = augroup,
+    group = autheme,
     desc = 'tab-line highlight',
     callback = function()
         vim.api.nvim_set_hl(0, 'TabLine', {

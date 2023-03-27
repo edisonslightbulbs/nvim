@@ -36,7 +36,7 @@ local settings = {
     spell = true,                   -- check spellings
     spellcapcheck= '',              -- no cap check
     spelllang = 'en_us,de_de',   -- spell language
-    spellfile = join_path(vim.fn.stdpath('config'), 'spell', 'spellings.utf-8.add'),
+    spellfile = config.path.join(vim.fn.stdpath('config'), 'spell', 'spellings.utf-8.add'),
 
     -- status line
     laststatus = 2,                 -- show status
@@ -60,6 +60,15 @@ local settings = {
 for k, v in pairs(settings) do
     vim.opt[k] = v
 end
+
+
+local undodir = config.path.join(vim.fn.stdpath('config'), 'autosave', 'undo')
+if vim.fn.isdirectory(undodir) == 0 then
+    vim.fn.mkdir(undodir, true)
+end
+
+vim.opt.undodir = undodir
+vim.opt.undofile = true
 
 vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
 vim.cmd([[ set iskeyword+=- ]])           -- add '-' to  keyword match

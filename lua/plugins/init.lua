@@ -1,5 +1,5 @@
 local run_packer_sync = false
-local target = join_path(vim.fn.stdpath('data'), 'site', 'pack', 'packer', 'start', 'packer.nvim')
+local target = config.path.join(vim.fn.stdpath('data'), 'site', 'pack', 'packer', 'start', 'packer.nvim')
 
 if vim.fn.isdirectory(target) == 0 then
 	vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', target })

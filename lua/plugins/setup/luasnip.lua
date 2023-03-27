@@ -4,7 +4,7 @@ if not status then
 	return
 end
 
-local snippets = join_path(vim.fn.stdpath('config'), 'snipps')
+local snippets = config.path.join(vim.fn.stdpath('config'), 'snipps')
 local loader = require('luasnip.loaders.from_vscode')
 
 -- load cpp snippets from rafamadriz/friendly-snippets
