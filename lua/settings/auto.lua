@@ -38,7 +38,7 @@ local autosave_enabled = true
 local autosave_interval = 10 -- ms
 
 local function save_buffer()
-	if autosave_enabled and config.buffer.savable() and vim.api.nvim_buf_is_loaded(0) then
+	if autosave_enabled and config.buffer.savable() then
 		vim.cmd('silent write')
 	end
 end

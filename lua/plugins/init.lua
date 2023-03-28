@@ -1,4 +1,7 @@
+-- flag to indicate whether Packer sync is necessary
 local run_packer_sync = false
+
+-- check if packer.nvim exists; iff not, clone the repository
 local target = config.path.join(vim.fn.stdpath('data'), 'site', 'pack', 'packer', 'start', 'packer.nvim')
 
 if vim.fn.isdirectory(target) == 0 then
@@ -7,14 +10,15 @@ if vim.fn.isdirectory(target) == 0 then
 	run_packer_sync = true
 end
 
+-- verify packer is setup correctly
 local packer_status, packer = pcall(require, 'packer')
 if not packer_status then
-	print('-- something went wrong while setting up packer!')
-	print('-- skipping plugin setup and bailing out!')
+	vim.notify('-- Something went wrong while setting up Packer!')
 	return
 end
 
-local function plug()
+-- plugins
+local function pack()
 	return packer.startup(function(use)
 		-- packer
 		use('wbthomason/packer.nvim')
@@ -57,16 +61,13 @@ local function plug()
 	end)
 end
 
-local function conf()
-	--[[ For each plugin-setup module (listed below):
-    Use pcalls (protected calls) to verify plugin state before
-    executing setup commands. The pcalls run un-interrupted. If
-    a plugin's state is erroneous setup is not executed. ]]
+-- plugin configuration
+local function configure()
 	require('plugins.setup.repeat')
 	require('plugins.setup.airline')
 	require('plugins.setup.fugitive')
 	require('plugins.setup.nvimtree')
-	require('plugins.setup.telescope')
+	-- require('plugins.setup.telescope')
 	require('plugins.setup.indentline')
 	require('plugins.setup.treesitter')
 	require('plugins.setup.toggleterm')
@@ -79,16 +80,23 @@ local function conf()
 	require('plugins.setup.gruvbox')
 end
 
-local plug_status, massage = pcall(plug)
-if plug_status then
-	if run_packer_sync then
-		packer.sync()
-	end
+-- pack plugins using packer
+local pack_status, pack_message = pcall(pack)
+if not pack_status then
+	vim.notify('-- Something went wrong while packing plugins!')
+	vim.notify(pack_message)
+	return
 end
 
-local conf_status, massage = pcall(conf)
-if not conf_status then
-	print('-- something went wrong while configuring plugins!')
-	print('-- skipping plugin config and bailing out!')
+-- run packer sync if necessary
+if run_packer_sync then
+	packer.sync()
+end
+
+-- configure plugins
+local configure_status, message = pcall(configure)
+if not configure_status and message ~= nil then
+	vim.notify('-- Something went wrong while setting up plugins!')
+	vim.notify(message)
 	return
 end
