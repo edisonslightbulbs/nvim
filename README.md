@@ -1,4 +1,4 @@
-# Easy Neovim setup 🍻
+# Seamless Neovim setup 🍻
 
 [![GitHub stars](https://img.shields.io/github/stars/edisonslightbulbs/nvim)](https://github.com/edisonslightbulbs/nvim/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/edisonslightbulbs/nvim)](https://github.com/edisonslightbulbs/nvim/network)
@@ -12,6 +12,8 @@
 - Pre-configured settings that work out-of-the-box :package:
 - A set of configured [plugins](https://github.com/edisonslightbulbs/nvim/blob/lua/lua/plugins/init.lua) to optimize productivity :wrench:
 
-## Self-Promotion
+## Promotion
 
-Like this Neovim setup? [Star the repository](https://github.com/edisonslightbulbs/nvim/stargazers)!
+[Star if you liked](https://github.com/edisonslightbulbs/nvim/stargazers). 
+[Share if you loved](https://github.com/edisonslightbulbs/nvim "Copy project link").
+[Contribute to collaborate](https://github.com/edisonslightbulbs/nvim/fork).

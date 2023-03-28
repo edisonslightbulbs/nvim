@@ -76,4 +76,4 @@ vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
 require('settings.auto')
 require('settings.hosts')
-require('settings.colors')
+require('settings.theme')

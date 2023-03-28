@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorMoved' }, {
 
 -- strip trailing white spaces and save on 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre'
 local autosave_enabled = true
-local autosave_interval = 20 -- ms
+local autosave_interval = 10 -- ms
 
 local function save_buffer()
 	if autosave_enabled and config.buffer.savable() then

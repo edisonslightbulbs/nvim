@@ -6,4 +6,4 @@ map('n', '<C-s>', ':lua config.buffer.strip() <CR>', opts)        -- remove trai
 map('n', '<S-Tab>', ':lua config.buffer.previous()<CR>', opts)    -- to previous buffer
 map('n', '<leader>d', ':lua config.buffer.unload()<CR>', opts)    -- unload current buffer
 map('n', '<leader><Tab>', ':lua config.buffer.next()<CR>', opts)  -- to next buffer
-map('n', '<leader>o', ':lua config.buffer.unloadall()<CR>', opts) -- unload other buffers
+map('n', '<leader>o', ':lua config.buffer.unloadall()<CR>', opts) -- unload all other buffers
