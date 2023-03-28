@@ -15,5 +15,7 @@
 ## Promotion
 
 [Star if you liked](https://github.com/edisonslightbulbs/nvim/stargazers).
+
 [Share if you loved](https://github.com/edisonslightbulbs/nvim "Copy project link").
+
 [Contribute to collaborate](https://github.com/edisonslightbulbs/nvim/fork).
