@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 
 -- remove conceal on 'BufEnter'
 local conceal = vim.api.nvim_create_augroup('UnConceal', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorMoved' }, {
+vim.api.nvim_create_autocmd({ 'BufEnter,CursorMoved' }, {
 	pattern = { '*.md', '*.json' },
 	group = conceal,
 	desc = 'un-conceal in *.md and *.json files',
