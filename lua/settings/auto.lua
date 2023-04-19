@@ -1,7 +1,7 @@
 -- reload buffer on 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter'  events
 local autoreload = vim.api.nvim_create_augroup('Reload', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter' }, {
-	pattern = '*',
+	pattern = {'*.yml', '*.h', '*.cpp', '*.py', '*.metainfo', '*.json'},
 	group = autoreload,
 	desc = 'reloads buf if file modified outside nvim',
 	callback = function()
