@@ -43,11 +43,22 @@ local function save_buffer()
 	end
 end
 
-local function schedule_autosave()
-	if autosave_enabled then
-		vim.defer_fn(save_buffer, autosave_interval)
+local function debounce(func, delay)
+	local timer_id
+
+	return function(...)
+		if timer_id then
+			vim.fn.timer_stop(timer_id)
+		end
+
+		local args = { ... }
+		timer_id = vim.fn.timer_start(delay, function()
+			func(unpack(args))
+		end)
 	end
 end
+
+local debounced_save_buffer = debounce(save_buffer, autosave_interval)
 
 local autosave = vim.api.nvim_create_augroup('Autosave', { clear = true })
 vim.api.nvim_create_autocmd(
@@ -57,7 +68,7 @@ vim.api.nvim_create_autocmd(
 		group = autosave,
 		desc = 'autosave buffers',
 		callback = function()
-			schedule_autosave()
+			debounced_save_buffer()
 		end,
 	}
 )
