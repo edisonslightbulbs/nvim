@@ -61,7 +61,15 @@ for k, v in pairs(settings) do
     vim.opt[k] = v
 end
 
+vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
+vim.cmd([[ set iskeyword+=- ]])           -- match `-` in words
+vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- setup undodir
 local undodir = config.path.join(vim.fn.stdpath('config'), 'autosave', 'undo')
 if vim.fn.isdirectory(undodir) == 0 then
     vim.fn.mkdir(undodir, 'p')
@@ -69,10 +77,6 @@ end
 
 vim.opt.undodir = undodir
 vim.opt.undofile = true
-
-vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
-vim.cmd([[ set iskeyword+=- ]])           -- add '-' to  keyword match
-vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
 require('settings.auto')
 require('settings.hosts')
