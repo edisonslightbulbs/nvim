@@ -17,7 +17,6 @@ local opts = {
 		'^cache' .. config.path.sep,
 		'^deprecated' .. config.path.sep,
 		'^autosave' .. config.path.sep .. 'undo' .. config.path.sep,
-
 		'^.' .. config.path.sep .. '.git' .. config.path.sep,
 		'^.' .. config.path.sep .. 'spell' .. config.path.sep,
 		'^.' .. config.path.sep .. 'build' .. config.path.sep,
