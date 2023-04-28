@@ -64,7 +64,7 @@ end
 
 local undodir = config.path.join(vim.fn.stdpath('config'), 'autosave', 'undo')
 if vim.fn.isdirectory(undodir) == 0 then
-    vim.fn.mkdir(undodir, true)
+    vim.fn.mkdir(undodir, 'p')
 end
 
 vim.opt.undodir = undodir
