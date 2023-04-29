@@ -138,7 +138,7 @@ map('n', '<leader><Space>', ':NvimTreeToggle<CR>', opts)
 
 _G.to_workdir = function(args)
 	local dir
-	if args and #args > 0 then
+	if args ~= nil and args ~= '' then
 		dir = vim.fn.fnameescape(args)
 	else
 		dir = vim.fn.expand('%:p:h')
@@ -146,18 +146,18 @@ _G.to_workdir = function(args)
 
 	vim.cmd('NvimTreeClose')
 	vim.cmd('cd ' .. dir)
-	vim.cmd('NvimTreeOpen')
+	vim.cmd('NvimTreeOpen ' .. dir)
 	print(dir)
 end
 
 vim.cmd([[
-    function! ToWorkdirWrapper(args) abort
-        if a:args == ''
+    function! ToWorkdirWrapper(...) abort
+        if a:0 == 0
             call luaeval('_G.to_workdir()')
         else
-            call luaeval('_G.to_workdir(_A.args)', {'args': a:args})
+            call luaeval('_G.to_workdir(_A[1])', a:000)
         endif
     endfunction
 ]])
 
-vim.cmd('command! -nargs=? -complete=dir Cwd call ToWorkdirWrapper(<f-args>)')
+vim.cmd('command! -nargs=* -complete=dir Cwd call ToWorkdirWrapper(<f-args>)')
