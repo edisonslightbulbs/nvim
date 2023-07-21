@@ -35,7 +35,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter,CursorMoved' }, {
 
 -- save on 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre'
 local autosave_enabled = true
-local autosave_interval = 10 -- ms
 
 local function save_buffer()
 	if autosave_enabled and config.buffer.savable() then
@@ -58,11 +57,12 @@ local function debounce(func, delay)
 	end
 end
 
+local autosave_interval = 10 -- ms
 local debounced_save_buffer = debounce(save_buffer, autosave_interval)
 
 local autosave = vim.api.nvim_create_augroup('Autosave', { clear = true })
 vim.api.nvim_create_autocmd(
-	{ 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre', 'CursorMoved', 'CmdwinLeave' },
+	{ 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'CursorMoved', 'CmdwinLeave' },
 	{
 		pattern = { '*' },
 		group = autosave,
@@ -73,3 +73,15 @@ vim.api.nvim_create_autocmd(
 	}
 )
 
+-- Handle ExitPre event separately
+vim.api.nvim_create_autocmd(
+	{ 'ExitPre' },
+	{
+		pattern = { '*' },
+		group = autosave,
+		desc = 'handle exit event',
+		callback = function()
+			autosave_enabled = false
+		end,
+	}
+)
