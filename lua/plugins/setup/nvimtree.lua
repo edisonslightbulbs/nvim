@@ -81,11 +81,6 @@ nvim_tree.setup({
 		number = true,
 		relativenumber = true,
 		adaptive_size = false,
-		mappings = {
-			list = {
-				{ key = 'u', action = 'dir_up' },
-			},
-		},
 	},
 	renderer = {
 		group_empty = true,
