@@ -47,6 +47,25 @@ lspconfig["clangd"].setup({
 	root_dir = function()
 		return config.git.root()
 	end,
+	-- include Conan and Cmake - we're looking for conanbuildinfo.json
+	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=build/Release" },
+	init_options = {
+		clangdFileStatus = true,
+		usePlaceholders = true,
+		completeUnimported = true,
+		semanticHighlighting = true,
+	},
+})
+
+-- cmake
+lspconfig.cmake.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	flags = lsp_flags,
+	autostart = true,
+	root_dir = function()
+		return config.git.root()
+	end,
 })
 
 -- python
