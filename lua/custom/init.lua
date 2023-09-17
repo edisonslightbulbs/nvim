@@ -78,6 +78,6 @@ end
 vim.opt.undodir = undodir
 vim.opt.undofile = true
 
-require('settings.auto')
-require('settings.hosts')
-require('settings.theme')
+require('custom.auto')
+require('custom.hosts')
+require('custom.theme')

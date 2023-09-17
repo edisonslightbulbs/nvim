@@ -2,7 +2,7 @@
 _G.config = {}
 
 require("utilities")
-require("settings")
+require("custom")
 require("keybinds")
 require("plugins")
 
