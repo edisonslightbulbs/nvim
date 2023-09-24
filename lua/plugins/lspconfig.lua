@@ -48,6 +48,7 @@ lspconfig["clangd"].setup({
 		return config.git.root()
 	end,
 	-- include Conan and Cmake - we're looking for conanbuildinfo.json
+    -- @todo write a function that finds the directory housing conanbuildinfo.json
 	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=build/Release" },
 	init_options = {
 		clangdFileStatus = true,
@@ -116,6 +117,15 @@ lspconfig["lua_ls"].setup({
 
 --json
 lspconfig["jsonls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	root_dir = function()
+		return config.git.root()
+	end,
+})
+
+--latex
+lspconfig["texlab"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 	root_dir = function()

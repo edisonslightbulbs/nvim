@@ -12,16 +12,32 @@ conform.setup({
 		python = { "isort", "yapf" },
 		lua = { "stylua" },
 		cmake = { "cmake_format" },
-		cpp = { "clang_format" },
+		clangd = { "clang_format" },
 		latex = { "latexindent" },
 		yaml = { "yamlfmt" },
+		json = { "jq" },
 	},
+
 	formatters = {
+		clang_format = {
+			command = "clang-format",
+			args = { "--style=Google", "-i", "$FILENAME" },
+			stdin = false,
+			exit_codes = { 0 },
+		},
+
 		cmake_format = {
-			command = "cmake-format", -- The cmake-format command
-			args = { "-c", cmake_config_file_path, "-i", "$FILENAME" }, -- Point to your .cmake-format.yaml file
-			stdin = false, -- Send file contents to stdin
-			exit_codes = { 0 }, -- Exit code that indicates success
+			command = "cmake-format",
+			args = { "-c", cmake_config_file_path, "-i", "$FILENAME" },
+			stdin = false,
+			exit_codes = { 0 },
+		},
+
+		latexindent = {
+			command = "latexindent",
+			args = { "-wd", "$FILENAME" },
+			stdin = false,
+			exit_codes = { 0 },
 		},
 	},
 })
