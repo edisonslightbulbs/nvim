@@ -24,8 +24,8 @@ if config.os() == "Linux" or config.os() == "macOS" then
 elseif config.os() == "Windows" then
 	-- iff necessary, specific target hosts
 	local specific_rb = "C:\\Ruby30-x64\\bin\\ruby.exe"
-	local specific_py2 = "C:\\Users\\zoemthun\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
-	local specific_py3 = "C:\\Users\\zoemthun\\AppData\\Local\\anaconda3\\envs\\nvim\\python.exe"
+	local specific_py2 = vim.fn.expand("%LOCALAPPDATA%") .. "\\Microsoft\\WindowsApps\\python.exe"
+	local specific_py3 = vim.fn.expand("%LOCALAPPDATA%") .. "\\anaconda3\\envs\\nvim\\python.exe"
 
 	if vim.fn.filereadable(specific_rb) == 1 then
 		vim.g.ruby_host_prog = specific_rb
