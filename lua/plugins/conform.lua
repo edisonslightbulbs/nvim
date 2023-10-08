@@ -9,7 +9,7 @@ local cmake_config_file_path = config.path.join(vim.fn.stdpath("config"), "forma
 conform.setup({
 	lazy = true,
 	formatters_by_ft = {
-		python = { "isort", "yapf" },
+		python = { "autopep8", "isort"},
 		lua = { "stylua" },
 		cmake = { "cmake_format" },
 		clangd = { "clang_format" },
@@ -19,6 +19,13 @@ conform.setup({
 	},
 
 	formatters = {
+		python = {
+			command = "autopep8",
+			args = { "--in-place", "--aggressive", "--aggressive", "--max-line-length 120", "$FILENAME" },
+			stdin = false,
+			exit_codes = { 0 },
+		},
+
 		clang_format = {
 			command = "clang-format",
 			args = { "--style=Google", "-i", "$FILENAME" },
