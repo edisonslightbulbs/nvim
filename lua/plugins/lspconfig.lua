@@ -38,7 +38,7 @@ local lsp_flags = {
 	debounce_text_changes = 150,
 }
 
--- cpp
+-- -- cpp
 lspconfig["clangd"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
@@ -49,7 +49,7 @@ lspconfig["clangd"].setup({
 	end,
 	-- include Conan and Cmake - we're looking for conanbuildinfo.json
     -- @todo write a function that finds the directory housing conanbuildinfo.json
-	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=build/Release" },
+	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=C:\\Users\\zoemthun\\repositories\\conan\\inference\\build\\Release" },
 	init_options = {
 		clangdFileStatus = true,
 		usePlaceholders = true,

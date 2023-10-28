@@ -56,6 +56,11 @@ local settings = {
     -- timeout
     timeoutlen = 1000,              -- timeout (ms) for a mapped sequence completions
     ttimeoutlen = 0,                -- timeout (ms) on ESC key-press
+
+    -- base colors
+    termguicolors = true,           -- use gui colors
+    colorcolumn = '65,80',          -- show column highlight @ lines [65, 80]
+    background = 'dark',            -- background color
 }
 
 for k, v in pairs(settings) do
@@ -81,4 +86,4 @@ vim.opt.undofile = true
 
 require('custom.auto')
 require('custom.hosts')
-require('custom.theme')
+-- require('custom.theme')

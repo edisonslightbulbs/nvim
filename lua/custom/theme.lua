@@ -1,11 +1,5 @@
 local settings = {
-    termguicolors = true,  -- use gui colors
-    colorcolumn = '65,80', -- show column highlight @ lines [65, 80]
-    background = 'dark',   -- background color
 }
-for k, v in pairs(settings) do
-    vim.opt[k] = v
-end
 
 local autheme = vim.api.nvim_create_augroup('BaseColorScheme', { clear = true })
 

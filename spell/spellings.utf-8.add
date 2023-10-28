@@ -4451,3 +4451,5 @@ LookupCustomMetadataMapAllocated
 GetInputShape
 ONNXTypeToString
 filepath
+libstdc
+libcxx
