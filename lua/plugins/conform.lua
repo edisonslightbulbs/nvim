@@ -5,6 +5,7 @@ if not status then
 end
 
 local cmake_config_file_path = config.path.join(vim.fn.stdpath("config"), "formatting", ".cmake-format.yaml")
+local clang_config_file_path = config.path.join(vim.fn.stdpath("config"), "formatting", ".clang-format.yaml")
 
 conform.setup({
 	lazy = true,
@@ -28,7 +29,7 @@ conform.setup({
 
 		clang_format = {
 			command = "clang-format",
-			args = { "--style=Google", "-i", "$FILENAME" },
+			args = { "--style="..cmake_config_file_path, "-i", "$FILENAME" },
 			stdin = false,
 			exit_codes = { 0 },
 		},

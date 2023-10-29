@@ -1,0 +1,6 @@
+BasedOnStyle: Google
+ColumnLimit: 120
+BracketAlignmentStyle: BAS_Align
+AllowShortCaseLabelsOnASingleLine: true
+BreakBeforeBinaryOperators: true
+ShortBlockStyle: SBS_Always
