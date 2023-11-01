@@ -24,7 +24,7 @@ local function pack()
 		use("wbthomason/packer.nvim")
 
 		-- theme
-		use("mhartington/oceanic-next")
+		use("nanotech/jellybeans.vim")
 		use("vim-airline/vim-airline")
 		use("kyazdani42/nvim-web-devicons")
 		use("vim-airline/vim-airline-themes")
@@ -77,7 +77,7 @@ local function configure()
 	require("plugins.surround")
 	require("plugins.luasnip")
 	require("plugins.cmp")
-	require("plugins.oceanic-next")
+	require("plugins.jellybeans")
 end
 
 -- pack plugins using packer
