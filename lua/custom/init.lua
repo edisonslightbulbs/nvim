@@ -59,7 +59,7 @@ local settings = {
 
     -- base colors
     termguicolors = true,           -- use gui colors
-    colorcolumn = '65,80',          -- show column highlight @ lines [65, 80]
+    colorcolumn = '65,80,120',      -- show column highlight @ lines [65, 80, and 120]
     background = 'dark',            -- background color
 }
 
