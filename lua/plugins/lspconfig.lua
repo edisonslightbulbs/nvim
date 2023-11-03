@@ -1,3 +1,6 @@
+
+vim.lsp.set_log_level("error") -- Options are "trace", "debug", "info", "warn", "error"
+
 local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status then
 	print("-- something went wrong while setting up lspconfig!")

@@ -3,45 +3,28 @@ _G.config.host = {}
 
 -- find target executable
 config.host.find = function(exec)
-	local sep = vim.fn.has("win32") == 1 and ";" or ":"
-	local paths = config.str.split(vim.fn.getenv("PATH"), sep)
+    local sep = package.config:sub(1, 1)
+    local paths = config.str.split(vim.fn.getenv("PATH"), sep)
 
-	for _, dir in ipairs(paths) do
-		local execpath = vim.fn.glob(dir .. "/" .. exec .. (vim.fn.has("win32") == 1 and ".exe" or ""))
-		if execpath ~= "" then
-			return execpath
-		end
-	end
+    for _, dir in ipairs(paths) do
+        local execpath = vim.fn.glob(dir .. sep .. exec .. (vim.fn.has("win32") == 1 and ".exe" or ""))
+        if execpath ~= "" then
+            return execpath
+        end
+    end
 
-	return nil
+    return nil
 end
 
 -- designate host executables
-if config.os() == "Linux" or config.os() == "macOS" then
-	vim.g.python3_host_prog = config.host.find("python3.8")
-	vim.g.python_host_prog = config.host.find("python")
+local win32 = vim.fn.has("win32") == 1
 
-elseif config.os() == "Windows" then
-	-- iff necessary, specific target hosts
-	local specific_rb = "C:\\Ruby30-x64\\bin\\ruby.exe"
-	local specific_py2 = vim.fn.expand("%LOCALAPPDATA%") .. "\\Microsoft\\WindowsApps\\python.exe"
-	local specific_py3 = vim.fn.expand("%LOCALAPPDATA%") .. "\\anaconda3\\envs\\nvim\\python.exe"
+-- specific paths for Python and Ruby on Windows
+local py3 = win32 and vim.fn.expand("%LOCALAPPDATA%") .. "\\anaconda3\\envs\\nvim\\python.exe" or "python3.8"
+local py2 = win32 and vim.fn.expand("%LOCALAPPDATA%") .. "\\Microsoft\\WindowsApps\\python.exe" or "python"
+local rb = win32 and "C:\\Ruby30-x64\\bin\\ruby.exe" or "ruby"
 
-	if vim.fn.filereadable(specific_rb) == 1 then
-		vim.g.ruby_host_prog = specific_rb
-	else
-		vim.g.ruby_host_prog = config.host.find("ruby")
-	end
-
-	if vim.fn.filereadable(specific_py2) == 1 then
-		vim.g.python_host_prog = specific_py2
-	else
-		vim.g.python_host_prog = config.host.find("python")
-	end
-
-	if vim.fn.filereadable(specific_py3) == 1 then
-		vim.g.python3_host_prog = specific_py3
-	else
-		vim.g.python3_host_prog = config.host.find("python")
-	end
-end
+-- assigning host programs
+vim.g.python3_host_prog = vim.fn.filereadable(py3) == 1 and py3 or config.host.find("python3.8")
+vim.g.python_host_prog = vim.fn.filereadable(py2) == 1 and py2 or config.host.find("python")
+vim.g.ruby_host_prog = win32 and (vim.fn.filereadable(rb) == 1 and rb or config.host.find("ruby")) or nil

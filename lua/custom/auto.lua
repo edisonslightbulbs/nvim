@@ -1,37 +1,44 @@
 -- reload buffer on 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter'  events
 local autoreload = vim.api.nvim_create_augroup('Reload', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI', 'FocusGained', 'BufEnter' }, {
-	pattern = {'*.yml', '*.h', '*.cpp', '*.py', '*.metainfo', '*.json'},
+	pattern = {'*.yml', '*.yaml', '*.h', '*.hpp', '*.cpp', '*.py', '*.metainfo', '*.json'},
 	group = autoreload,
-	desc = 'reloads buf if file modified outside nvim',
+	desc = 'Reloads buf if file modified outside nvim',
 	callback = function()
 		vim.api.nvim_command('checktime')
 	end,
 })
 
--- remove readonly on 'BufEnter'
+-- remove readonly on 'BufEnter' for all files
 local noreadonly = vim.api.nvim_create_augroup('DiffMode', { clear = true })
-vim.api.nvim_create_autocmd('BufEnter', {
-	pattern = '*',
-	group = noreadonly,
-	desc = 'removes readonly from git diffs',
-	callback = function()
-		if vim.api.nvim_win_get_option(0, 'diff') then
-			vim.opt.readonly = false
-		end
-	end,
-})
+vim.api.nvim_create_autocmd(
+    {'BufEnter'},
+    {
+        pattern = '*',
+        group = noreadonly,
+        desc = 'removes readonly from git diffs',
+        callback = function()
+            -- only remove readonly if in diff mode
+            if vim.api.nvim_win_get_option(0, 'diff') then
+                vim.opt.readonly = false
+            end
+        end,
+    }
+)
 
--- remove conceal on 'BufEnter'
+-- remove conceal on 'BufEnter' and 'CursorMoved'
 local conceal = vim.api.nvim_create_augroup('UnConceal', { clear = true })
-vim.api.nvim_create_autocmd({ 'BufEnter,CursorMoved' }, {
-	pattern = { '*.md', '*.json' },
-	group = conceal,
-	desc = 'un-conceal in *.md and *.json files',
-	callback = function()
-		vim.api.nvim_win_set_option(0, 'conceallevel', 0)
-	end,
-})
+vim.api.nvim_create_autocmd(
+    { 'BufEnter', 'CursorMoved' },
+    {
+        pattern = { '*.md', '*.json' },
+        group = conceal,
+        desc = 'un-conceal in *.md and *.json files',
+        callback = function()
+            vim.api.nvim_win_set_option(0, 'conceallevel', 0)
+        end,
+    }
+)
 
 -- save on 'InsertLeave', 'BufLeave', 'WinLeave', 'CmdlineLeave', 'ExitPre'
 local autosave_enabled = true

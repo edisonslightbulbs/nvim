@@ -38,7 +38,7 @@ local function pack()
 		use("kyazdani42/nvim-tree.lua")
 		use("nvim-telescope/telescope.nvim")
 
-		-- editing/formatting
+		-- edit and format
 		use("tpope/vim-repeat")
 		use("tpope/vim-surround")
 		use("yggdroot/indentline")
@@ -77,7 +77,7 @@ local function configure()
 	require("plugins.surround")
 	require("plugins.luasnip")
 	require("plugins.cmp")
-	require("plugins.vscode")
+	require("plugins.colorschemes.vscode")
 end
 
 -- pack plugins using packer
