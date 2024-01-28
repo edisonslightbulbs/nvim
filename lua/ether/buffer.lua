@@ -148,12 +148,13 @@ config.buffer.unloadall = function()
     end
 
     for _, bufid in ipairs(buffers_to_delete) do
-        pcall(vim.api.nvim_buf_delete, bufid, {force = true, unload = false})  -- Changed unload to true
+        pcall(vim.api.nvim_buf_delete, bufid, {force = true, unload = false})
     end
 
+    -- Increase the delay slightly
     vim.defer_fn(function()
         vim.cmd('redraw!')
-    end, 100)  -- delay of 100 milliseconds
+    end, 300)  -- delay of 200 milliseconds
 end
 
 -- unload current buffer
