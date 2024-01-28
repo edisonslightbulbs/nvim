@@ -1,3 +1,5 @@
+print("-- setting up toggleterm")
+
 local status, toggleterm = pcall(require, "toggleterm")
 if not status then
 	print("-- something went wrong while setting up toggleterm!")

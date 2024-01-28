@@ -1,3 +1,5 @@
+print("-- setting up conform")
+
 local status, conform = pcall(require, "conform")
 if not status then
 	print("-- something went wrong while setting up conform!")

@@ -1,3 +1,5 @@
+print("-- setting up nvim-tree")
+
 local status, nvim_tree = pcall(require, "nvim-tree")
 if not status then
 	print("-- something went wrong while setting up nvim-tree!")

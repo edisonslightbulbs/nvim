@@ -6,6 +6,13 @@ config.conanbuildinfo.cache = {}
 
 -- function to find the directory containing conanbuildinfo.json or compile_commands.json
 config.cmake.find_conanbuildinfo = function()
+
+    -- check if the current buffer's filetype is cpp, h, or hpp
+    local filetype = vim.bo.filetype
+    if filetype ~= 'cpp' and filetype ~= 'h' and filetype ~= 'hpp' then
+        return  ""
+    end
+
     local root = config.git.root()
 
     -- check cached paths

@@ -1,3 +1,4 @@
+print("-- setting up lspconfig")
 
 vim.lsp.set_log_level("error") -- Options are "trace", "debug", "info", "warn", "error"
 

@@ -10,7 +10,6 @@ config.git.root = function()
     while counter < max_depth do
         local gitdir = path..'/.git'
         if vim.fn.isdirectory(gitdir) ~= 0 then
-            print("Root: " .. path)
             return path
         else
             path = vim.fn.fnamemodify(path, ':h')

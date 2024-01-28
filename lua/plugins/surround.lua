@@ -1,3 +1,5 @@
+print("-- setting up surround")
+
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = false, silent = false }
 

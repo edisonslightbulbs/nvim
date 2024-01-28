@@ -1,3 +1,5 @@
+print("-- setting up luasnip")
+
 local status, luasnip = pcall(require, "luasnip")
 if not status then
 	print("-- something went wrong while setting up luasnip!")

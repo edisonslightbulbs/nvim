@@ -1,3 +1,5 @@
+print("-- setting up telescope")
+
 local status, telescope = pcall(require, "telescope")
 if not status then
 	print("-- something went wrong while setting up telescope!")

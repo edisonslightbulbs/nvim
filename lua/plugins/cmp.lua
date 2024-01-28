@@ -1,3 +1,7 @@
+print("-- setting up cmp")
+print("-- setting up lspkind")
+print("-- setting up luasnip")
+
 local cmp_status, cmp = pcall(require, "cmp")
 if not cmp_status then
 	print("-- something went wrong while setting up cmp!")

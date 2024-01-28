@@ -1,3 +1,5 @@
+print("-- setting up lspinstaller")
+
 local status, nvim_lsp_installer = pcall(require, "nvim-lsp-installer")
 if not status then
 	print("-- something went wrong while setting up nvim-lsp-installer!")

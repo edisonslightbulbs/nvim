@@ -10,17 +10,44 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
+
+_G.config.filetypes = {"lua", "cpp", "h", "hpp", "py", "json"}
 
 require("lazy").setup({
   "folke/neodev.nvim",
   "folke/which-key.nvim",
   { "folke/neoconf.nvim", cmd = "Neoconf" },
 
+  -- theme
+  {
+    "Mofiqul/vscode.nvim",
+    lazy = false,
+    config = function()
+      require("plugins.colorschemes.vscode")
+    end
+  },
+
+  { "vim-airline/vim-airline", 
+  lazy = false,
+
+    dependencies = {
+    "google/vim-searchindex",
+    "kyazdani42/nvim-web-devicons",
+    "vim-airline/vim-airline-themes",
+    },
+
+    config = function()
+      require("plugins.airline")
+    end
+
+  },
+
   -- navigation
   {
     "kyazdani42/nvim-tree.lua",
-    lazy = false,
+      lazy = false,
     config = function()
       require("plugins.nvimtree")
     end
@@ -36,6 +63,7 @@ require("lazy").setup({
 
   {
     "akinsho/toggleterm.nvim",
+    lazy = true,
     config = function()
       require("plugins.toggleterm")
     end
@@ -44,31 +72,21 @@ require("lazy").setup({
   -- git
   "tpope/vim-fugitive",
 
-  -- theme
-  {
-    "Mofiqul/vscode.nvim",
-    lazy = false,
-    config = function()
-      require("plugins.colorschemes.vscode")
-    end
-  },
-
-  { "vim-airline/vim-airline", lazy = false },
-
-  {
-    "vim-airline/vim-airline-themes",
-    lazy = false,
-    config = function()
-      require("plugins.airline")
-    end
-  },
-
-  { "kyazdani42/nvim-web-devicons", lazy = false },
 
   -- format
-  "raimondi/delimitmate",
+  {
+    "stevearc/conform.nvim",
+    lazy = true, 
+    ft = config.filetypes,
+    config = function()
+      require("plugins.conform")
+    end
+  },
+
   {
     "tpope/vim-surround",
+    lazy = true,
+    event = "InsertEnter",
     config = function()
       require("plugins.surround")
     end
@@ -76,6 +94,8 @@ require("lazy").setup({
 
   {
     "tpope/vim-repeat",
+    lazy = true,
+    event = "InsertEnter",
     config = function()
       require("plugins.repeat")
     end
@@ -83,21 +103,20 @@ require("lazy").setup({
 
   {
     "yggdroot/indentline",
+    lazy = true,
+    event = "InsertEnter",
     config = function()
       require("plugins.indentline")
     end
   },
 
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      require("plugins.conform")
-    end
-  },
+  "raimondi/delimitmate",
 
   -- intellisence
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = true,
+    event = "InsertEnter",
     config = function()
       require("plugins.treesitter")
     end
@@ -105,6 +124,8 @@ require("lazy").setup({
 
   {
     "williamboman/nvim-lsp-installer",
+    lazy = true, 
+    ft = config.filetypes,
     config = function()
       require("plugins.lspinstaller")
     end
@@ -112,6 +133,8 @@ require("lazy").setup({
 
   {
     "neovim/nvim-lspconfig",
+    lazy = true, 
+    ft = config.filetypes,
     config = function()
       require("plugins.lspconfig")
     end
@@ -119,6 +142,8 @@ require("lazy").setup({
 
   {
     "L3MON4D3/LuaSnip",
+    lazy = true, 
+    ft = config.filetypes,
     config = function()
       require("plugins.luasnip")
     end
@@ -126,21 +151,24 @@ require("lazy").setup({
 
   {
     "hrsh7th/nvim-cmp",
+    lazy = true,
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
       require("plugins.cmp")
     end
   },
 
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-nvim-lsp",
   "onsails/lspkind.nvim",
   "nvim-lua/lsp-status.nvim",
   "rafamadriz/friendly-snippets",
 
   -- extensions
   "nvim-lua/plenary.nvim",
-  "google/vim-searchindex",
   "dstein64/vim-startuptime",
 })
