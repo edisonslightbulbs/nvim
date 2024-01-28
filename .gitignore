@@ -7,3 +7,4 @@ spell/*.spl
 spell/*.sug
 spell/*.sh
 spell/*.cmd
+lazy-lock.json

@@ -1,102 +1,146 @@
--- flag to indicate whether Packer sync is necessary
-local run_packer_sync = false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
--- check if packer.nvim exists; iff not, clone the repository
-local target = config.path.join(vim.fn.stdpath("data"), "site", "pack", "packer", "start", "packer.nvim")
-
-if vim.fn.isdirectory(target) == 0 then
-	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", target })
-	vim.api.nvim_command("packadd packer.nvim")
-	run_packer_sync = true
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- verify packer is setup correctly
-local packer_status, packer = pcall(require, "packer")
-if not packer_status then
-	vim.notify("-- Something went wrong while setting up Packer!")
-	return
-end
+require("lazy").setup({
+  "folke/neodev.nvim",
+  "folke/which-key.nvim",
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
 
--- plugins
-local function pack()
-	return packer.startup(function(use)
-		-- packer
-		use("wbthomason/packer.nvim")
+  -- navigation
+  {
+    "kyazdani42/nvim-tree.lua",
+    lazy = false,
+    config = function()
+      require("plugins.nvimtree")
+    end
+  },
 
-		-- theme
-		use("Mofiqul/vscode.nvim")
-		use("vim-airline/vim-airline")
-		use("kyazdani42/nvim-web-devicons")
-		use("vim-airline/vim-airline-themes")
+  {
+    "nvim-telescope/telescope.nvim",
+    lazy = false,
+    config = function()
+      require("plugins.telescope")
+    end
+  },
 
-		-- extensions
-		use("tpope/vim-fugitive")
-		use("nvim-lua/plenary.nvim")
-		use({ "akinsho/toggleterm.nvim", tag = "v2.*" })
-		use("google/vim-searchindex")
-		use("dstein64/vim-startuptime")
-		use("kyazdani42/nvim-tree.lua")
-		use("nvim-telescope/telescope.nvim")
+  {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require("plugins.toggleterm")
+    end
+  },
 
-		-- edit and format
-		use("tpope/vim-repeat")
-		use("tpope/vim-surround")
-		use("yggdroot/indentline")
-		use("raimondi/delimitmate")
-		use("stevearc/conform.nvim")
+  -- git
+  "tpope/vim-fugitive",
 
-		-- intellisence
-		use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-		use("williamboman/nvim-lsp-installer")
-		use("rafamadriz/friendly-snippets")
-		use("nvim-lua/lsp-status.nvim")
-		use("neovim/nvim-lspconfig")
-		use("hrsh7th/nvim-cmp")
-		use("hrsh7th/cmp-path")
-		use("hrsh7th/cmp-buffer")
-		use("hrsh7th/cmp-cmdline")
-		use("hrsh7th/cmp-nvim-lsp")
-		use("onsails/lspkind.nvim")
-		use("L3MON4D3/LuaSnip")
-	end)
-end
+  -- theme
+  {
+    "Mofiqul/vscode.nvim",
+    lazy = false,
+    config = function()
+      require("plugins.colorschemes.vscode")
+    end
+  },
 
--- plugin configuration
-local function configure()
-	require("plugins.repeat")
-	require("plugins.airline")
-	require("plugins.fugitive")
-	require("plugins.nvimtree")
-	require("plugins.telescope")
-	require("plugins.indentline")
-	require("plugins.treesitter")
-	require("plugins.toggleterm")
-	require("plugins.lspinstaller")
-	require("plugins.lspconfig")
-	require("plugins.conform")
-	require("plugins.surround")
-	require("plugins.luasnip")
-	require("plugins.cmp")
-	require("plugins.colorschemes.vscode")
-end
+  { "vim-airline/vim-airline", lazy = false },
 
--- pack plugins using packer
-local pack_status, pack_message = pcall(pack)
-if not pack_status then
-	vim.notify("-- Something went wrong while packing plugins!")
-	vim.notify(pack_message)
-	return
-end
+  {
+    "vim-airline/vim-airline-themes",
+    lazy = false,
+    config = function()
+      require("plugins.airline")
+    end
+  },
 
--- run packer sync if necessary
-if run_packer_sync then
-	packer.sync()
-end
+  { "kyazdani42/nvim-web-devicons", lazy = false },
 
--- configure plugins
-local configure_status, message = pcall(configure)
-if not configure_status and message ~= nil then
-	vim.notify("-- Something went wrong while setting up plugins!")
-	vim.notify(message)
-	return
-end
+  -- format
+  "raimondi/delimitmate",
+  {
+    "tpope/vim-surround",
+    config = function()
+      require("plugins.surround")
+    end
+  },
+
+  {
+    "tpope/vim-repeat",
+    config = function()
+      require("plugins.repeat")
+    end
+  },
+
+  {
+    "yggdroot/indentline",
+    config = function()
+      require("plugins.indentline")
+    end
+  },
+
+  {
+    "stevearc/conform.nvim",
+    config = function()
+      require("plugins.conform")
+    end
+  },
+
+  -- intellisence
+  {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("plugins.treesitter")
+    end
+  },
+
+  {
+    "williamboman/nvim-lsp-installer",
+    config = function()
+      require("plugins.lspinstaller")
+    end
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("plugins.lspconfig")
+    end
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require("plugins.luasnip")
+    end
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      require("plugins.cmp")
+    end
+  },
+
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/cmp-nvim-lsp",
+  "onsails/lspkind.nvim",
+  "nvim-lua/lsp-status.nvim",
+  "rafamadriz/friendly-snippets",
+
+  -- extensions
+  "nvim-lua/plenary.nvim",
+  "google/vim-searchindex",
+  "dstein64/vim-startuptime",
+})
