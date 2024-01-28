@@ -50,9 +50,7 @@ lspconfig["clangd"].setup({
 	root_dir = function()
 		return config.git.root()
 	end,
-	-- include Conan and Cmake - we're looking for conanbuildinfo.json
-    -- @todo write a function that finds the directory housing conanbuildinfo.json
-	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=C:\\Users\\zoemthun\\repositories\\conan\\inference\\build\\Release" },
+	cmd = { "clangd", "--background-index", "--suggest-missing-includes", "--compile-commands-dir=" .. config.cmake.find_conanbuildinfo() },
 	init_options = {
 		clangdFileStatus = true,
 		usePlaceholders = true,
