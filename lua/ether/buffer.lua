@@ -151,7 +151,10 @@ config.buffer.unloadall = function()
         pcall(vim.api.nvim_buf_delete, bufid, {force = true, unload = false})
     end
 
-    vim.cmd('redraw')
+    -- Increase the delay slightly
+    vim.defer_fn(function()
+        vim.cmd('redraw!')
+    end, 300)  -- delay of 200 milliseconds
 end
 
 -- unload current buffer

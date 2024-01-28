@@ -1,102 +1,137 @@
--- flag to indicate whether Packer sync is necessary
-local run_packer_sync = false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
--- check if packer.nvim exists; iff not, clone the repository
-local target = config.path.join(vim.fn.stdpath("data"), "site", "pack", "packer", "start", "packer.nvim")
-
-if vim.fn.isdirectory(target) == 0 then
-	vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", target })
-	vim.api.nvim_command("packadd packer.nvim")
-	run_packer_sync = true
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 
--- verify packer is setup correctly
-local packer_status, packer = pcall(require, "packer")
-if not packer_status then
-	vim.notify("-- Something went wrong while setting up Packer!")
-	return
-end
+vim.opt.rtp:prepend(lazypath)
 
--- plugins
-local function pack()
-	return packer.startup(function(use)
-		-- packer
-		use("wbthomason/packer.nvim")
+require("lazy").setup({
+  -- enhancements
+  "folke/neodev.nvim",  -- Lua configuration for Neovim
+  "folke/which-key.nvim",  -- Display possible keybindings
+  { "folke/neoconf.nvim", cmd = "Neoconf" },  -- Configuration GUI for Neovim
 
-		-- theme
-		use("Mofiqul/vscode.nvim")
-		use("vim-airline/vim-airline")
-		use("kyazdani42/nvim-web-devicons")
-		use("vim-airline/vim-airline-themes")
+  -- theme
+  {
+    "Mofiqul/vscode.nvim",
+    config = function()
+      require("plugins.colorschemes.vscode")
+    end
+  },
 
-		-- extensions
-		use("tpope/vim-fugitive")
-		use("nvim-lua/plenary.nvim")
-		use({ "akinsho/toggleterm.nvim", tag = "v2.*" })
-		use("google/vim-searchindex")
-		use("dstein64/vim-startuptime")
-		use("kyazdani42/nvim-tree.lua")
-		use("nvim-telescope/telescope.nvim")
+  -- status line and airline
+  {
+    "vim-airline/vim-airline",
+    dependencies = {
+      "google/vim-searchindex",
+      "kyazdani42/nvim-web-devicons",
+      "vim-airline/vim-airline-themes",
+    },
+    config = function()
+      require("plugins.airline")
+    end
+  },
 
-		-- edit and format
-		use("tpope/vim-repeat")
-		use("tpope/vim-surround")
-		use("yggdroot/indentline")
-		use("raimondi/delimitmate")
-		use("stevearc/conform.nvim")
+  -- navigation
+  {
+    "kyazdani42/nvim-tree.lua",  -- File explorer
+    config = function()
+      require("plugins.nvimtree")
+    end
+  },
+  {
+    "nvim-telescope/telescope.nvim",  -- Fuzzy finder
+    config = function()
+      require("plugins.telescope")
+    end
+  },
 
-		-- intellisence
-		use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-		use("williamboman/nvim-lsp-installer")
-		use("rafamadriz/friendly-snippets")
-		use("nvim-lua/lsp-status.nvim")
-		use("neovim/nvim-lspconfig")
-		use("hrsh7th/nvim-cmp")
-		use("hrsh7th/cmp-path")
-		use("hrsh7th/cmp-buffer")
-		use("hrsh7th/cmp-cmdline")
-		use("hrsh7th/cmp-nvim-lsp")
-		use("onsails/lspkind.nvim")
-		use("L3MON4D3/LuaSnip")
-	end)
-end
+  -- terminal integration
+  {
+    "akinsho/toggleterm.nvim",  -- Toggle terminal in Neovim
+    config = function()
+      require("plugins.toggleterm")
+    end
+  },
 
--- plugin configuration
-local function configure()
-	require("plugins.repeat")
-	require("plugins.airline")
-	require("plugins.fugitive")
-	require("plugins.nvimtree")
-	require("plugins.telescope")
-	require("plugins.indentline")
-	require("plugins.treesitter")
-	require("plugins.toggleterm")
-	require("plugins.lspinstaller")
-	require("plugins.lspconfig")
-	require("plugins.conform")
-	require("plugins.surround")
-	require("plugins.luasnip")
-	require("plugins.cmp")
-	require("plugins.colorschemes.vscode")
-end
+  -- git
+  "tpope/vim-fugitive",  -- Git integration
 
--- pack plugins using packer
-local pack_status, pack_message = pcall(pack)
-if not pack_status then
-	vim.notify("-- Something went wrong while packing plugins!")
-	vim.notify(pack_message)
-	return
-end
+  -- formatting and editing
+  {
+    "stevearc/conform.nvim",  -- Autoformatting support
+    config = function()
+      require("plugins.conform")
+    end
+  },
+  "tpope/vim-surround",  -- Easy manipulation of surrounding characters
+  "tpope/vim-repeat",  -- Enable repeating supported plugin commands with "."
+  "yggdroot/indentline",  -- Show indentation guides
+  "raimondi/delimitmate",  -- Autocompletion for delimiters like brackets
 
--- run packer sync if necessary
-if run_packer_sync then
-	packer.sync()
-end
+  -- intellisense and LSP (Language Server Protocol)
+  {
+    "nvim-treesitter/nvim-treesitter",  -- Syntax highlighting
+    config = function()
+      require("plugins.treesitter")
+    end
+  },
 
--- configure plugins
-local configure_status, message = pcall(configure)
-if not configure_status and message ~= nil then
-	vim.notify("-- Something went wrong while setting up plugins!")
-	vim.notify(message)
-	return
-end
+  -- Replace `nvim-lsp-installer` with `mason.nvim` and `mason-lspconfig`
+  {
+    "williamboman/mason.nvim",  -- Install and manage LSPs, formatters, and linters
+    "williamboman/mason-lspconfig.nvim",  -- Mason integration for LSP configurations
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        automatic_installation = true,  -- Auto-install LSP servers
+      })
+    end
+  },
+
+  {
+    "neovim/nvim-lspconfig",  -- Core LSP configurations
+    config = function()
+      require("plugins.lspconfig")
+    end
+  },
+
+  -- Snippets
+  {
+    "L3MON4D3/LuaSnip",  -- Snippet engine
+    config = function()
+      require("plugins.luasnip")
+    end
+  },
+
+  -- Autocompletion engine
+  {
+    "hrsh7th/nvim-cmp",  -- Autocompletion
+    dependencies = {
+      "hrsh7th/cmp-path",  -- Completion for file paths
+      "hrsh7th/cmp-buffer",  -- Completion for text within buffers
+      "hrsh7th/cmp-cmdline",  -- Completion for command line
+      "hrsh7th/cmp-nvim-lsp",  -- LSP source for nvim-cmp
+    },
+    config = function()
+      require("plugins.cmp")
+    end
+  },
+
+  -- LSP and completion extensions
+  "onsails/lspkind.nvim",  -- Adds icons to completion
+  "nvim-lua/lsp-status.nvim",  -- LSP status in the status line
+  "rafamadriz/friendly-snippets",  -- Predefined snippets for various languages
+
+  -- Lua utilities
+  "nvim-lua/plenary.nvim",  -- Utility functions for Neovim plugins
+  "dstein64/vim-startuptime",  -- Measure startup time
+})

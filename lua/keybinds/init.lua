@@ -37,3 +37,8 @@ vim.cmd("cnoreabbrev v vertical")
 require("keybinds.buffer")
 require("keybinds.replace")
 require("keybinds.numberline")
+
+
+-- force Neovim to handle CTRL-V as Visual Block mode in both Normal and Visual modes
+-- vim.api.nvim_set_keymap('n', '<C-v>', '<C-v>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('x', '<C-v>', '<C-v>', { noremap = true, silent = true })
