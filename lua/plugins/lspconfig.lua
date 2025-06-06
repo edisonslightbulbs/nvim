@@ -1,186 +1,121 @@
--- print("-- setting up lspconfig")
+-----------------------------------------------------------
+-- LSP-CONFIG (runs after mason-lspconfig is loaded)     --
+-----------------------------------------------------------
+vim.lsp.set_log_level("error")
 
-vim.lsp.set_log_level("error") -- Options are "trace", "debug", "info", "warn", "error"
-
-local lspconfig_status, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status then
-	print("-- something went wrong while setting up lspconfig!")
-	return
+-- basic deps ---------------------------------------------------------------
+local ok_lsp, lspconfig    = pcall(require, "lspconfig")
+local ok_cmp, cmp_lsp      = pcall(require, "cmp_nvim_lsp")
+local mlsp                 = require("mason-lspconfig")   -- already on rtp
+if not (ok_lsp and ok_cmp) then
+  vim.notify("lspconfig: missing dependency", vim.log.levels.ERROR)
+  return
 end
 
-local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_nvim_lsp_status then
-	print("-- something went wrong while setting up cmp_nvim_lsp!")
-	return
+-- capabilities -------------------------------------------------------------
+local capabilities = cmp_lsp.default_capabilities()
+
+-- on-attach ---------------------------------------------------------------
+local function on_attach(_, bufnr)
+  local map = function(lhs, rhs) vim.keymap.set("n", lhs, rhs, { buffer = bufnr, silent = true }) end
+  map("gd",  vim.lsp.buf.declaration)
+  map("gdd", vim.lsp.buf.definition)
+  map("K",   vim.lsp.buf.hover)
+  map("gi",  vim.lsp.buf.implementation)
+  map("<space>rn", vim.lsp.buf.rename)
+  map("<space>ca", vim.lsp.buf.code_action)
+  map("<space>f",  function() vim.lsp.buf.format { async = true } end)
+end
+local flags = { debounce_text_changes = 150 }
+
+-- make sure we have v≥1.1 API ---------------------------------------------
+if not mlsp.setup_handlers then
+  vim.notify("mason-lspconfig is too old — run :Lazy update", vim.log.levels.ERROR)
+  return
 end
 
-local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- handlers -----------------------------------------------------------------
+mlsp.setup_handlers({
 
--- keybinds
-local on_attach = function(client, bufnr)
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gd", vim.lsp.buf.declaration, opts)
-	vim.keymap.set("n", "gdd", vim.lsp.buf.definition, opts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-	--vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
-	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-	vim.keymap.set("n", "<space>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, opts)
-	vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-	vim.keymap.set("n", "<space>f", function()
-		vim.lsp.buf.format({ async = true })
-	end, opts)
-end
+  -- default ---------------------------------------------------------------
+  function(server)
+    lspconfig[server].setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      flags        = flags,
+      root_dir     = function() return config.git.root() end,
+    }
+  end,
 
-local lsp_flags = {
-	debounce_text_changes = 150,
-}
+  -- clangd ----------------------------------------------------------------
+  ["clangd"] = function()
+    lspconfig.clangd.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      flags        = flags,
+      cmd = {
+        "clangd",
+        "--background-index",
+        "--suggest-missing-includes",
+        "--compile-commands-dir=" .. vim.fn.getcwd() .. "/build/Release",
+      },
+    }
+  end,
 
--- Setup Mason
-local mason_status, mason = pcall(require, "mason")
-if not mason_status then
-	print("-- something went wrong while setting up mason!")
-	return
-end
+  -- lua_ls ---------------------------------------------------------------
+  ["lua_ls"] = function()
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      flags        = flags,
+      settings = {
+        Lua = {
+          runtime      = { version = "LuaJIT" },
+          diagnostics  = { globals = { "vim", "cmp" } },
+          workspace    = { checkThirdParty = false },
+          telemetry    = { enable = false },
+        },
+      },
+      root_dir = function() return config.git.root() end,
+    }
+  end,
 
-local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not mason_lspconfig_status then
-	print("-- something went wrong while setting up mason-lspconfig!")
-	return
-end
+  -- pyright --------------------------------------------------------------
+  ["pyright"] = function()
+    lspconfig.pyright.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      flags        = flags,
+      settings = { python = { analysis = { extraPaths = { "" } } } },
+      root_dir = function() return config.git.root() end,
+    }
+  end,
 
-mason.setup()
-mason_lspconfig.setup({
-	ensure_installed = { "clangd", "pyright", "lua_ls", "jsonls", "texlab", "cmake" },
-	automatic_installation = true,
-})
+  -- cmake ----------------------------------------------------------------
+  ["cmake"] = function()
+    lspconfig.cmake.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      flags        = flags,
+      root_dir = function() return config.git.root() end,
+    }
+  end,
 
--- Setup handlers with mason-lspconfig
-mason_lspconfig.setup_handlers({
-	-- Default handler
-	function(server_name)
-		lspconfig[server_name].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			flags = lsp_flags,
-			root_dir = function()
-				return config.git.root() -- Assuming config.git.root is valid
-			end,
-		})
-	end,
+  -- jsonls ---------------------------------------------------------------
+  ["jsonls"] = function()
+    lspconfig.jsonls.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      root_dir = function() return config.git.root() end,
+    }
+  end,
 
-	-- Specific configuration for clangd
-	["clangd"] = function()
-		lspconfig.clangd.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			autostart = true,
-			flags = lsp_flags,
-			root_dir = function()
-				return vim.fn.getcwd()
-			end,
-			cmd = {
-				"clangd",
-				"--background-index",
-				"--suggest-missing-includes",
-				"--compile-commands-dir=" .. vim.fn.getcwd() .. "/build/Release",
-			},
-			init_options = {
-				clangdFileStatus = true,
-				usePlaceholders = true,
-				completeUnimported = true,
-				semanticHighlighting = true,
-			},
-		})
-	end,
-
-	-- Specific configuration for lua_ls
-	["lua_ls"] = function()
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			autostart = true,
-			flags = lsp_flags,
-			settings = {
-				Lua = {
-					runtime = {
-						version = "LuaJIT",
-					},
-					diagnostics = {
-						globals = { "vim", "cmp" },
-					},
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true),
-						checkThirdParty = false,
-					},
-					telemetry = {
-						enable = false,
-					},
-				},
-			},
-			root_dir = function()
-				return config.git.root()
-			end,
-		})
-	end,
-
-	-- Specific configuration for pyright
-	["pyright"] = function()
-		lspconfig.pyright.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			autostart = true,
-			settings = {
-				python = {
-					analysis = {
-						extraPaths = { "" },
-					},
-				},
-			},
-			root_dir = function()
-				return config.git.root()
-			end,
-		})
-	end,
-
-	-- Specific configuration for cmake
-	["cmake"] = function()
-		lspconfig.cmake.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			flags = lsp_flags,
-			autostart = true,
-			root_dir = function()
-				return config.git.root()
-			end,
-		})
-	end,
-
-	-- Specific configuration for jsonls
-	["jsonls"] = function()
-		lspconfig.jsonls.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			root_dir = function()
-				return config.git.root()
-			end,
-		})
-	end,
-
-	-- Specific configuration for texlab
-	["texlab"] = function()
-		lspconfig.texlab.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			root_dir = function()
-				return config.git.root()
-			end,
-		})
-	end,
+  -- texlab ---------------------------------------------------------------
+  ["texlab"] = function()
+    lspconfig.texlab.setup {
+      capabilities = capabilities,
+      on_attach    = on_attach,
+      root_dir = function() return config.git.root() end,
+    }
+  end,
 })

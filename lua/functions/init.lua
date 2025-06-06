@@ -1,0 +1,8 @@
+require('functions.os')
+require('functions.str')
+require('functions.tab')
+require('functions.git')
+require('functions.path')
+require('functions.file')
+require('functions.buffer')
+require('functions.window')

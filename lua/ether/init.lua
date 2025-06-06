@@ -1,8 +1,0 @@
-require('ether.os')
-require('ether.str')
-require('ether.tab')
-require('ether.git')
-require('ether.path')
-require('ether.file')
-require('ether.buffer')
-require('ether.window')

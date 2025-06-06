@@ -1,7 +1,7 @@
 -- config table for global variables
 _G.config = {}
 
-require("ether")
+require("functions")
 require("format")
 require("custom")
 require("keybinds")

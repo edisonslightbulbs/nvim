@@ -166,9 +166,32 @@ config.buffer.unload = function()
 	end
 end
 
--- strip trailing white spaces
 config.buffer.strip = function()
-	vim.api.nvim_command(':call feedkeys("\\<esc>")')
-	vim.api.nvim_command('%s/\\s\\+$//e')
-	vim.api.nvim_command('let @/=""')
+  -- Save the current cursor position, window view, and mode
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local view = vim.fn.winsaveview()
+  local mode = vim.api.nvim_get_mode().mode
+
+  -- Ensure we are in normal mode (exit insert mode)
+  vim.cmd('call feedkeys("\\<esc>")')
+
+  -- Strip trailing whitespace, clear search highlighting, and save
+  vim.cmd('%s/\\s\\+$//e')
+  vim.cmd('let @/=""')
+  vim.cmd('w')
+
+  -- Run dos2unix conversion (silent to avoid extra output)
+  vim.cmd('silent! !dos2unix %')
+
+  -- Reload the file to reflect changes
+  vim.cmd('e!')
+
+  -- Restore the original window view and cursor position
+  vim.fn.winrestview(view)
+  vim.api.nvim_win_set_cursor(0, pos)
+
+  -- Restore insert mode if that was the original mode
+  if mode:sub(1,1) == "i" then
+    vim.cmd('startinsert')
+  end
 end

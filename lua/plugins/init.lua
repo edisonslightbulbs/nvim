@@ -85,20 +85,29 @@ require("lazy").setup({
     end
   },
 
-  -- Replace `nvim-lsp-installer` with `mason.nvim` and `mason-lspconfig`
+  -- Mason core
+  { "williamboman/mason.nvim", config = true },
+
+  -- Mason → LSP bridge
   {
-    "williamboman/mason.nvim",  -- Install and manage LSPs, formatters, and linters
-    "williamboman/mason-lspconfig.nvim",  -- Mason integration for LSP configurations
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = "williamboman/mason.nvim",
+    version = "^1.1.0",
     config = function()
-      require("mason").setup()
       require("mason-lspconfig").setup({
-        automatic_installation = true,  -- Auto-install LSP servers
+        automatic_installation = true,
+        ensure_installed = { "clangd", "pyright", "lua_ls", "jsonls", "texlab", "cmake" },
       })
-    end
+    end,
   },
 
   {
     "neovim/nvim-lspconfig",  -- Core LSP configurations
+    dependencies = {                   -- make sure these load first
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",          -- for capabilities
+    },
     config = function()
       require("plugins.lspconfig")
     end
@@ -124,6 +133,27 @@ require("lazy").setup({
     config = function()
       require("plugins.cmp")
     end
+  },
+
+  -- editing / text-objects / alignment
+  {
+    "junegunn/vim-easy-align",
+    lazy = false,
+    keys = {
+      -- start EasyAlign in either mode with `ga`
+      { "ga", "<Plug>(EasyAlign)", mode = { "n", "x" } },
+    },
+    init = function()
+      -- optional: tweak how the "=" delimiter behaves
+      vim.g.easy_align_delimiters = {
+        ["="] = {
+          pattern       = "=",
+          left_margin   = 0,
+          right_margin  = 1,    -- keep one space after =
+          ignore_groups = { "String", "Comment" },
+        },
+      }
+    end,
   },
 
   -- LSP and completion extensions
