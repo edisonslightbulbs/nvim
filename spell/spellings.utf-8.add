@@ -5485,3 +5485,14 @@ minibatch
 wh
 vectorised
 UncertaintyLossBalancer
+RoIs
+KMeans
+normalise
+ExplicitAnchorGenerator
+maximising
+ConcatDataset
+normalisation
+GeneralizedRCNNTransform
+greyscale
+btest
+px
