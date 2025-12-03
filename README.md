@@ -12,6 +12,18 @@
 - Pre-configured settings that work out-of-the-box :package:
 - A set of configured [plugins](https://github.com/edisonslightbulbs/nvim/blob/lua/lua/plugins/init.lua) to optimize productivity :wrench:
 
+## Getting started
+
+1. Install the latest [Neovim](https://github.com/neovim/neovim/releases) (v0.10 or newer).
+2. Launch Neovim and let [`lazy.nvim`](https://github.com/folke/lazy.nvim) bootstrap the plugin set defined in [`lua/plugins/init.lua`](lua/plugins/init.lua).
+3. Run the self-test to verify the installation:
+
+   ```bash
+   nvim --headless "+Lazy! sync" "+lua require('utils.selftest').run()" +qa
+   ```
+
+   The self-test checks for required plugins (Mason, LSP, Treesitter, Telescope, Conform, nvim-tree) and confirms the configuration modules load cleanly.
+
 ## Promotion
 
 [Star if you liked](https://github.com/edisonslightbulbs/nvim/stargazers).

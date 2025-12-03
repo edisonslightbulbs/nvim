@@ -3,17 +3,29 @@
 -----------------------------------------------------------
 vim.lsp.set_log_level("error")
 
--- basic deps ---------------------------------------------------------------
-local ok_lsp, lspconfig    = pcall(require, "lspconfig")
-local ok_cmp, cmp_lsp      = pcall(require, "cmp_nvim_lsp")
-local mlsp                 = require("mason-lspconfig")   -- already on rtp
-if not (ok_lsp and ok_cmp) then
-  vim.notify("lspconfig: missing dependency", vim.log.levels.ERROR)
+local lspconfig = vim.lsp._config or vim.lsp.config
+local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+local ok_mlsp, mlsp = pcall(require, "mason-lspconfig")
+if not lspconfig then
+  local ok_legacy, legacy = pcall(require, "lspconfig")
+  if ok_legacy then
+    lspconfig = legacy
+  else
+    vim.notify("lspconfig: missing dependency", vim.log.levels.ERROR)
+    return
+  end
+end
+if not ok_mlsp then
+  vim.notify("lspconfig: mason-lspconfig not available", vim.log.levels.ERROR)
+  return
+end
+if not ok_cmp then
+  vim.notify("lspconfig: missing cmp_nvim_lsp", vim.log.levels.ERROR)
   return
 end
 
 -- capabilities -------------------------------------------------------------
-local capabilities = cmp_lsp.default_capabilities()
+local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- on-attach ---------------------------------------------------------------
 local function on_attach(_, bufnr)
@@ -27,6 +39,11 @@ local function on_attach(_, bufnr)
   map("<space>f",  function() vim.lsp.buf.format { async = true } end)
 end
 local flags = { debounce_text_changes = 150 }
+
+local function git_root_or_cwd()
+  local ok_git = type(config) == "table" and config.git and config.git.root
+  return (ok_git and config.git.root()) or vim.loop.cwd()
+end
 
 -- make sure we have v≥1.1 API ---------------------------------------------
 if not mlsp.setup_handlers then
@@ -43,7 +60,7 @@ mlsp.setup_handlers({
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
-      root_dir     = function() return config.git.root() end,
+      root_dir     = git_root_or_cwd,
     }
   end,
 
@@ -76,7 +93,7 @@ mlsp.setup_handlers({
           telemetry    = { enable = false },
         },
       },
-      root_dir = function() return config.git.root() end,
+      root_dir = git_root_or_cwd,
     }
   end,
 
@@ -87,7 +104,7 @@ mlsp.setup_handlers({
       on_attach    = on_attach,
       flags        = flags,
       settings = { python = { analysis = { extraPaths = { "" } } } },
-      root_dir = function() return config.git.root() end,
+      root_dir = git_root_or_cwd,
     }
   end,
 
@@ -97,7 +114,7 @@ mlsp.setup_handlers({
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
-      root_dir = function() return config.git.root() end,
+      root_dir = git_root_or_cwd,
     }
   end,
 
@@ -106,7 +123,7 @@ mlsp.setup_handlers({
     lspconfig.jsonls.setup {
       capabilities = capabilities,
       on_attach    = on_attach,
-      root_dir = function() return config.git.root() end,
+      root_dir = git_root_or_cwd,
     }
   end,
 
@@ -115,7 +132,7 @@ mlsp.setup_handlers({
     lspconfig.texlab.setup {
       capabilities = capabilities,
       on_attach    = on_attach,
-      root_dir = function() return config.git.root() end,
+      root_dir = git_root_or_cwd,
     }
   end,
 })

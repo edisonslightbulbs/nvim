@@ -32,7 +32,7 @@ require("lazy").setup({
     "vim-airline/vim-airline",
     dependencies = {
       "google/vim-searchindex",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       "vim-airline/vim-airline-themes",
     },
     config = function()
@@ -42,7 +42,8 @@ require("lazy").setup({
 
   -- navigation
   {
-    "kyazdani42/nvim-tree.lua",  -- File explorer
+    "nvim-tree/nvim-tree.lua",  -- File explorer
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("plugins.nvimtree")
     end
@@ -92,7 +93,6 @@ require("lazy").setup({
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = "williamboman/mason.nvim",
-    version = "^1.1.0",
     config = function()
       require("mason-lspconfig").setup({
         automatic_installation = true,
