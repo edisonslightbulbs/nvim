@@ -45,7 +45,7 @@ local autosave_enabled = true
 
 local function save_buffer()
 	if autosave_enabled and config.buffer.savable() then
-		vim.cmd('silent write')
+		vim.cmd('silent update')
 	end
 end
 
