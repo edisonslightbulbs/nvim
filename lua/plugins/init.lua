@@ -27,6 +27,14 @@ require("lazy").setup({
     end
   },
 
+  {
+    "echasnovski/mini.nvim",
+    version = false,
+    config = function()
+      require("mini.icons").setup()
+    end,
+  },
+
   -- status line and airline
   {
     "vim-airline/vim-airline",
