@@ -4,12 +4,17 @@
 vim.lsp.set_log_level("error")
 
 -- basic deps ---------------------------------------------------------------
-local lspconfig = require("lspconfig")
 local ok_cmp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 local mlsp            = require("mason-lspconfig")   -- already on rtp
 if not ok_cmp then
   vim.notify("lspconfig: missing dependency", vim.log.levels.ERROR)
   return
+end
+
+-- native-only (Neovim 0.11+) ----------------------------------------------
+local function setup_server(server_name, server_config)
+  vim.lsp.config(server_name, server_config)
+  vim.lsp.enable(server_name)
 end
 
 -- capabilities -------------------------------------------------------------
@@ -43,17 +48,17 @@ mlsp.setup_handlers({
 
   -- default ---------------------------------------------------------------
   function(server)
-    lspconfig[server].setup {
+    setup_server(server, {
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
       root_dir     = function() return config.git.root() end,
-    }
+    })
   end,
 
   -- clangd ----------------------------------------------------------------
   ["clangd"] = function()
-    lspconfig.clangd.setup {
+    setup_server("clangd", {
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
@@ -63,12 +68,12 @@ mlsp.setup_handlers({
         "--suggest-missing-includes",
         "--compile-commands-dir=" .. vim.fn.getcwd() .. "/build/Release",
       },
-    }
+    })
   end,
 
   -- lua_ls ---------------------------------------------------------------
   ["lua_ls"] = function()
-    lspconfig.lua_ls.setup {
+    setup_server("lua_ls", {
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
@@ -81,12 +86,12 @@ mlsp.setup_handlers({
         },
       },
       root_dir = function() return config.git.root() end,
-    }
+    })
   end,
 
   -- pyright --------------------------------------------------------------
   ["pyright"] = function()
-    lspconfig.pyright.setup {
+    setup_server("pyright", {
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
@@ -99,34 +104,34 @@ mlsp.setup_handlers({
         },
       },
       root_dir = function() return config.git.root() end,
-    }
+    })
   end,
 
   -- cmake ----------------------------------------------------------------
   ["cmake"] = function()
-    lspconfig.cmake.setup {
+    setup_server("cmake", {
       capabilities = capabilities,
       on_attach    = on_attach,
       flags        = flags,
       root_dir = function() return config.git.root() end,
-    }
+    })
   end,
 
   -- jsonls ---------------------------------------------------------------
   ["jsonls"] = function()
-    lspconfig.jsonls.setup {
+    setup_server("jsonls", {
       capabilities = capabilities,
       on_attach    = on_attach,
       root_dir = function() return config.git.root() end,
-    }
+    })
   end,
 
   -- texlab ---------------------------------------------------------------
   ["texlab"] = function()
-    lspconfig.texlab.setup {
+    setup_server("texlab", {
       capabilities = capabilities,
       on_attach    = on_attach,
       root_dir = function() return config.git.root() end,
-    }
+    })
   end,
 })

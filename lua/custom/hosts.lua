@@ -1,3 +1,5 @@
+vim.g.loaded_ruby_provider = 0
+
 -- Table for path functions and variables
 _G.config = _G.config or {}
 _G.config.host = {}
@@ -75,22 +77,22 @@ else
 end
 
 -- ruby provider (optional) ------------------------------------------------
-local ruby = vim.fn.exepath("ruby")
-if ruby ~= "" then
-  vim.g.ruby_host_prog = ruby
-else
-  if os_name == "Windows_NT" then
-    -- keep your previous fallback path, but only if it exists
-    local ruby_fallback = "C:\\tools\\ruby33\\bin\\ruby.exe"
-    _set_prog_or_warn(
-      "ruby_host_prog",
-      ruby_fallback,
-      "ruby not found in PATH and fallback not found: " .. ruby_fallback
-    )
-  else
-    vim.notify("ruby not found in PATH!", vim.log.levels.WARN)
-  end
-end
+-- local ruby = vim.fn.exepath("ruby")
+-- if ruby ~= "" then
+--   vim.g.ruby_host_prog = ruby
+-- else
+--   if os_name == "Windows_NT" then
+--     -- keep your previous fallback path, but only if it exists
+--     local ruby_fallback = "C:\\tools\\ruby33\\bin\\ruby.exe"
+--     _set_prog_or_warn(
+--       "ruby_host_prog",
+--       ruby_fallback,
+--       "ruby not found in PATH and fallback not found: " .. ruby_fallback
+--     )
+--   else
+--     vim.notify("ruby not found in PATH!", vim.log.levels.WARN)
+--   end
+-- end
 
 -- Use a dedicated venv for Neovim’s Python provider
 --
@@ -102,7 +104,8 @@ end
 --      "$HOME/.venvs/nvim/bin/python" -m pip install --upgrade pip
 --      "$HOME/.venvs/nvim/bin/python" -m pip install pynvim
 --
--- Windows:
+-- Windows: (powershell)
 --      py -3 -m venv "$env:USERPROFILE\.venvs\nvim"
 --      & "$env:USERPROFILE\.venvs\nvim\Scripts\python.exe" -m pip install --upgrade pip
 --      & "$env:USERPROFILE\.venvs\nvim\Scripts\python.exe" -m pip install pynvim
+--
