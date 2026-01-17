@@ -22,9 +22,20 @@ require("lazy").setup({
   -- theme
   {
     "Mofiqul/vscode.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
       require("plugins.colorschemes.vscode")
     end
+  },
+
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = false,
+    priority = 900,
+    config = function()
+      require("nvim-web-devicons").setup({ default = true })
+    end,
   },
 
   {
@@ -40,7 +51,7 @@ require("lazy").setup({
     "vim-airline/vim-airline",
     dependencies = {
       "google/vim-searchindex",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       "vim-airline/vim-airline-themes",
     },
     config = function()
