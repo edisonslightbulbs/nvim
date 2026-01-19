@@ -143,7 +143,6 @@ local function build_conda_activate_cmd(conda_exe, env_name, cwd)
 		local cwd_q = sh_quote_posix(cwd)
 		local shell_key = (shell_kind == "zsh") and "zsh" or "bash"
 
-		-- conda shell.<key> activate prints shell code; we eval it. :contentReference[oaicite:1]{index=1}
 		return table.concat({
 			"cd " .. cwd_q,
 			"if " .. conda_q .. " env list | awk '{print $1}' | grep -Fxq -- " .. env_q .. "; then",
@@ -159,7 +158,6 @@ local function build_conda_activate_cmd(conda_exe, env_name, cwd)
 		local env_q = ps_quote(env_name)
 		local cwd_q = ps_quote(cwd)
 
-		-- Use conda's PowerShell activator output and Invoke-Expression pattern. :contentReference[oaicite:2]{index=2}
 		return table.concat({
 			"Set-Location -LiteralPath " .. cwd_q,
 			"$__tt_conda = " .. conda_q,
@@ -174,12 +172,7 @@ local function build_conda_activate_cmd(conda_exe, env_name, cwd)
 		}, "\n")
 	end
 
-	-- cmd.exe
 	do
-		-- For cmd.exe we write the activator output to a temp .bat and call it,
-		-- matching conda's “temp script is written and ... called” behavior. :contentReference[oaicite:3]{index=3}
-		local conda_q = '"' .. conda_exe .. '"'
-		local env_q = '"' .. env_name .. '"'
 		local cwd_q = '"' .. cwd .. '"'
 
 		return table.concat({
@@ -202,7 +195,7 @@ toggleterm.setup({
 	hide_numbers = false,
 	close_on_exit = false,
 	start_in_insert = true,
-	-- We own the <C-o> mapping so behavior is identical everywhere.
+	-- We own Ctrl-O mappings explicitly, so keep these off.
 	insert_mappings = false,
 	terminal_mappings = false,
 	autochdir = false,
@@ -218,33 +211,129 @@ toggleterm.setup({
 	},
 })
 
-function _G.set_terminal_keymaps()
-	local opts = { buffer = 0 }
-	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-	vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-	vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-	vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-end
-
-local augroup_keymaps = vim.api.nvim_create_augroup("ToggleTermKeymaps", { clear = true })
-vim.api.nvim_create_autocmd("TermOpen", {
-	group = augroup_keymaps,
-	pattern = "term://*",
-	callback = function()
-		_G.set_terminal_keymaps()
-	end,
-})
-
--- Ctrl-O toggles open/close in both normal and terminal mode
 function _G.toggle_toggleterm_float()
 	local cwd = config.path.cwd()
 	vim.cmd("ToggleTerm dir=" .. vim.fn.fnameescape(cwd) .. " direction=float")
 end
 
-vim.keymap.set("n", "<c-o>", _G.toggle_toggleterm_float, { noremap = true, silent = true })
+-- Ctrl-O toggles open/close from any editor mode (including insert)
+vim.keymap.set({ "n", "i", "v", "x", "s", "o" }, "<c-o>", function()
+	_G.toggle_toggleterm_float()
+end, { noremap = true, silent = true })
+
+-- Ctrl-O toggles open/close even from command-line mode
+vim.keymap.set("c", "<c-o>", function()
+	_G.toggle_toggleterm_float()
+end, { noremap = true, silent = true })
+
+-- Ctrl-O toggles open/close from terminal-mode as well.
+-- Neovim requires leaving terminal-mode (<C-\><C-n>) before running commands.
 vim.keymap.set("t", "<c-o>", [[<C-\><C-n><cmd>lua toggle_toggleterm_float()<CR>]], { noremap = true, silent = true })
+
+
+-- ToggleTerm mouse + clipboard:
+-- Neovim must own the mouse to keep selection bounded to the floating window.
+-- Provide fast copy-to-clipboard from visual selection inside ToggleTerm.
+
+local __toggleterm_saved_mouse = nil
+local __toggleterm_mouse_depth = 0
+
+local function __toggleterm_enable_nvim_mouse()
+	if __toggleterm_mouse_depth == 0 then
+		__toggleterm_saved_mouse = vim.o.mouse
+	end
+	__toggleterm_mouse_depth = __toggleterm_mouse_depth + 1
+	vim.o.mouse = "a"
+end
+
+local function __toggleterm_restore_nvim_mouse()
+	if __toggleterm_mouse_depth <= 0 then
+		__toggleterm_mouse_depth = 0
+		return
+	end
+
+	__toggleterm_mouse_depth = __toggleterm_mouse_depth - 1
+	if __toggleterm_mouse_depth == 0 and __toggleterm_saved_mouse ~= nil then
+		vim.o.mouse = __toggleterm_saved_mouse
+		__toggleterm_saved_mouse = nil
+	end
+end
+
+local function __toggleterm_get_visual_selection()
+	local start_pos = vim.fn.getpos("'<")
+	local end_pos   = vim.fn.getpos("'>")
+
+	local start_row, start_col = start_pos[2], start_pos[3]
+	local end_row, end_col     = end_pos[2], end_pos[3]
+
+	if start_row > end_row or (start_row == end_row and start_col > end_col) then
+		start_row, end_row = end_row, start_row
+		start_col, end_col = end_col, start_col
+	end
+
+	local lines = vim.api.nvim_buf_get_lines(0, start_row - 1, end_row, false)
+	if #lines == 0 then
+		return ""
+	end
+
+	lines[1] = string.sub(lines[1], start_col)
+	lines[#lines] = string.sub(lines[#lines], 1, end_col)
+	return table.concat(lines, "\n")
+end
+
+local function __toggleterm_copy_visual_to_clipboard(join_lines)
+	local txt = __toggleterm_get_visual_selection()
+	if join_lines then
+		txt = txt:gsub("\n", "")
+	end
+
+	-- System clipboard (works on Windows; on Unix requires clipboard provider).
+	vim.fn.setreg("+", txt)
+
+	-- Exit visual and return to terminal input immediately.
+	vim.cmd("normal! <Esc>")
+	vim.cmd("startinsert")
+end
+
+local augroup_toggleterm_mouse = vim.api.nvim_create_augroup("ToggleTermMouseClipboard", { clear = true })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = augroup_toggleterm_mouse,
+	pattern = "term://*toggleterm#*",
+	callback = function()
+		__toggleterm_enable_nvim_mouse()
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufLeave", {
+	group = augroup_toggleterm_mouse,
+	pattern = "term://*toggleterm#*",
+	callback = function()
+		__toggleterm_restore_nvim_mouse()
+	end,
+})
+
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = augroup_toggleterm_mouse,
+	pattern = "term://*toggleterm#*",
+	callback = function(args)
+		local bufnr = args.buf
+
+		-- Reduces “mangled” copies for long wrapped commands:
+		-- lines won’t soft-wrap visually; you can still copy full content.
+		vim.wo.wrap = false
+
+		-- In ToggleTerm buffers: y copies to clipboard, Y copies joined (no newlines).
+		vim.keymap.set("x", "y", function()
+			__toggleterm_copy_visual_to_clipboard(false)
+		end, { buffer = bufnr, noremap = true, silent = true })
+
+		vim.keymap.set("x", "Y", function()
+			__toggleterm_copy_visual_to_clipboard(true)
+		end, { buffer = bufnr, noremap = true, silent = true })
+	end,
+})
+
 
 -- Auto-activate conda env for the main toggleterm terminal (toggle_number == 1) the first time it spawns
 local augroup_conda = vim.api.nvim_create_augroup("ToggleTermCondaAutoActivate", { clear = true })
@@ -282,7 +371,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
 			return
 		end
 
-		-- Send the activation script into the terminal so the environment persists for the session
 		vim.api.nvim_chan_send(chan, cmd .. (is_windows() and "\r\n" or "\n"))
 		vim.b[bufnr].__toggleterm_conda_initialized = true
 	end,

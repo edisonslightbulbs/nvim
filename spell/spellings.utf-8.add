@@ -5512,3 +5512,16 @@ JitterParams
 aug
 anisotropic
 acc
+HW
+LoG
+PCTriplet
+LCNStack
+Triggs
+r'3
+representable
+LocalContrastNormalizationStack
+LocalContrastNormalization
+RetinexStack
+Retinex
+passthrough
+DoGTriplet
