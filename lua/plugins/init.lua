@@ -110,20 +110,148 @@ require("lazy").setup({
         end
     },
 
-    --
+    -- markdown rendering
     {
         "MeanderingProgrammer/render-markdown.nvim",
-        ft = { "markdown" },
+        ft = { "markdown", "codecompanion" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "echasnovski/mini.nvim",
             "nvim-tree/nvim-web-devicons",
         },
         opts = {
-            file_types = { "markdown" },
+            file_types = { "markdown", "codecompanion" },
             heading = {
                 sign = false,
                 icons = {},
+            },
+        },
+    },
+
+    -- local model support
+    {
+        "olimorris/codecompanion.nvim",
+        version = "^19.0.0",
+        cmd = {
+            "CodeCompanion",
+            "CodeCompanionActions",
+            "CodeCompanionChat",
+            "CodeCompanionCmd",
+        },
+
+        -- ;ac  toggle AI chat as floating window
+        -- ;ab  ask about current buffer
+        -- ;ai  inline ask about current buffer
+        -- ;ae  explain selected code
+        -- ;af  fix selected code
+        -- ;at  generate tests for selected code
+        -- ;aa  action palette, fallback only
+        keys = {
+            {
+                "<leader>ac",
+                function()
+                    require("codecompanion").toggle({
+                        window_opts = {
+                            layout = "float",
+                            width = 0.85,
+                            height = 0.85,
+                        },
+                    })
+                end,
+                mode = { "n", "x" },
+                desc = "ai chat",
+            },
+            {
+                "<leader>ab",
+                function()
+                    vim.ui.input({ prompt = "AI buffer: " }, function(input)
+                        if not input or input == "" then
+                            return
+                        end
+
+                        vim.api.nvim_cmd({
+                            cmd = "CodeCompanionChat",
+                            args = { "#{buffer} " .. input },
+                        }, {})
+                    end)
+                end,
+                mode = "n",
+                desc = "ai buffer chat",
+            },
+            {
+                "<leader>ai",
+                function()
+                    vim.ui.input({ prompt = "AI inline: " }, function(input)
+                        if not input or input == "" then
+                            return
+                        end
+
+                        vim.api.nvim_cmd({
+                            cmd = "CodeCompanion",
+                            args = { "#{buffer} " .. input },
+                        }, {})
+                    end)
+                end,
+                mode = "n",
+                desc = "ai inline",
+            },
+            {
+                "<leader>ae",
+                ":'<,'>CodeCompanion /explain<CR>",
+                mode = "x",
+                desc = "ai explain selection",
+            },
+            {
+                "<leader>af",
+                ":'<,'>CodeCompanion /fix<CR>",
+                mode = "x",
+                desc = "ai fix selection",
+            },
+            {
+                "<leader>at",
+                ":'<,'>CodeCompanion /tests<CR>",
+                mode = "x",
+                desc = "ai tests selection",
+            },
+            {
+                "<leader>aa",
+                "<cmd>CodeCompanionActions<CR>",
+                mode = { "n", "x" },
+                desc = "ai actions",
+            },
+        },
+
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        opts = {
+            adapters = {
+                http = {
+                    opts = {
+                        show_model_choices = false,
+                    },
+                    ollama = function()
+                        return require("codecompanion.adapters").extend("ollama", {
+                            schema = {
+                                model = {
+                                    default = "qwen2.5-coder:14b",
+                                },
+                            },
+                        })
+                    end,
+                },
+            },
+            interactions = {
+                chat = {
+                    adapter = "ollama",
+                },
+                inline = {
+                    adapter = "ollama",
+                },
+                cmd = {
+                    adapter = "ollama",
+                },
             },
         },
     },
