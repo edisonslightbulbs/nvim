@@ -20,6 +20,13 @@ end
 -- capabilities -------------------------------------------------------------
 local capabilities = cmp_lsp.default_capabilities()
 
+-- Disable LSP "watched files" dynamic registration to prevent Neovim's native fs watcher
+-- from trying to watch protected/system paths on Windows (e.g. C:\Windows\Temp) and erroring with EPERM.
+capabilities.workspace = capabilities.workspace or {}
+capabilities.workspace.didChangeWatchedFiles = capabilities.workspace.didChangeWatchedFiles or {}
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
+
 -- on-attach ---------------------------------------------------------------
 local function on_attach(_, bufnr)
   local map = function(lhs, rhs)

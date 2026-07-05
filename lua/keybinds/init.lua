@@ -8,6 +8,12 @@ vim.g.mapleader = ";"
 -- source
 map("n", "<space>5", ':source % | echo bufname() "sourced successfully"<CR>', opt)
 
+-- markdown
+map("n", "<leader>mr", ":RenderMarkdown toggle<CR>", opts) -- markdown render
+
+-- packages
+map("n", "<leader>pu", ":lua config.packages.update()<CR>", opt) -- package update
+
 -- yanking
 map("", "<leader><ENTER>", '"k', opts) -- yank into k (all modes)
 

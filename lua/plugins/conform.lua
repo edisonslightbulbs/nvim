@@ -1,5 +1,11 @@
 -- print("-- setting up conform")
 
+local sep = (vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1) and ";" or ":"
+local mason_bin = vim.fs.joinpath(vim.fn.stdpath("data"), "mason", "bin")
+if not string.find(vim.env.PATH or "", mason_bin, 1, true) then
+	vim.env.PATH = mason_bin .. sep .. (vim.env.PATH or "")
+end
+
 local status, conform = pcall(require, "conform")
 if not status then
 	print("-- something went wrong while setting up conform!")
@@ -18,10 +24,11 @@ conform.setup({
 		latex = { "latexindent" },
 		yaml = { "yamlfmt" },
 		json = { "jq" },
+		jsonc = { "jq" },
 	},
 
 	formatters = {
-		python = {
+		autopep8 = {
 			command = "autopep8",
 			args = { "--in-place", "--aggressive", "--aggressive", "--max-line-length=120", "$FILENAME" },
 			stdin = false,
@@ -29,8 +36,10 @@ conform.setup({
 		},
 
 		clang_format = {
-            command = config.clang.path,
-			args = { "--style=file", "-i", "$FILENAME" },
+			command = "clang-format",
+			-- If config.clang.path is a file path to a .clang-format config, clang-format supports:
+			-- -style=file:<format_file_path>
+			args = { "-style=file:" .. config.clang.path, "-i", "$FILENAME" },
 			stdin = false,
 			exit_codes = { 0 },
 		},
@@ -48,6 +57,15 @@ conform.setup({
 			stdin = false,
 			exit_codes = { 0 },
 		},
+
+		jq = {
+			command = "jq",
+			-- jq needs a filter; "." means identity + pretty print.
+			-- -S sorts keys for stable formatting.
+			args = { "-S", "." },
+			stdin = true,
+			exit_codes = { 0 },
+		},
 	},
 })
 
@@ -60,7 +78,7 @@ vim.api.nvim_create_user_command("Format", function(args)
 			["end"] = { args.line2, end_line:len() },
 		}
 	end
-	conform.format({ async = false, lsp_fallback = true, range = range })
+	conform.format({ async = false, lsp_format = "fallback", range = range })
 end, { range = true })
 
 local map = vim.api.nvim_set_keymap

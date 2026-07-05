@@ -13,6 +13,10 @@ local function on_attach(bufnr)
 		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 	end
 
+	-- default mappings (recommended by nvim-tree docs)
+	api.config.mappings.default_on_attach(bufnr)
+
+	-- custom mappings
 	vim.keymap.set("n", "<C-]>", api.tree.change_root_to_node, opts("CD"))
 	vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
 	vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
@@ -65,15 +69,6 @@ local function on_attach(bufnr)
 	vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
 	vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
 	vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
-
-	vim.keymap.set("n", "O", "", { buffer = bufnr })
-	vim.keymap.del("n", "O", { buffer = bufnr })
-	vim.keymap.set("n", "<2-RightMouse>", "", { buffer = bufnr })
-	vim.keymap.del("n", "<2-RightMouse>", { buffer = bufnr })
-	vim.keymap.set("n", "D", "", { buffer = bufnr })
-	vim.keymap.del("n", "D", { buffer = bufnr })
-	vim.keymap.set("n", "E", "", { buffer = bufnr })
-	vim.keymap.del("n", "E", { buffer = bufnr })
 end
 
 nvim_tree.setup({
@@ -127,6 +122,18 @@ nvim_tree.setup({
 		ignore = false,
 		timeout = 1,
 	},
+    filesystem_watchers = {
+    	enable = true,
+    	ignore_dirs = function(path)
+    		path = path:gsub("\\", "/"):lower()
+
+    		return path:find("/.venv", 1, true) ~= nil
+    			or path:find("/node_modules", 1, true) ~= nil
+    			or path:find("/__pycache__", 1, true) ~= nil
+    			or path:find("/.git", 1, true) ~= nil
+    			or path:find("/notes/workday/", 1, true) ~= nil
+    	end,
+    },
 })
 
 local map = vim.api.nvim_set_keymap

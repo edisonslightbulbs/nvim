@@ -20,6 +20,7 @@ treesitter.setup({
 		"yaml",
 		"json",
 		"markdown",
+        "markdown_inline",
 		"vimdoc",
 		"query",
 	},
