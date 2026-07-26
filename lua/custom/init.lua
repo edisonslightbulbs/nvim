@@ -68,7 +68,7 @@ for k, v in pairs(settings) do
 end
 
 vim.cmd([[ set clipboard+=unnamedplus ]]) -- clipboard
-vim.cmd([[ set iskeyword+=- ]])           -- match `-` in words
+vim.cmd([[ set iskeyword+=-,.,: ]]) -- match selected punctuation in words
 vim.cmd([[ set whichwrap+=<,>[,],h,l ]])  -- allow wrapping with keys
 
 -- disable netrw
